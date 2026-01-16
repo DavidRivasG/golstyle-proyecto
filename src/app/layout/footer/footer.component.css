@@ -1,0 +1,86 @@
+
+
+footer {
+  background-color: #cba937;
+  color: white;
+  padding: 15px 40px;
+  height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: 'Oswald', sans-serif;
+  font-size: 14px;
+  letter-spacing: 1px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.footer-col {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.footer-col.left {
+  justify-content: flex-start;
+}
+
+.footer-col.center {
+  justify-content: center;
+  white-space: nowrap;
+}
+
+.footer-col.right {
+  justify-content: flex-end;
+}
+
+.flag-img {
+  height: 14px;
+  width: auto;
+  margin-right: 8px;
+  display: block;
+}
+
+.footer-col.right img {
+  height: 22px;
+  width: auto;
+  margin-left: 18px;
+  display: block;
+  transition: opacity 0.3s ease;
+  filter: brightness(0) invert(1);
+}
+
+.footer-col.right img[alt="Instagram"] {
+  height: 29px;
+  width: auto;
+}
+
+.footer-col.right a:hover img {
+  opacity: 0.7;
+}
+
+@media (max-width: 700px) {
+  footer {
+    justify-content: center;
+    gap: 10px;
+    padding: 20px;
+  }
+
+  .footer-col.right {
+    display: none;
+  }
+
+  .footer-col.left span {
+    display: none;
+  }
+
+  .footer-col {
+    flex: 0 0 auto;
+    width: auto;
+  }
+
+  .flag-img {
+    margin-right: 0;
+    height: 16px;
+  }
+}

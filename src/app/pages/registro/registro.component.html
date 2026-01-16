@@ -1,0 +1,54 @@
+<div class="register-container">
+
+    <div class="image-section">
+        <img src="assets/images/registro_img.jpg" alt="jugador">
+    </div>
+
+    <div class="form-section">
+        <div class="form-wrapper">
+            <!-- Nombre -->
+            <div class="input-group">
+                <label>Nombre</label>
+                <input type="text" [(ngModel)]="nuevoUsuario.nombre" name="nombre" required>
+            </div>
+
+            <!-- Primer apellido -->
+            <div class="input-group">
+                <label>Primer apellido</label>
+                <input type="text" [(ngModel)]="nuevoUsuario.ape1" name="ape1" required>
+            </div>
+            <!-- Segundo apellido -->
+            <div class="input-group">
+                <label>Segundo apellido</label>
+                <input type="text" [(ngModel)]="nuevoUsuario.ape2" name="ape2">
+            </div>
+
+            <!-- Correo -->
+            <div class="input-group">
+                <label>Correo</label>
+                <input type="email" [(ngModel)]="nuevoUsuario.correo" name="correo" placeholder="correo@correo.com"
+                    required>
+            </div>
+
+            <!-- Contraseña -->
+            <div class="input-group">
+                <label>Contraseña</label>
+                <input type="password" [(ngModel)]="nuevoUsuario.password" name="password" required>
+            </div>
+
+            <!-- Teléfono -->
+            <div class="input-group">
+                <label>Teléfono</label>
+                <input type="text" [(ngModel)]="nuevoUsuario.telefono" name="telefono">
+            </div>
+
+            <div class="button-group">
+                <button class="btn-gold" (click)="registrar()">Registrarse</button>
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
