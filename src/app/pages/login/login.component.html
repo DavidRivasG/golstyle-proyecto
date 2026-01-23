@@ -1,0 +1,24 @@
+<div class="login-container">
+  <div class="image-section">
+    <img src="assets/images/jugador.png" alt="Jugador" class="player-img">
+  </div>
+
+  <div class="form-section">
+    <div class="form-wrapper">
+      <div class="input-group">
+        <label>CORREO:</label>
+        <input type="email" [(ngModel)]="email" placeholder="">
+      </div>
+
+      <div class="input-group">
+        <label>CONTRASEÑA:</label>
+        <input type="password" [(ngModel)]="password" placeholder="">
+      </div>
+
+      <div class="button-group">
+        <button class="btn-gold" (click)="iniciarSesion()">INICIAR SESIÓN</button>
+        <button class="btn-gold"><a href="registro">CREAR CUENTA</a></button>
+      </div>
+    </div>
+  </div>
+</div>

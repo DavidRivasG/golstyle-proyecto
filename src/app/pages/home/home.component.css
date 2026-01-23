@@ -1,0 +1,143 @@
+/* GENERAL */
+:host {
+  display: block;
+  font-family: 'Poppins', sans-serif;
+  width: 100%;
+}
+
+/* BARRA SUPERIOR DE USUARIO */
+.top-nav {
+  background-color: #000;
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 15px;
+  font-size: 0.9rem;
+}
+.gold-text { color: #d4af37; font-weight: bold; }
+.btn-logout-small {
+  background: transparent;
+  border: 1px solid #d4af37;
+  color: #d4af37;
+  padding: 5px 15px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.btn-logout-small:hover { background: #d4af37; color: #000; }
+
+
+/* BOTÓN DORADO COMÚN */
+.btn-gold {
+  background-color: #d4af37;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.btn-gold:hover { transform: scale(1.05); }
+
+/* HERO SECTION */
+.hero {
+  height: 80vh;
+  /* CAMBIA ESTO por tu imagen real */
+  background: url('/assets/images/campo-futbol.jpg') no-repeat center center/cover;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.scroll-indicator {
+  position: absolute;
+  bottom: 20px;
+  right: 40px;
+  background: #d4af37;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: black;
+}
+
+/* BEST SELLERS (Fondo Oscuro) */
+.best-sellers {
+  background-color: #121212;
+  color: #fff;
+  padding: 60px 20px;
+  text-align: center;
+}
+.section-title {
+  color: #d4af37;
+  font-size: 2rem;
+  margin-bottom: 50px;
+  text-transform: uppercase;
+}
+.products-grid {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+.product-card {
+  width: 200px;
+  text-align: center;
+  background: linear-gradient(to bottom, transparent 0%, transparent 15%, white 15%, white 100%);
+  padding: 10px;
+  box-sizing: border-box;
+}
+.image-container img {
+  width: auto;
+  height: 200px;
+  filter: drop-shadow(0 0 10px rgba(255,255,255,0.1)); 
+}
+.product-name {
+  margin-top: 15px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: black;
+}
+.catalog-btn-container { margin-top: 50px; }
+
+/* REVIEWS (Fondo Claro) */
+.reviews-section {
+  background-color: #f4f4f4;
+  color: #000;
+  padding: 60px 20px;
+  text-align: center;
+}
+.reviews-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.score-box {
+  background-color: #1a1a1a;
+  color: white;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.score-number { font-size: 4rem; font-weight: bold; }
+.score-count { font-size: 0.8rem; color: #ccc; }
+
+.score-bars { text-align: left; flex: 1; min-width: 250px; }
+.bar-row { margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+.progress { flex: 1; height: 10px; background: #ddd; border-radius: 5px; }
+.fill { height: 100%; background: #d4af37; border-radius: 5px; }
+
+.recent-review { flex: 1; text-align: left; min-width: 250px; }
+.review-card { border: 1px solid #ccc; padding: 15px; background: #fff; margin-top: 10px; }

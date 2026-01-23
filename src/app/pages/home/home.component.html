@@ -1,2 +1,60 @@
-<h1>Bienvenido a GolStyle</h1>
-<p>Esta es la página principal</p>
+<link rel="stylesheet" href="home.component.css">
+
+<section class="hero">
+  <div class="hero-content">
+    <button class="btn-gold">SHOP NOW</button>
+  </div>
+  <div class="scroll-indicator">↓</div>
+</section>
+
+<section class="best-sellers">
+  <h2 class="section-title">LO MAS VENDIDO</h2>
+  
+  <script>console.log(products);</script>
+  <div class="products-grid">
+    <div class="product-card" *ngFor="let product of products">
+      <div class="image-container">
+        <img [src]="product.image" [alt]="product.name">
+      </div>
+      <p class="product-name">{{ product.name | uppercase }}</p>
+    </div>
+  </div>
+
+  <div class="catalog-btn-container">
+    <button class="btn-gold">CATÁLOGO</button>
+  </div>
+</section>
+
+<section class="reviews-section">
+  <h3>VALORACIÓN DE NUESTROS CLIENTES</h3>
+  
+  <div class="reviews-container">
+    <div class="score-box">
+      <span class="score-number">4.7</span>
+      <span class="score-count">2345 opiniones</span>
+    </div>
+
+    <div class="score-bars">
+      <div class="bar-row">
+        <span>Facilidad</span>
+        <div class="progress"><div class="fill" style="width: 90%"></div></div>
+      </div>
+      <div class="bar-row">
+        <span>Atención</span>
+        <div class="progress"><div class="fill" style="width: 85%"></div></div>
+      </div>
+      <div class="bar-row">
+        <span>Rapidez</span>
+        <div class="progress"><div class="fill" style="width: 95%"></div></div>
+      </div>
+    </div>
+
+    <div class="recent-review">
+      <h4>OPINIONES RECIENTES</h4>
+      <div class="review-card">
+        <p><strong>David Ruiz</strong> ★★★★★</p>
+        <p>Es una página fiable los envíos son muy rápidos. Ya compré más veces y siempre quedo satisfecho.</p>
+      </div>
+    </div>
+  </div>
+</section>
