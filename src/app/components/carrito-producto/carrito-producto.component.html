@@ -1,0 +1,26 @@
+<div class="producto">
+    <div class="producto-imagen">
+        <img [src]="producto.imagen" alt="{{ producto.nombre }}">
+    </div>
+
+    <div class="info">
+        <div class="info-contenido">
+            <div class="info-textos">
+                <h2>{{ producto.nombre }}</h2>
+                <p><strong>Talla</strong>: {{ producto.talla }}</p>
+                <p><strong>Precio unitario</strong>: {{ producto.precioUnitario | currency:'EUR' }}</p>
+                <p><strong>Subtotal</strong>: {{ producto.precioUnitario * producto.cantidad | currency:'EUR' }}</p>
+            </div>
+
+            <div class="acciones">
+                <div class="cantidad-control">
+                    <button class="btn-cantidad" (click)="onRestar()">−</button>
+                    <span>{{ producto.cantidad }}</span>
+                    <button class="btn-cantidad" (click)="onSumar()">+</button>
+                </div>
+
+                <button class="btn-eliminar" (click)="onEliminar()"><img src="/assets/images/delete-icon.svg" alt=""></button>
+            </div>
+        </div>
+    </div>
+</div>

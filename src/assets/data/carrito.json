@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "nombre": "Camiseta Barcelona",
+        "precioUnitario": 25.00,
+        "cantidad": 2,
+        "imagen": "https://imgs.search.brave.com/DpJP5CKk9ZUGHPt2PCS4aJlMmuYOYTuBg6Gi1rYCOII/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZi5j/YW1pc2V0YXNmdXRi/b2wuY29tLmNuL3Vw/bG9hZC90dG1hbGwv/aW1nLzIwMjUwODA2/L2ExMDZjODhmZmYx/YTJmZWQxNWFiMDNi/NjI4ZmQ3NGExLnBu/Zz16LTQwMCw0MDBf/Zi13ZWJw",
+        "talla": "L"
+    },
+    {
+        "id": 2,
+        "nombre": "Camiseta Betis",
+        "precioUnitario": 30.00,
+        "cantidad": 1,
+        "imagen": "https://imgs.search.brave.com/l1GkTmgdq4pu64kXh9kS7vYJ_H4RHaYoPKZbrfsMT2I/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jb250/ZW50cy5tZWRpYWRl/Y2F0aGxvbi5jb20v/czEyMDczOTcvayRi/NGI3OTY4M2I2ZmY2/YzY3NGMyN2M1NjE4/MDEzZWM3OC85NTkx/ZDg0MC1iYmVjLTQ4/OTUtODhjNS0wNmMz/NmNjYTVkYmIuanBn/P2Zvcm1hdD1hdXRv/JmY9MzAwMHgw",
+        "talla": "M"
+    },
+    {
+        "id": 3,
+        "nombre": "Camiseta Selección Alemania",
+        "precioUnitario": 45.50,
+        "cantidad": 1,
+        "imagen": "https://imgs.search.brave.com/8D7U6dvw32uhH6f24cKLkShlzh9k0smINyhosaR-K5c/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/Zm9ydW1zcG9ydC5j/b20vaW1hZ2VzL2Fk/aWRhcy1jYW1pc2V0/YS1kZS1mdXRib2wt/b2ZpY2lhbGVzLWFs/ZW1hbmlhLTI2LXRy/LWpzeS1ibHJvLTA0/LTEwMDEwNzAzMjct/NTAweDUwMC1m",
+        "talla": "S"
+    }
+]

@@ -1,0 +1,82 @@
+* {
+    font-family: 'Poppins', sans-serif;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    
+}
+
+body{
+    background-color: black;
+}
+
+h2, p {
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+}
+
+.carrito-container {
+    display: flex;
+    flex-direction: row;
+    gap: 6rem;
+    padding: 2rem;
+    background-color: black;
+    color: white;
+}
+
+.productos {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+
+.resumen {
+    flex: 1;
+    padding: 1.5rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    height: fit-content;
+}
+
+.btn-comprar {
+    width: 100%;
+    padding: 1rem;
+    background: #f7c600;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.btn-gold {
+    background-color: #d4af37;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.titulo{
+    display: block;
+    text-align: center;
+    padding-top: 40px;
+    padding-bottom: 80px;
+    color: #d4af37;
+    background-color: black;
+}
+
+@media ( width <= 1050px ) {
+
+    .carrito-container {
+
+        display: flex;
+        flex-direction: column;
+    }
+
+}
+
