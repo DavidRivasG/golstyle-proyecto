@@ -3,11 +3,6 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    
-}
-
-body{
-    background-color: black;
 }
 
 h2, p {
@@ -20,8 +15,8 @@ h2, p {
     flex-direction: row;
     gap: 6rem;
     padding: 2rem;
-    background-color: black;
     color: white;
+    background-color: #121212;
 }
 
 .productos {
@@ -32,12 +27,15 @@ h2, p {
 }
 
 
+
+
 .resumen {
     flex: 1;
     padding: 1.5rem;
     border: 1px solid #ddd;
     border-radius: 8px;
     height: fit-content;
+    background-color: #1e1e1e;
 }
 
 .btn-comprar {
@@ -67,7 +65,7 @@ h2, p {
     padding-top: 40px;
     padding-bottom: 80px;
     color: #d4af37;
-    background-color: black;
+    background-color: #121212;
 }
 
 @media ( width <= 1050px ) {

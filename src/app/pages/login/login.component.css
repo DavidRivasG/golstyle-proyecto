@@ -8,7 +8,7 @@
 
 .login-container {
   display: flex;
-  height: 100vh;
+  height: 80vh;
   width: 100%;
   background-color: #121212; /* Negro suave, menos agresivo */
 }
@@ -24,6 +24,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: 25% 35%;
   filter: brightness(0.8); 
 }
 
@@ -44,13 +45,6 @@
   background: #1e1e1e;
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-}
-
-/* Título opcional (si decides poner un h2 arriba) */
-.form-wrapper h2 {
-  color: #fff;
-  margin-bottom: 30px;
-  text-align: center;
 }
 
 /* Inputs */
@@ -133,6 +127,20 @@ button {
   background: rgba(212, 175, 55, 0.1);
   color: #fff;
   border-color: #fff;
+}
+
+.error {
+  color: #ff6b6b;
+  font-size: 0.8rem;
+  margin-top: 5px;
+}
+
+button:disabled {
+  background: #555 !important;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+  opacity: 0.6;
 }
 
 @media (min-width: 768px) {

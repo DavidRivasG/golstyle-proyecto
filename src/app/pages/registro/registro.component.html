@@ -1,52 +1,46 @@
 <div class="register-container">
 
     <div class="image-section">
-        <img src="assets/images/registro_img.jpg" alt="jugador">
+        <img class="player-img" src="assets/images/registro_img.jpg" alt="jugador">
     </div>
 
     <div class="form-section">
-        <div class="form-wrapper">
+        <form #registroForm="ngForm" (ngSubmit)="registrar()" class="form-wrapper">
             <!-- Nombre -->
             <div class="input-group">
-                <label>Nombre</label>
-                <input type="text" [(ngModel)]="nuevoUsuario.nombre" name="nombre" required>
+                <label>NOMBRE:</label>
+                <input type="text" [(ngModel)]="nuevoUsuario.nombre" name="nombre" #nombreInput="ngModel" required>
+                <div *ngIf="nombreInput.invalid && nombreInput.touched" class="error">Nombre requerido</div>
             </div>
 
-            <!-- Primer apellido -->
+            <!-- Apellidos -->
             <div class="input-group">
-                <label>Primer apellido</label>
-                <input type="text" [(ngModel)]="nuevoUsuario.ape1" name="ape1" required>
-            </div>
-            <!-- Segundo apellido -->
-            <div class="input-group">
-                <label>Segundo apellido</label>
-                <input type="text" [(ngModel)]="nuevoUsuario.ape2" name="ape2">
+                <label>APELLIDOS:</label>
+                <input type="text" [(ngModel)]="apellidos" name="apellidos" #apellidosInput="ngModel" required>
+                <div *ngIf="apellidosInput.invalid && apellidosInput.touched" class="error">Apellidos requeridos</div>
             </div>
 
             <!-- Correo -->
             <div class="input-group">
-                <label>Correo</label>
-                <input type="email" [(ngModel)]="nuevoUsuario.correo" name="correo" placeholder="correo@correo.com"
-                    required>
+                <label>CORREO:</label>
+                <input type="email" [(ngModel)]="nuevoUsuario.correo" name="correo" #correoInput="ngModel" placeholder=""
+                    required email>
+                <div *ngIf="correoInput.invalid && correoInput.touched" class="error">Email inválido</div>
             </div>
 
             <!-- Contraseña -->
             <div class="input-group">
-                <label>Contraseña</label>
-                <input type="password" [(ngModel)]="nuevoUsuario.password" name="password" required>
-            </div>
-
-            <!-- Teléfono -->
-            <div class="input-group">
-                <label>Teléfono</label>
-                <input type="text" [(ngModel)]="nuevoUsuario.telefono" name="telefono">
+                <label>CONTRASEÑA:</label>
+                <input type="password" [(ngModel)]="nuevoUsuario.password" name="password" #passwordInput="ngModel" required>
+                <div *ngIf="passwordInput.invalid && passwordInput.touched" class="error">Contraseña requerida</div>
             </div>
 
             <div class="button-group">
-                <button class="btn-gold" (click)="registrar()">Registrarse</button>
+                <button type="submit" class="btn-gold" [disabled]="!registroForm.valid">REGISTRARSE</button>
+                <button type="button" class="btn-gold" (click)="irALogin()">INICIAR SESIÓN</button>
             </div>
 
-        </div>
+        </form>
 
 
     </div>

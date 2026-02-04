@@ -4,21 +4,23 @@
   </div>
 
   <div class="form-section">
-    <div class="form-wrapper">
+    <form #loginForm="ngForm" (ngSubmit)="iniciarSesion()" class="form-wrapper">
       <div class="input-group">
         <label>CORREO:</label>
-        <input type="email" [(ngModel)]="email" placeholder="">
+        <input type="email" [(ngModel)]="email" name="email" #emailInput="ngModel" required email>
+        <div *ngIf="emailInput.invalid && emailInput.touched" class="error">Email inválido</div>
       </div>
 
       <div class="input-group">
         <label>CONTRASEÑA:</label>
-        <input type="password" [(ngModel)]="password" placeholder="">
+        <input type="password" [(ngModel)]="password" name="password" #passwordInput="ngModel" required>
+        <div *ngIf="passwordInput.invalid && passwordInput.touched" class="error">Contraseña requerida</div>
       </div>
 
       <div class="button-group">
-        <button class="btn-gold" (click)="iniciarSesion()">INICIAR SESIÓN</button>
-        <button class="btn-gold"><a href="registro">CREAR CUENTA</a></button>
+        <button type="submit" class="btn-gold" [disabled]="!loginForm.valid">INICIAR SESIÓN</button>
+        <button type="button" class="btn-gold" (click)="irARegistro()">CREAR CUENTA</button>
       </div>
-    </div>
+    </form>
   </div>
 </div>

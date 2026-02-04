@@ -1,0 +1,43 @@
+<div class="contact-container">
+    <div class="image-section">
+        <img src="assets/images/logo-golstyle.jpg" alt="">
+    </div>
+    <div class="form-section">
+        <form #contactForm="ngForm" (ngSubmit)="enviar()" class="form-wrapper">
+            <div class="input-group">
+                <label>CORREO:</label>
+                <input type="email" [(ngModel)]="correo" name="correo" #correoInput="ngModel" required email>
+                <div *ngIf="correoInput.invalid && correoInput.touched" class="error">Correo inválido</div>
+            </div>
+
+            <div class="input-group">
+                <label>ASUNTO:</label>
+                <select [(ngModel)]="asunto" name="asunto" #asuntoInput="ngModel" required>
+                    <option value="">Selecciona un asunto</option>
+                    <option value="consulta">Consulta</option>
+                    <option value="soporte">Soporte</option>
+                    <option value="comentarios">Comentarios</option>
+                    <option value="localizar-pedido">Localizar mi pedido</option>
+                    <option value="otros">Otros</option>
+                </select>
+                <div *ngIf="asuntoInput.invalid && asuntoInput.touched" class="error">Selecciona un asunto</div>
+            </div>
+
+            <div class="input-group" *ngIf="asunto === 'localizar-pedido'">
+                <label>ID DEL PEDIDO:</label>
+                <input type="text" [(ngModel)]="idPedido" name="idPedido" #idPedidoInput="ngModel" required>
+                <div *ngIf="idPedidoInput.invalid && idPedidoInput.touched" class="error">ID del pedido requerido</div>
+            </div>
+
+            <div class="input-group">
+                <label>MENSAJE:</label>
+                <textarea [(ngModel)]="mensaje" name="mensaje" #mensajeInput="ngModel" rows="5" required></textarea>
+                <div *ngIf="mensajeInput.invalid && mensajeInput.touched" class="error">Mensaje requerido</div>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" class="btn-gold" [disabled]="!contactForm.valid">ENVIAR</button>
+            </div>
+        </form>
+    </div>
+</div>
