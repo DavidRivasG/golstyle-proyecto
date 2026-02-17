@@ -4,6 +4,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { CarritoPageComponent } from './pages/carrito-page/carrito-page.component';
 import { ContactoComponent } from './pages/contacto/contacto.component';
+import { CatalogoComponent } from './pages/catalogo/catalogo.component';
 
 
 export const routes: Routes = [
@@ -11,6 +12,7 @@ export const routes: Routes = [
     { path: 'registro', component: RegistroComponent }, // Formulario de registro
     { path: 'login', component: LoginComponent }, // Formulario de login
     { path: 'carrito', component: CarritoPageComponent }, // Carrito
-    { path: 'contacto', component: ContactoComponent } // Contacto
+    { path: 'contacto', component: ContactoComponent }, // Contacto
+    { path: 'catalogo', component: CatalogoComponent } // Catalogo
 
 ];
