@@ -1,0 +1,85 @@
+<h1 class="titulo-catalogo">CATÁLOGO</h1>
+<div class="contenedor-catalogo">
+    <aside class="panel-filtros">
+        <!-- CLUBES -->
+        <div class="filtro-grupo">
+            <button class="filtro-header" (click)="toggleFiltro('clubes')">
+                <span>Clubes</span>
+                <span class="flecha" [class.activa]="filtrosExpandidos.clubes">▼</span>
+            </button>
+            <div class="filtro-contenido" *ngIf="filtrosExpandidos.clubes">
+                <label class="opcion-filtro" *ngFor="let club of opciones.clubes">
+                    <input 
+                        type="checkbox" 
+                        [checked]="filtrosActivos.clubes.includes(club)"
+                        (change)="toggleClub(club)"
+                    >
+                    {{ club }}
+                </label>
+            </div>
+        </div>
+
+        <!-- SELECCIONES -->
+        <div class="filtro-grupo">
+            <button class="filtro-header" (click)="toggleFiltro('selecciones')">
+                <span>Selecciones</span>
+                <span class="flecha" [class.activa]="filtrosExpandidos.selecciones">▼</span>
+            </button>
+            <div class="filtro-contenido" *ngIf="filtrosExpandidos.selecciones">
+                <label class="opcion-filtro" *ngFor="let seleccion of opciones.selecciones">
+                    <input 
+                        type="checkbox" 
+                        [checked]="filtrosActivos.selecciones.includes(seleccion)"
+                        (change)="toggleSeleccion(seleccion)"
+                    >
+                    {{ seleccion }}
+                </label>
+            </div>
+        </div>
+
+        <!-- TEMPORADA -->
+        <div class="filtro-grupo">
+            <button class="filtro-header" (click)="toggleFiltro('temporada')">
+                <span>Temporada</span>
+                <span class="flecha" [class.activa]="filtrosExpandidos.temporada">▼</span>
+            </button>
+            <div class="filtro-contenido" *ngIf="filtrosExpandidos.temporada">
+                <label class="opcion-filtro" *ngFor="let temp of opciones.temporada">
+                    <input 
+                        type="checkbox" 
+                        [checked]="filtrosActivos.temporada.includes(temp.toLowerCase())"
+                        (change)="toggleTemporada(temp)"
+                    >
+                    {{ temp }}
+                </label>
+            </div>
+        </div>
+
+        <!-- LIGAS -->
+        <div class="filtro-grupo">
+            <button class="filtro-header" (click)="toggleFiltro('ligas')">
+                <span>Ligas</span>
+                <span class="flecha" [class.activa]="filtrosExpandidos.ligas">▼</span>
+            </button>
+            <div class="filtro-contenido" *ngIf="filtrosExpandidos.ligas">
+                <label class="opcion-filtro" *ngFor="let liga of opciones.ligas">
+                    <input 
+                        type="checkbox" 
+                        [checked]="filtrosActivos.ligas.includes(liga)"
+                        (change)="toggleLiga(liga)"
+                    >
+                    {{ liga }}
+                </label>
+            </div>
+        </div>
+    </aside>
+
+    <main class="seccion-productos">
+        <div class="cuadricula-productos">
+            <app-catalogo-producto 
+                *ngFor="let producto of productosFiltrados" 
+                [producto]="producto"
+            ></app-catalogo-producto>
+        </div>
+    </main>
+</div>

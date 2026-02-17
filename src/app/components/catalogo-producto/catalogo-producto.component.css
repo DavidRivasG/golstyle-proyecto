@@ -1,0 +1,30 @@
+/* Estilos de cada Tarjeta */
+.tarjeta-producto {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  margin: auto;
+}
+
+.contenedor-imagen {
+  background-color: #e5e5e5;
+  aspect-ratio: 3 / 4;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.contenedor-imagen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.info-producto {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 12px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}

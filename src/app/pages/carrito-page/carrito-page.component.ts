@@ -43,15 +43,26 @@ export class CarritoPageComponent {
 
 
   eliminarProducto(id: number): void {
-
-    // TERMINAR
-
+    this.productos = this.productos.filter(producto => producto.id !== id);
+    this.carritoService.actualizarProductos(this.productos).subscribe(() => {
+      this.total = this.calcularTotal(this.productos);
+    });
   }
 
   actualizarCantidad(event: { id: number, accion: 'sumar' | 'restar' }): void {
-
-    // TERMINAR
-
+    const producto = this.productos.find(p => p.id === event.id);
+    
+    if (producto) {
+      if (event.accion === 'sumar') {
+        producto.cantidad++;
+      } else if (event.accion === 'restar' && producto.cantidad > 1) {
+        producto.cantidad--;
+      }
+      
+      this.carritoService.actualizarProductos(this.productos).subscribe(() => {
+        this.total = this.calcularTotal(this.productos);
+      });
+    }
   }
 
 

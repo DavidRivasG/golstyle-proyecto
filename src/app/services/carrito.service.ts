@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { ProductoCarrito } from '../interfaces/producto-carrito.interface';
 
 
@@ -15,6 +15,10 @@ export class CarritoService {
 
   getProductos(): Observable<ProductoCarrito[]> {
     return this.http.get<ProductoCarrito[]>(this.url);
+  }
+
+  actualizarProductos(productos: ProductoCarrito[]): Observable<ProductoCarrito[]> {
+    return of(productos);
   }
 
 }
