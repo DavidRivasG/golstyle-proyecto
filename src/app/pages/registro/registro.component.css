@@ -8,7 +8,7 @@
 
 .register-container {
   display: flex;
-  height: 80vh;
+  height: 700px;
   width: 100%;
   background-color: #121212; /* Negro suave, menos agresivo */
 }
@@ -28,8 +28,6 @@
   object-position: 50% 10%;  
   filter: brightness(0.8); 
 }
-
-
 
 /* Sección Formulario */
 .form-section {

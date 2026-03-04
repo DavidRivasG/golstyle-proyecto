@@ -28,3 +28,39 @@
   font-weight: bold;
   text-transform: uppercase;
 }
+
+@media (max-width: 1700px) {
+  .tarjeta-producto {
+    width: 200px;
+  }
+}
+
+@media (max-width: 930px) {
+  .tarjeta-producto {
+    width: 170px;
+  }
+}
+
+@media (max-width: 840px) {
+  .tarjeta-producto {
+    width: 200px;
+  }
+}
+
+@media (max-width: 455px) {
+  .tarjeta-producto {
+    width: 170px;
+  }
+}
+
+@media (max-width: 390px) {
+  .tarjeta-producto {
+    width: 150px;
+  }
+}
+
+@media (max-width: 350px) {
+  .tarjeta-producto {
+    width: 200px;
+  }
+}

@@ -37,6 +37,19 @@ header {
   justify-content: flex-start;
 }
 
+.menu-toggle,
+.search-mobile {
+  display: none;
+  color: white;
+  font-size: 18px;
+  text-decoration: none;
+  margin-right: 8px;
+}
+
+.search-mobile i {
+  font-size: 15px;
+}
+
 .header-col.center {
   justify-content: center;
 }
@@ -64,4 +77,106 @@ header {
 
 .header-col.right a:hover {
   color: #cba937;
+}
+
+@media (max-width: 600px) {
+  .search-mobile {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .header-col.right .search-desktop {
+    display: none;
+  }
+
+  .header-main {
+    padding: 0 12px;
+  }
+}
+
+@media (max-width: 350px) {
+  .menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Side menu (CSS-only) inside header */
+.header-nav-toggle {
+  display: none;
+}
+
+.side-menu-overlay {
+  display: none;
+}
+
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 40vw;
+  max-width: 420px;
+  background: #1d1d1d;
+  transform: translateX(-100%);
+  transition: transform 300ms ease;
+  z-index: 1000;
+  padding: 20px;
+  box-shadow: 2px 0 12px rgba(0,0,0,0.4);
+  display: flex;
+  flex-direction: column;
+}
+
+.side-close {
+  display: none;
+}
+
+/* when header toggle checked: show overlay + slide in menu */
+#header-nav-toggle:checked ~ .side-menu-overlay {
+  display: block;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 999;
+}
+
+#header-nav-toggle:checked ~ .side-menu {
+  transform: translateX(0);
+}
+
+/* show close button inside menu */
+#header-nav-toggle:checked ~ .side-menu .side-close {
+  display: inline-block;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 28px;
+  align-self: flex-end;
+  cursor: pointer;
+}
+
+.side-nav ul {
+  list-style: none;
+  padding: 20px 0 0 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.side-nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Hide the horizontal nav at small widths (<=350px) */
+@media (max-width: 350px) {
+  ::ng-deep app-nav .main-nav {
+    display: none !important;
+  }
 }

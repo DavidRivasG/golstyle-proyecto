@@ -5,17 +5,38 @@
     <span>ENVÍOS GRATIS PEDIDOS DE +100€</span>
   </div>
 
+  <!-- checkbox toggle para menú lateral controlado con CSS -->
+  <input id="header-nav-toggle" class="header-nav-toggle" type="checkbox" hidden />
+
   <div class="header-main">
-    <div class="header-col left"></div>
+    <div class="header-col left">
+      <label for="header-nav-toggle" class="menu-toggle" aria-label="Abrir menú"><i class="fas fa-bars"></i></label>
+      <a href="#" class="search-mobile" aria-label="Buscar"><i class="fas fa-search"></i></a>
+    </div>
 
     <div class="header-col center">
       <a href="/" class="logo">GOLSTYLE</a>
     </div>
 
     <div class="header-col right">
-      <a href="#"><i class="fas fa-search"></i></a>
-      <a href="carrito"><i class="fas fa-shopping-cart"></i></a>
-      <a href="login"><i class="far fa-user"></i></a>
+      <a href="#" class="search-desktop"><i class="fas fa-search"></i></a>
+      <a href="carrito" class="shopping-cart"><i class="fas fa-shopping-cart"></i></a>
+      <a href="login" class="user"><i class="far fa-user"></i></a>
     </div>
   </div>
+
+  <!-- overlay y menú lateral dentro del header, controlados por #header-nav-toggle -->
+  <label for="header-nav-toggle" class="side-menu-overlay" aria-hidden="true"></label>
+
+  <aside class="side-menu" aria-hidden="true">
+    <label for="header-nav-toggle" class="side-close" aria-label="Cerrar">&times;</label>
+    <nav class="side-nav">
+      <ul>
+        <li><a href="/">INICIO</a></li>
+        <li><a href="/catalogo">CATALOGO</a></li>
+        <li><a href="#">DISEÑO</a></li>
+        <li><a href="/contacto">CONTACTO</a></li>
+      </ul>
+    </nav>
+  </aside>
 </header>

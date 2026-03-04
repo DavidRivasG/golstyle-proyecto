@@ -4,14 +4,13 @@
     margin: 0;
     padding: 0;
     font-family: 'Poppins', sans-serif;
-    /* Fuente moderna */
 }
 
 .contact-container {
     display: grid;
     grid-template-columns: 40% 60%;
+    height: 80vh;
     background-color: #121212;
-    /* Negro suave, menos agresivo */
     justify-content: center;
     align-items: center;
 }
@@ -29,6 +28,7 @@
     justify-content: center;
     align-items: center;
     background-color: #121212;
+    padding: 20px;
 }
 
 .form-wrapper {
@@ -123,4 +123,21 @@ button:disabled {
     cursor: not-allowed;
     transform: none;
     box-shadow: none;
+}
+
+@media (max-width: 1400px) {
+    .contact-container {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .image-section {
+        display: none;
+    }
+
+    .form-wrapper {
+        width: 100%;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
 }

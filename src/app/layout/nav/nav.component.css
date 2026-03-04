@@ -44,3 +44,9 @@
     justify-content: center;
   }
 }
+
+@media (max-width: 350px) {
+  :host {
+    display: none;
+  }
+}
