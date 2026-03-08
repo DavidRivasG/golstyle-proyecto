@@ -9,8 +9,8 @@
 
 <section class="best-sellers">
   <h2 class="section-title">LO MAS VENDIDO</h2>
-  
-  <script>console.log(products);</script>
+
+  <!-- <script>console.log(products);</script>
   <div class="products-grid">
     <div class="product-card" *ngFor="let product of products">
       <div class="image-container">
@@ -18,7 +18,16 @@
       </div>
       <p class="product-name">{{ product.name | uppercase }}</p>
     </div>
-  </div>
+  </div> -->
+
+  <section class="best-sellers">
+    <h2 class="section-title">LO MAS VENDIDO</h2>
+
+    <div class="catalog-btn-container">
+      <a href="/catalogo"><button class="btn-gold">CATÁLOGO</button></a>
+    </div>
+  </section>
+
 
   <div class="catalog-btn-container">
     <a href="/catalogo"><button class="btn-gold">CATÁLOGO</button></a>
@@ -27,7 +36,7 @@
 
 <section class="reviews-section">
   <h3>VALORACIÓN DE NUESTROS CLIENTES</h3>
-  
+
   <div class="reviews-container">
     <div class="score-box">
       <span class="score-number">4.7</span>
@@ -37,15 +46,21 @@
     <div class="score-bars">
       <div class="bar-row">
         <span>Facilidad</span>
-        <div class="progress"><div class="fill" style="width: 90%"></div></div>
+        <div class="progress">
+          <div class="fill" style="width: 90%"></div>
+        </div>
       </div>
       <div class="bar-row">
         <span>Atención</span>
-        <div class="progress"><div class="fill" style="width: 85%"></div></div>
+        <div class="progress">
+          <div class="fill" style="width: 85%"></div>
+        </div>
       </div>
       <div class="bar-row">
         <span>Rapidez</span>
-        <div class="progress"><div class="fill" style="width: 95%"></div></div>
+        <div class="progress">
+          <div class="fill" style="width: 95%"></div>
+        </div>
       </div>
     </div>
 

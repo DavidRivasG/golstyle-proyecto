@@ -1,9 +1,12 @@
 <div class="tarjeta-producto">
     <div class="contenedor-imagen">
-        <img [src]="producto.imagen" [alt]="producto.nombre">
+        <img *ngIf="camiseta.imagen_principal" 
+        [src]="camiseta.imagen_principal" 
+        [alt]="camiseta.nombre">
     </div>
+
     <div class="info-producto">
-        <span class="nombre-producto">{{ producto.nombre }}</span>
-        <span class="precio-producto">{{ producto.precio }}€</span>
+        <span class="nombre-producto">{{ camiseta.nombre }}</span>
+        <span class="precio-producto">{{ camiseta.precio }}€</span>
     </div>
 </div>
