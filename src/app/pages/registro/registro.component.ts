@@ -1,67 +1,35 @@
-import { Component } from '@angular/core';
-import { Usuario } from '../../interfaces/usuario.interface';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { UsuarioService } from '../../services/usuario.service';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { RegistroFormComponent } from '../../components/registro-form/registro-form.component';
 
 @Component({
-  selector: 'app-registro',
+  selector: 'app-registro-page',
   standalone: true,
-  imports: [FormsModule, CommonModule],
-  templateUrl: './registro.component.html',
-  styleUrl: './registro.component.css'
+  imports: [RegistroFormComponent],
+  template: `
+    <app-registro-form 
+      (onRegister)="handleRegister($event)" 
+      (onLoginRedirect)="goToLogin()">
+    </app-registro-form>
+  `
 })
 export class RegistroComponent {
+  private authService = inject(AuthService);
+  private router = inject(Router);
 
-  nuevoUsuario: Usuario = {
-    nombre: '',
-    ape1: '',
-    ape2: '',
-    correo: '',
-    password: '',
-    telefono: '',
-    rol: 'usuario',
-  };
+handleRegister(userData: any) {
+  this.authService.register(userData).subscribe({
+    next: (res) => {
+      console.log('Usuario registrado con éxito');
+      // CAMBIO AQUÍ: 'camisetas' no existe, usamos 'catalogo'
+      this.router.navigate(['/catalogo']); 
+    },
+    error: (err) => console.error(err)
+  });
+}
 
-  get apellidos(): string {
-    return `${this.nuevoUsuario.ape1} ${this.nuevoUsuario.ape2}`.trim();
-  }
-
-  set apellidos(value: string) {
-    const parts = value.trim().split(/\s+/);
-    this.nuevoUsuario.ape1 = parts[0] || '';
-    this.nuevoUsuario.ape2 = parts.slice(1).join(' ') || '';
-  }
-
-  constructor(private usuarioService: UsuarioService, private router: Router) { }
-
-  registrar() {
-
-    this.usuarioService.registrar(this.nuevoUsuario).subscribe(resp => {
-      console.log(resp);
-
-      if (resp.ok) {
-
-        // Reiniciar el formulario
-        this.nuevoUsuario = {
-          nombre: '',
-          ape1: '',
-          ape2: '',
-          correo: '',
-          password: '',
-          telefono: '',
-          rol: 'usuario',
-        }
-        alert('Registro completado con éxito');
-        this.router.navigate(['/login']);
-      }
-    });
-
-  }
-
-  irALogin() {
+  goToLogin() {
     this.router.navigate(['/login']);
   }
-
 }

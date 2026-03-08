@@ -1,51 +1,38 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient, HttpClientModule } from '@angular/common/http'; 
+import { AuthService } from '../../services/auth.service';
+import { LoginFormComponent } from '../../components/login-form/login-form.component';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-login-page',
   standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule], 
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  imports: [LoginFormComponent],
+  template: `
+    <app-login-form 
+      (onLogin)="handleLogin($event)" 
+      (onRegisterRedirect)="navigateToRegister()">
+    </app-login-form>
+  `
 })
 export class LoginComponent {
-  email: string = '';
-  password: string = '';
+  private authService = inject(AuthService);
+  private router = inject(Router);
 
-  constructor(private router: Router, private http: HttpClient) {}
-
-  iniciarSesion() {
-    console.log("Conectando con base de datos...");
-
-    const datosLogin = {
-      email: this.email,
-      password: this.password
-    };
-
-
-    this.http.post('http://localhost:8080/login.php', datosLogin)
-      .subscribe({
-        next: (respuesta: any) => {
-          console.log("Respuesta del servidor:", respuesta);
-
-          if (respuesta.success === true) {
-            localStorage.setItem('usuarioLogueado', JSON.stringify(respuesta.usuario));
-            this.router.navigate(['/home']);
-          } else {
-            alert(' ERROR: ' + respuesta.mensaje);
-          }
-        },
-        error: (error) => {
-          console.error("Error de conexión:", error);
-          alert(' No se pudo conectar con el servidor PHP (Puerto 8080)');
-        }
-      });
+  handleLogin(credentials: any) {
+    this.authService.login(credentials).subscribe({
+      next: (res) => {
+        // Al loguear, Laravel nos da el token y los datos del usuario
+        console.log('Login exitoso:', res.usuario.nombre);
+        this.router.navigate(['/home']); // Redirigimos a la página principal
+      },
+      error: (err) => {
+        // Manejamos el error 401 que configuramos en Laravel
+        alert(err.error.message || 'Credenciales incorrectas');
+      }
+    });
   }
 
-  irARegistro() {
+  navigateToRegister() {
     this.router.navigate(['/registro']);
   }
 }

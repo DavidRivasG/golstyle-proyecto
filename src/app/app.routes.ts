@@ -13,6 +13,7 @@ export const routes: Routes = [
     { path: 'login', component: LoginComponent }, // Formulario de login
     { path: 'carrito', component: CarritoPageComponent }, // Carrito
     { path: 'contacto', component: ContactoComponent }, // Contacto
-    { path: 'catalogo', component: CatalogoPageComponent } // Catalogo
+    { path: 'catalogo', component: CatalogoPageComponent }, // Catalogo
+    { path: '**', redirectTo: '', pathMatch: 'full' }
 
 ];

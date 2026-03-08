@@ -1,0 +1,24 @@
+<div class="login-container">
+  <div class="image-section">
+    <img src="assets/images/jugador.png" alt="Jugador" class="player-img">
+  </div>
+
+  <div class="form-section">
+    <form [formGroup]="loginForm" (ngSubmit)="submit()" class="form-wrapper">
+      <div class="input-group">
+        <label>CORREO:</label>
+        <input type="email" formControlName="correo">
+      </div>
+
+      <div class="input-group">
+        <label>CONTRASEÑA:</label>
+        <input type="password" formControlName="password">
+      </div>
+
+      <div class="button-group">
+        <button type="submit" class="btn-gold" [disabled]="loginForm.invalid">INICIAR SESIÓN</button>
+        <button type="button" class="btn-gold" (click)="onRegisterRedirect.emit()">CREAR CUENTA</button>
+      </div>
+    </form>
+  </div>
+</div>
