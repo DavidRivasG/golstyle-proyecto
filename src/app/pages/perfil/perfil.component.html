@@ -1,0 +1,34 @@
+<div class="contenedor-perfil">
+    <div class="envoltorio-perfil">
+        <h1>MI PERFIL</h1>
+        <div *ngIf="user; else noUser" class="contenido-perfil">
+            <div class="contenedor-columnas">
+                <div class="columna">
+                    <div class="grupo-info">
+                        <label>NOMBRE COMPLETO:</label>
+                        <p>{{ user.nombre }} {{ user.ape1 }} {{ user.ape2 || '' }}</p>
+                    </div>
+
+                    <div class="grupo-info">
+                        <label>EMAIL:</label>
+                        <p>{{ user.correo }}</p>
+                    </div>
+                </div>
+
+                <div class="columna">
+                    <div class="grupo-enlaces">
+                        <a routerLink="/direcciones" class="btn-gold">MIS DIRECCIONES</a>
+                        <a routerLink="/pedidos" class="btn-gold">MIS PEDIDOS</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grupo-boton">
+                <button type="button" class="btn-gold btn-cerrar-sesion" (click)="logout()">CERRAR SESIÓN</button>
+            </div>
+        </div>
+        <ng-template #noUser>
+            <p>No se pudo cargar la información del usuario.</p>
+        </ng-template>
+    </div>
+</div>

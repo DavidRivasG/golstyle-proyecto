@@ -21,7 +21,7 @@
     <div class="header-col right">
       <a href="#" class="search-desktop"><i class="fas fa-search"></i></a>
       <a href="carrito" class="shopping-cart"><i class="fas fa-shopping-cart"></i></a>
-      <a href="login" class="user"><i class="far fa-user"></i></a>
+      <a href="#" class="user" (click)="onLoginClick(); $event.preventDefault()"><i class="far fa-user"></i></a>
     </div>
   </div>
 
@@ -34,7 +34,6 @@
       <ul>
         <li><a href="/">INICIO</a></li>
         <li><a href="/catalogo">CATALOGO</a></li>
-        <li><a href="#">DISEÑO</a></li>
         <li><a href="/contacto">CONTACTO</a></li>
       </ul>
     </nav>
