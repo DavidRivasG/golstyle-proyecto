@@ -1,19 +1,25 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http'; // Importa HttpParams
 import { Observable } from 'rxjs';
-import { Camiseta } from '../interfaces/camiseta';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CamisetasService {
 
-  private apiUrl = 'http://localhost:8000/api/camisetas';
+  private apiUrl = 'http://localhost:8000/api';
 
-  constructor(private http: HttpClient) {}
+  http = inject(HttpClient);
 
-  getCatalogo(params: any = {}): Observable<{ data: Camiseta[] }> {
-    
-    return this.http.get<{ data: Camiseta[] }>(`${this.apiUrl}/catalogo`, { params });
+  getCatalogo(filtros: any): Observable<any> {
+
+    return this.http.get(`${this.apiUrl}/camisetas/catalogo`, { params: filtros });
   }
+
+  getDetails(id: number): Observable<any> {
+
+    return this.http.get(`${this.apiUrl}/camisetas/${id}`);
+  }
+
+
 }

@@ -1,7 +1,7 @@
 export interface FiltrosCatalogo
 {
-    liga: string;
-    equipo: string;
-    seleccion: string;
-    temporada: string;
+    liga: string[];
+    equipo: string[];
+    seleccion: string[];
+    temporada: string[];
 }

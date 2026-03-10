@@ -11,7 +11,11 @@
             </button>
             <div class="filtro-contenido">
                 <label class="opcion-filtro" *ngFor="let liga of opciones.ligas">
-                    <input type="checkbox" [checked]="filtros.liga === liga" (change)="aplicarFiltro('liga', liga)">
+                    <input 
+                    type="checkbox" 
+                    [checked]="filtros.liga.includes(liga)" 
+                    (change)="aplicarFiltro('liga', liga)"
+                    >
                     {{ liga }}
                 </label>
             </div>
@@ -24,8 +28,11 @@
             </button>
             <div class="filtro-contenido">
                 <label class="opcion-filtro" *ngFor="let equipo of opciones.equipos">
-                    <input type="checkbox" [checked]="filtros.equipo === equipo"
-                        (change)="aplicarFiltro('equipo', equipo)">
+                    <input 
+                    type="checkbox" 
+                    [checked]="filtros.equipo.includes(equipo)"
+                    (change)="aplicarFiltro('equipo', equipo)"
+                    >
                     {{ equipo }}
                 </label>
             </div>
@@ -38,8 +45,11 @@
             </button>
             <div class="filtro-contenido">
                 <label class="opcion-filtro" *ngFor="let seleccion of opciones.selecciones">
-                    <input type="checkbox" [checked]="filtros.seleccion === seleccion"
-                        (change)="aplicarFiltro('seleccion', seleccion)">
+                    <input 
+                    type="checkbox" 
+                    [checked]="filtros.seleccion.includes(seleccion)"
+                    (change)="aplicarFiltro('seleccion', seleccion)"
+                    >
                     {{ seleccion }}
                 </label>
             </div>
@@ -52,8 +62,11 @@
             </button>
             <div class="filtro-contenido">
                 <label class="opcion-filtro" *ngFor="let temp of opciones.temporadas">
-                    <input type="checkbox" [checked]="filtros.temporada === temp"
-                        (change)="aplicarFiltro('temporada', temp)">
+                    <input 
+                    type="checkbox" 
+                    [checked]="filtros.temporada.includes(temp)"
+                    (change)="aplicarFiltro('temporada', temp)"
+                    >
                     {{ temp }}
                 </label>
             </div>

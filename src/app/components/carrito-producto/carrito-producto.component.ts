@@ -13,18 +13,22 @@ export class CarritoProductoComponent {
   @Input() producto!: ProductoCarrito;
 
   @Output() eliminar = new EventEmitter<number>();
-  @Output() cambiarCantidad = new EventEmitter<{ id: number, accion: 'sumar' | 'restar' }>;
+  @Output() aumentar = new EventEmitter<number>();
+  @Output() disminuir = new EventEmitter<number>();
 
   onEliminar(): void {
-    this.eliminar.emit(this.producto.id);
+
+    this.eliminar.emit(this.producto.cod_det_carr);
   }
 
-  onSumar(): void {
-    this.cambiarCantidad.emit({ id: this.producto.id, accion: 'sumar' });
+  onAumentar(): void {
+
+    this.aumentar.emit(this.producto.cod_det_carr);
   }
 
-  onRestar(): void {
-    this.cambiarCantidad.emit({ id: this.producto.id, accion: 'restar' });
+  onDisminuir(): void {
+
+    this.disminuir.emit(this.producto.cod_det_carr);
   }
 
 }

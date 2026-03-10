@@ -1,70 +1,95 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ProductoCarrito } from '../../interfaces/producto-carrito.interface';
 import { CarritoService } from '../../services/carrito.service';
-import { CurrencyPipe, NgFor } from '@angular/common';
+import { CommonModule, CurrencyPipe, NgFor } from '@angular/common';
 import { CarritoProductoComponent } from '../../components/carrito-producto/carrito-producto.component';
 
 @Component({
   selector: 'app-carrito-page',
   standalone: true,
   imports: [
-    NgFor,
+    CommonModule,
     CurrencyPipe,
     CarritoProductoComponent,
   ],
   templateUrl: './carrito-page.component.html',
   styleUrl: './carrito-page.component.css'
 })
-export class CarritoPageComponent {
+export class CarritoPageComponent implements OnInit {
 
   productos: ProductoCarrito[] = [];
   total = 0;
 
-  constructor(private carritoService: CarritoService) { }
+  loading = true;
+
+  carritoService = inject(CarritoService);
 
   ngOnInit(): void {
-    this.carritoService.getProductos().subscribe(data => {
-      this.productos = data;
-      this.total = this.calcularTotal(data);
-    });
+
+    this.cargarCarrito();
   }
 
-  calcularTotal(productos: ProductoCarrito[]): number {
+  cargarCarrito() {
 
-    let total = 0;
+    this.carritoService.obtenerCarrito().subscribe({
 
-    for ( let producto of productos ) {
+      next: (resp: any) => {
 
-      total += producto.precioUnitario * producto.cantidad;
-    }
+        this.productos = resp.detalles;
+        this.total = resp.total;
+        this.loading = false;
+      },
+      error: (err) => {
 
-    return total;
-  }
-
-
-  eliminarProducto(id: number): void {
-    this.productos = this.productos.filter(producto => producto.id !== id);
-    this.carritoService.actualizarProductos(this.productos).subscribe(() => {
-      this.total = this.calcularTotal(this.productos);
-    });
-  }
-
-  actualizarCantidad(event: { id: number, accion: 'sumar' | 'restar' }): void {
-    const producto = this.productos.find(p => p.id === event.id);
-    
-    if (producto) {
-      if (event.accion === 'sumar') {
-        producto.cantidad++;
-      } else if (event.accion === 'restar' && producto.cantidad > 1) {
-        producto.cantidad--;
+        console.error("Error cargando carrito", err);
+        this.loading = false;
       }
-      
-      this.carritoService.actualizarProductos(this.productos).subscribe(() => {
-        this.total = this.calcularTotal(this.productos);
-      });
-    }
+
+    });
+  }
+
+  eliminarProducto(id: number) {
+
+    this.carritoService.eliminarProducto(id).subscribe({
+
+      next: () => {
+
+        this.loading = true;
+        this.cargarCarrito();
+      },
+      error: (err) => alert("Error eliminando producto" + err)
+
+    });
+  }
+
+  aumentarCantidad(id: number) {
+
+    this.carritoService.aumentarCantidad(id).subscribe({
+
+      next: () => {
+
+        this.loading = true;
+        this.cargarCarrito();
+      },
+
+      error: (err) => alert("Error actualizando cantidad" + err)
+    });
   }
 
 
+  disminuirCantidad(id: number) {
+
+    this.carritoService.disminuirCantidad(id).subscribe({
+
+      next: () => {
+
+        this.loading = true;
+        this.cargarCarrito();
+      },
+
+      error: (err) => alert("Error actualizando cantidad" + err)
+    })
+  }
+  
 
 }

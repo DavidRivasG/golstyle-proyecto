@@ -22,7 +22,8 @@ handleRegister(userData: any) {
   this.authService.register(userData).subscribe({
     next: (res) => {
       console.log('Usuario registrado con éxito');
-      this.goToLogin(); 
+      // CAMBIO AQUÍ: 'camisetas' no existe, usamos 'catalogo'
+      this.router.navigate(['/catalogo']); 
     },
     error: (err) => console.error(err)
   });

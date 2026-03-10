@@ -1,10 +1,17 @@
 export interface ProductoCarrito{
 
-    id: number;
-    nombre: string;
-    precioUnitario: number;
+    cod_det_carr: number;
     cantidad: number;
-    imagen: string;
-    talla: string;
 
+    nombre_personalizado: string | null;
+    dorsal_personalizado: number | null;
+
+    nombre_camiseta: string;
+    precio: number;
+    subtotal: number;
+
+    talla: string;
+    stock: number;
+
+    imagen: string | null;
 }

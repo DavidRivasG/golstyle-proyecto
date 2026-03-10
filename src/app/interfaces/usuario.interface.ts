@@ -1,4 +1,5 @@
 export interface Usuario {
+    
     cod_usu?: number;
     nombre: string;
     ape1: string;

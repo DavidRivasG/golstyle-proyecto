@@ -2,25 +2,36 @@
     <h1>CARRITO</h1>
 </div>
 
-<div class="carrito-container">
+<!-- LOADING -->
+<div *ngIf="loading" class="loading">
+    <div class="spinner"></div>
+    <p>Cargando carrito...</p>
+</div>
+
+<!-- CARRITO VACÍO -->
+<div *ngIf="!loading && productos.length === 0" class="carrito-vacio">
+    <p>Tu carrito está vacío.</p>
+</div>
+
+<!-- CARRITO CON PRODUCTOS -->
+<div *ngIf="!loading && productos.length > 0" class="carrito-container">
 
     <div class="productos">
 
         <app-carrito-producto 
-        *ngFor="let producto of productos" 
-        [producto]="producto"
-        (eliminar)="eliminarProducto($event)"
-        (cambiarCantidad)="actualizarCantidad($event)"
+            *ngFor="let producto of productos" 
+            [producto]="producto"
+            (eliminar)="eliminarProducto($event)"
+            (aumentar)="aumentarCantidad($event)"
+            (disminuir)="disminuirCantidad($event)"
         ></app-carrito-producto>
-
 
     </div>
 
     <div class="resumen">
         <h2>Totales del carrito</h2>
-        <p> <strong>Dirección</strong>: C/ Camino de Algarrobo 43 </p>
-        <p> <strong>Envío:</strong> Gratis</p>
-        <p> <strong>Total:</strong> {{ total | currency:'EUR' }} </p>
+
+        <p><strong>Total:</strong> {{ total | currency:'EUR' }}</p>
 
         <button class="btn-comprar">COMPRAR</button>
     </div>

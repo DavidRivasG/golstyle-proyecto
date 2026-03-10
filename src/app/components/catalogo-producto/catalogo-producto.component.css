@@ -4,7 +4,13 @@
   flex-direction: column;
   width: 250px;
   margin: auto;
+
+  /* Necesario para que el <a> no se vea como enlace */
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
 }
+
 
 .contenedor-imagen {
   background-color: #e5e5e5;

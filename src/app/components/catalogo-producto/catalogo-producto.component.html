@@ -1,12 +1,12 @@
-<div class="tarjeta-producto">
+<a [routerLink]="['/camiseta', camiseta.cod_cam]" class="tarjeta-producto">
+
     <div class="contenedor-imagen">
-        <img *ngIf="camiseta.imagen_principal" 
-        [src]="camiseta.imagen_principal" 
-        [alt]="camiseta.nombre">
+        <img *ngIf="camiseta.imagen_principal" [src]="camiseta.imagen_principal" [alt]="camiseta.nombre">
     </div>
 
     <div class="info-producto">
         <span class="nombre-producto">{{ camiseta.nombre }}</span>
         <span class="precio-producto">{{ camiseta.precio }}€</span>
     </div>
-</div>
+
+</a>

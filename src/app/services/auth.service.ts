@@ -9,7 +9,9 @@ export class AuthService {
   private apiUrl = environment.apiUrl;
 
   register(userData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register/`, userData);
+    return this.http.post(`${this.apiUrl}/register/`, userData).pipe(
+      tap((res: any) => this.handleAuth(res))
+    );
   }
 
   login(credentials: any): Observable<any> {

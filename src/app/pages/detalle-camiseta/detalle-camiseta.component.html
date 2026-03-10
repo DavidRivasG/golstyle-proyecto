@@ -1,0 +1,75 @@
+<div *ngIf="loading" class="loading">
+    <div class="spinner"></div>
+    <p>Cargando camiseta...</p>
+</div>
+
+<div *ngIf="!loading && camiseta" class="detalle-container">
+
+    <div class="image-section">
+        <img [src]="camiseta.imagen_principal" [alt]="camiseta.nombre">
+    </div>
+
+    <div class="info-section">
+        <div class="info-wrapper">
+
+            <h1 class="titulo">{{ camiseta.nombre }}</h1>
+            <h2 class="precio">{{ camiseta.precio }}€</h2>
+
+            <div class="detalles-tecnicos">
+                <p class="detalle"><strong>Equipo:</strong> {{ camiseta.equipo || 'N/A' }}</p>
+                <p class="detalle"><strong>Liga:</strong> {{ camiseta.liga || 'N/A' }}</p>
+                <p class="detalle"><strong>Temporada:</strong> {{ camiseta.temporada }}</p>
+            </div>
+
+            <div class="input-group">
+                <label for="talla">Seleccionar Talla</label>
+                <select id="talla" [(ngModel)]="tallaSeleccionada" (change)="validarCantidad()">
+                    <option [ngValue]="null" disabled selected>Escoge una talla...</option>
+                    <option *ngFor="let v of camiseta.variantes" [value]="v.cod_var">
+                        {{ v.talla }} — {{ v.stock > 0 ? (v.stock + ' disponibles') : 'Sin stock' }}
+                    </option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="cantidad">Cantidad</label>
+                <input 
+                    id="cantidad" 
+                    type="number" 
+                    [(ngModel)]="cantidad" 
+                    (change)="validarCantidad()" 
+                    min="1"
+                    [max]="getStockVariante()" 
+                    [disabled]="!tallaSeleccionada || getStockVariante() === 0">
+            </div>
+
+            <div class="personalizacion-box">
+                
+                <div class="input-group">
+                    <label>NOMBRE PERSONALIZADO</label>
+                    <input type="text" [(ngModel)]="nombrePersonalizado" placeholder="Ej: MESSI" maxlength="50">
+                </div>
+
+                <div class="input-group">
+                    <label>DORSAL (0-99)</label>
+                    <input 
+                        type="number" 
+                        [(ngModel)]="dorsalPersonalizado" 
+                        (input)="validarDorsal()"
+                        min="0" 
+                        max="99" 
+                        placeholder="00">
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn-gold" (click)="agregarAlCarrito()"
+                    [disabled]="!tallaSeleccionada || getStockVariante() === 0"
+                    >
+                    Agregar al carrito
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
