@@ -1,0 +1,88 @@
+<div class="contenedor-direcciones">
+  <h1>Mis direcciones</h1>
+
+  <div *ngIf="mensaje" class="alerta">{{ mensaje }}</div>
+
+  <div class="form-container">
+    <form (ngSubmit)="guardar()" #formDir="ngForm" class="form-direccion">
+      <div class="campo">
+        <label>Nombre</label>
+        <input type="text" [(ngModel)]="form.nombre" name="nombre" required />
+      </div>
+      <div class="campo">
+        <label>Calle</label>
+        <input type="text" [(ngModel)]="form.calle" name="calle" required />
+      </div>
+      <div class="campo">
+        <label>Número</label>
+        <input type="text" [(ngModel)]="form.num" name="num" required />
+      </div>
+      <div class="campo">
+        <label>Piso</label>
+        <input type="text" [(ngModel)]="form.piso" name="piso" />
+      </div>
+      <div class="campo">
+        <label>Código postal</label>
+        <input type="text" [(ngModel)]="form.cp" name="cp" required />
+      </div>
+      <div class="campo">
+        <label>Teléfono</label>
+        <input type="text" [(ngModel)]="form.telefono" name="telefono" required />
+      </div>
+      <div class="campo">
+        <label>Ciudad</label>
+        <input type="text" [(ngModel)]="form.ciudad" name="ciudad" required />
+      </div>
+      <div class="campo">
+        <label>Provincia</label>
+        <input type="text" [(ngModel)]="form.provincia" name="provincia" required />
+      </div>
+      <div class="botones">
+        <button type="submit" class="btn-gold">
+          {{ editingId ? 'Actualizar' : 'Guardar' }}
+        </button>
+        <button type="button" class="btn-cancel" *ngIf="editingId" (click)="cancelarEdicion()">
+          Cancelar edición
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="list-container" *ngIf="direcciones.length; else noDir">
+    <table class="tabla-direcciones">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Calle</th>
+          <th>Número</th>
+          <th>Piso</th>
+          <th>CP</th>
+          <th>Teléfono</th>
+          <th>Ciudad</th>
+          <th>Provincia</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let d of direcciones">
+          <td data-label="Nombre">{{ d.nombre }}</td>
+          <td data-label="Calle">{{ d.calle }}</td>
+          <td data-label="Número">{{ d.num }}</td>
+          <td data-label="Piso">{{ d.piso }}</td>
+          <td data-label="CP">{{ d.cp }}</td>
+          <td data-label="Teléfono">{{ d.telefono }}</td>
+          <td data-label="Ciudad">{{ d.ciudad }}</td>
+          <td data-label="Provincia">{{ d.provincia }}</td>
+          <td class="acciones" data-label="Acciones">
+            <button class="btn-gold small" (click)="editar(d)">Editar</button>
+            <button class="btn-red small" (click)="eliminar(d.cod_dir!)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #noDir>
+    <p>No tienes direcciones guardadas.</p>
+  </ng-template>
+</div>
