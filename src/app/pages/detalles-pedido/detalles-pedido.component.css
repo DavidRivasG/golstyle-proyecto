@@ -1,0 +1,132 @@
+:host {
+  display: block;
+  background-color: #121212;
+  color: white;
+  font-family: 'Arial Narrow', sans-serif;
+  min-height: 70vh;
+  height: auto;
+  padding: 20px;
+}
+
+.detalles-pedido-container {
+  padding: 20px;
+}
+
+.titulo-detalles {
+  text-align: center;
+  color: #d4af37;
+  letter-spacing: 5px;
+  margin-bottom: 30px;
+  font-size: 2.5rem;
+}
+
+.loading-message {
+  text-align: center;
+  color: #d4af37;
+  font-size: 1.1rem;
+  padding: 20px;
+}
+
+.error-message {
+  text-align: center;
+  color: #ff6b6b;
+  background-color: #4a1f1f;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #ff6b6b;
+}
+
+.pedido-info {
+  background-color: #1a1a1a;
+  border: 1px solid #d4af37;
+  border-radius: 8px;
+  padding: 25px;
+  margin-bottom: 30px;
+}
+
+.info-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #d4af37;
+}
+
+.info-block p {
+  margin: 10px 0;
+  font-size: 0.95rem;
+}
+
+.info-block strong {
+  color: #d4af37;
+}
+
+.estado {
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 0.85rem;
+}
+
+.estado.pendiente {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.estado.enviado {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+.estado.entregado {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.detalles-lista {
+  margin: 20px 0;
+}
+
+.detalles-lista h2 {
+  color: #d4af37;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+.detalles-items {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.pedido-acciones {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.btn-volver {
+  display: inline-block;
+  background-color: #d4af37;
+  color: #000;
+  padding: 12px 30px;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.btn-volver:hover {
+  transform: scale(1.05);
+  background-color: #e5c158;
+}
+
+@media (max-width: 768px) {
+  .info-header {
+    grid-template-columns: 1fr;
+  }
+
+  .titulo-detalles {
+    font-size: 1.8rem;
+  }
+}

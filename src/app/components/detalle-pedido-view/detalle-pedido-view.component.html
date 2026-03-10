@@ -1,0 +1,46 @@
+<div class="pedido-info">
+  <div class="info-header">
+    <div class="info-block">
+      <p><strong>Fecha:</strong> <span class="datos"> {{ pedido.pedido.fecha | date:'dd/MM/yyyy' }}</span></p>
+      <p><strong>Estado:</strong> <span class="estado" [ngClass]="pedido.pedido.estado">{{ pedido.pedido.estado }}</span></p>
+    </div>
+    <div class="info-block">
+      <p><strong>Total:</strong> <span class="datos"> {{ pedido.pedido.total }}€</span></p>
+      <p><strong>Dirección:</strong><span class="datos"> {{ pedido.direccion.calle }} {{ pedido.direccion.num }} {{ pedido.direccion.piso || '' }}, {{ pedido.direccion.ciudad }} ({{ pedido.direccion.provincia }})</span>
+    </div>
+  </div>
+
+  <div class="detalles-lista" *ngIf="pedido.detalles && pedido.detalles.length > 0">
+    <h2>Artículos del Pedido</h2>
+    <div class="detalles-items">
+      <div class="detalle-item" *ngFor="let detalle of pedido.detalles">
+        <div class="detalle-header">
+          <h4 class="detalle-nombre"> {{ detalle.variante.camiseta.nombre }}</h4>
+        </div>
+        <div class="detalle-contenido">
+          <div class="detalle-info">
+            <p><strong>Cantidad:</strong><span class="datos"> {{ detalle.cantidad }}</span></p>
+            <p><strong>Precio unitario:</strong><span class="datos"> {{ detalle.precio_unid }}€</span></p>
+            <p><strong>Subtotal:</strong><span class="datos"> {{ detalle.cantidad * detalle.precio_unid }}€</span></p>
+          </div>
+          <div class="detalle-imagen">
+            <img [src]="detalle.variante.camiseta.imagen_principal" alt="Camiseta" *ngIf="detalle.variante.camiseta.imagen_principal">
+          </div>
+          <div class="detalle-personalizacion">
+            <p><strong>Nombre personalizado:</strong> {{ detalle.nombre_personalizado || 'Sin nombre'}}</p>
+            <p><strong>Dorsal personalizado:</strong> {{ detalle.dorsal_personalizado || 'Sin dorsal'}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="detalles-lista" *ngIf="!pedido.detalles || pedido.detalles.length === 0">
+    <p style="color: #d4af37;">No hay artículos en este pedido.</p>
+  </div>
+
+  <div class="pedido-acciones">
+    <a routerLink="/mis-pedidos" class="btn-volver">Volver a Mis Pedidos</a>
+    <button *ngIf="pedido.pedido.estado === 'pendiente'" (click)="onCancelar()" class="btn-cancelar">Cancelar Pedido</button>
+  </div>
+</div>

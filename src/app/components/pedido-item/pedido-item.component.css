@@ -1,0 +1,105 @@
+.pedido-item {
+  border: 1px solid #d4af37;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 10px;
+    background: #1e1e1e;
+  color: #000;
+  font-family: 'Arial Narrow', sans-serif;
+}
+
+.pedido-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.pedido-header h3 {
+  color: #d4af37;
+  margin: 0;
+}
+
+.estado {
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.estado.pendiente {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.estado.enviado {
+  background-color: #d1ecf1;
+  color: #0d606e;
+}
+
+.estado.completado {
+  background-color: #a1e0b0;
+  color: #067921;
+}
+
+.estado.cancelado {
+  background-color: #d32f2f;
+  color: white;
+}
+
+.pedido-details p {
+  margin: 5px 0;
+  font-size: 0.9rem;
+}
+
+.pedido-details strong {
+  color: #d4af37;
+}
+
+.datos {
+  color: white;
+}
+
+.pedido-acciones {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #d4af37;
+  text-align: right;
+}
+
+.btn-detalles {
+  display: inline-block;
+  background-color: #d4af37;
+  color: #000;
+  padding: 8px 20px;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 0.85rem;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.btn-detalles:hover {
+  transform: scale(1.05);
+  background-color: #e5c158;
+}
+
+.btn-cancelar {
+  display: inline-block;
+  background-color: #d32f2f;
+  color: white;
+  padding: 8px 20px;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 0.85rem;
+  margin-left: 10px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.btn-cancelar:hover {
+  transform: scale(1.05);
+  background-color: #b71c1c;
+}

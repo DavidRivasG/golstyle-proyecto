@@ -1,5 +1,5 @@
 <div class="contenedor-perfil">
-    <div class="envoltorio-perfil">
+    <div class="tarjeta-perfil">
         <h1>MI PERFIL</h1>
         <div *ngIf="user; else noUser" class="contenido-perfil">
             <div class="contenedor-columnas">
@@ -15,10 +15,12 @@
                     </div>
                 </div>
 
-                <div class="columna">
+                <div id="columna-enlaces" class="columna">
                     <div class="grupo-enlaces">
                         <a routerLink="/direcciones" class="btn-gold">MIS DIRECCIONES</a>
-                        <a routerLink="/pedidos" class="btn-gold">MIS PEDIDOS</a>
+                    </div>
+                    <div class="grupo-enlaces">
+                        <a routerLink="/mis-pedidos" class="btn-gold">MIS PEDIDOS</a>
                     </div>
                 </div>
             </div>

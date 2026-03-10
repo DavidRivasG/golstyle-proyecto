@@ -1,0 +1,28 @@
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, OnInit, OnChanges } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
+@Component({
+  selector: 'app-detalle-pedido-view',
+  standalone: true,
+  imports: [CommonModule, RouterModule],
+  templateUrl: './detalle-pedido-view.component.html',
+  styleUrls: ['./detalle-pedido-view.component.css'],
+  changeDetection: ChangeDetectionStrategy.Default
+})
+export class DetallePedidoViewComponent implements OnInit, OnChanges {
+  @Input() pedido: any;
+  @Output() cancelar = new EventEmitter<number>();
+
+  ngOnInit() {
+    console.log('DetallePedidoViewComponent - pedido recibido:', this.pedido);
+  }
+
+  ngOnChanges() {
+    console.log('DetallePedidoViewComponent - ngOnChanges, pedido:', this.pedido);
+  }
+
+  onCancelar() {
+    this.cancelar.emit(this.pedido.pedido.cod_ped);
+  }
+}

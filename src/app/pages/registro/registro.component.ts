@@ -22,7 +22,7 @@ handleRegister(userData: any) {
   this.authService.register(userData).subscribe({
     next: (res) => {
       console.log('Usuario registrado con éxito');
-      this.router.navigate(['/home']); 
+      this.goToLogin(); 
     },
     error: (err) => console.error(err)
   });

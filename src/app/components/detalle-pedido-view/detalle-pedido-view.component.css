@@ -1,0 +1,182 @@
+.pedido-info {
+  background-color: #1a1a1a;
+  border: 1px solid #d4af37;
+  border-radius: 8px;
+  padding: 25px;
+  margin-bottom: 30px;
+}
+
+.info-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #d4af37;
+}
+
+.info-block p {
+  margin: 10px 0;
+  font-size: 0.95rem;
+  color: white;
+}
+
+.info-block strong {
+  color: #d4af37;
+}
+
+.estado {
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 0.85rem;
+  margin-left: 5px;
+}
+
+.estado.pendiente {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.estado.enviado {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+.estado.completado {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.estado.cancelado {
+  background-color: #d32f2f;
+  color: white;
+}
+
+.detalles-lista {
+  margin: 20px 0;
+}
+
+.detalles-lista h2 {
+  color: #d4af37;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+.detalles-items {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.detalle-item {
+  background-color: #303030;
+  border: 1px solid #d4af37;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.detalle-header {
+  border-bottom: 2px solid #d4af37;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.detalle-nombre {
+  color: #d4af37;
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.detalle-contenido {
+  color: #000;
+}
+
+.detalle-info {
+  margin-bottom: 10px;
+}
+
+.detalle-info p {
+  margin: 8px 0;
+  font-size: 0.9rem;
+}
+
+.detalle-info strong {
+  color: #d4af37;
+}
+
+.detalle-imagen img {
+  max-width: 150px;
+  max-height: 150px;
+  border: 2px solid #d4af37;
+  border-radius: 6px;
+}
+
+.detalle-personalizacion {
+  background-color: #3f3f3f;
+  padding: 10px;
+  border-radius: 4px;
+  border-left: 3px solid #d4af37;
+  color: white;
+  margin-top: 10px;
+}
+
+.detalle-personalizacion p {
+  margin: 5px 0;
+  font-size: 0.9rem;
+}
+
+.detalle-personalizacion strong {
+  color: #d4af37;
+}
+
+.pedido-acciones {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.btn-volver {
+  display: inline-block;
+  background-color: #d4af37;
+  color: #000;
+  padding: 12px 30px;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.btn-volver:hover {
+  transform: scale(1.05);
+  background-color: #e5c158;
+}
+
+.btn-cancelar {
+  display: inline-block;
+  background-color: #d32f2f;
+  color: white;
+  padding: 12px 30px;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: bold;
+  margin-left: 15px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.btn-cancelar:hover {
+  transform: scale(1.05);
+  background-color: #b71c1c;
+}
+
+@media (max-width: 768px) {
+  .info-header {
+    grid-template-columns: 1fr;
+  }
+}
+
+.datos {
+  color: white;
+}

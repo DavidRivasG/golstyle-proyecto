@@ -1,0 +1,48 @@
+:host {
+    display: block;
+    background-color: #121212;
+    font-family: 'Arial Narrow', sans-serif;
+    height: auto;
+    min-height: 70vh;
+    padding: 20px;
+}
+
+.mis-pedidos-container {
+    padding: 20px;
+}
+
+.titulo-pedidos {
+    text-align: center;
+    color: #d4af37;
+    letter-spacing: 5px;
+    margin-bottom: 50px;
+    font-size: 2.5rem;
+}
+
+.pedidos-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.no-pedidos {
+    text-align: center;
+    color: #d4af37;
+    font-size: 1.2rem;
+}
+
+.loading-message {
+    text-align: center;
+    color: #d4af37;
+    font-size: 1.1rem;
+    padding: 20px;
+}
+
+.error-message {
+    text-align: center;
+    color: #ff6b6b;
+    background-color: #4a1f1f;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #ff6b6b;
+}
