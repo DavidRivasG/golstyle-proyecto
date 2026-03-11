@@ -5,6 +5,11 @@
     box-sizing: border-box;
 }
 
+#contenedor-padre {
+    min-height: 70vh;
+    background-color: #121212;
+}
+
 h2, p {
     margin-bottom: 2rem;
     margin-top: 2rem;
@@ -63,6 +68,12 @@ h2, p {
     padding-bottom: 80px;
     color: #d4af37;
     background-color: #121212;
+}
+
+.loading , .carrito-vacio , .loggedIn{
+  text-align: center;
+  color: #d4af37;
+  font-size: 1.1rem;
 }
 
 @media ( width <= 1050px ) {

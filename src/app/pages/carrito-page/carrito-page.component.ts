@@ -3,6 +3,7 @@ import { ProductoCarrito } from '../../interfaces/producto-carrito.interface';
 import { CarritoService } from '../../services/carrito.service';
 import { CommonModule, CurrencyPipe, NgFor } from '@angular/common';
 import { CarritoProductoComponent } from '../../components/carrito-producto/carrito-producto.component';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-carrito-page',
@@ -19,10 +20,11 @@ export class CarritoPageComponent implements OnInit {
 
   productos: ProductoCarrito[] = [];
   total = 0;
-
   loading = true;
+  loggedIn = true;
 
   carritoService = inject(CarritoService);
+  authService = inject(AuthService);
 
   ngOnInit(): void {
 
@@ -30,6 +32,12 @@ export class CarritoPageComponent implements OnInit {
   }
 
   cargarCarrito() {
+
+    if(!this.authService.isLoggedIn()) {
+      this.loggedIn = false;
+      this.loading = false;
+      return;
+    }
 
     this.carritoService.obtenerCarrito().subscribe({
 
@@ -90,6 +98,6 @@ export class CarritoPageComponent implements OnInit {
       error: (err) => alert("Error actualizando cantidad" + err)
     })
   }
-  
+
 
 }
