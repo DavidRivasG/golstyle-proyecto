@@ -6,6 +6,9 @@ import { CarritoPageComponent } from './pages/carrito-page/carrito-page.componen
 import { ContactoComponent } from './pages/contacto/contacto.component';
 import { CatalogoPageComponent } from './pages/catalogo-page/catalogo-page.component';
 import { DetalleCamisetaComponent } from './pages/detalle-camiseta/detalle-camiseta.component';
+import { PerfilComponent } from './pages/perfil/perfil.component';
+import { MisPedidosComponent } from './pages/mis-pedidos/mis-pedidos.component';
+import { DetallesPedidoComponent } from './pages/detalles-pedido/detalles-pedido.component';
 
 
 export const routes: Routes = [
@@ -15,7 +18,10 @@ export const routes: Routes = [
     { path: 'carrito', component: CarritoPageComponent }, // Carrito
     { path: 'contacto', component: ContactoComponent }, // Contacto
     { path: 'catalogo', component: CatalogoPageComponent }, // Catalogo
-    { path: 'camiseta/:id', component: DetalleCamisetaComponent },
+    { path: 'camiseta/:id', component: DetalleCamisetaComponent }, // Camiseta
+    { path: 'perfil', component: PerfilComponent }, // Perfil
+    { path: 'mis-pedidos', component: MisPedidosComponent }, // Pedidos
+    { path: 'detalles-pedido/:id', component: DetallesPedidoComponent }, // Detalle de pedido
     { path: '**', redirectTo: '', pathMatch: 'full' }
 
 ];
