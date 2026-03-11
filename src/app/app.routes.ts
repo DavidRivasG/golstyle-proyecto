@@ -9,6 +9,7 @@ import { DetalleCamisetaComponent } from './pages/detalle-camiseta/detalle-camis
 import { PerfilComponent } from './pages/perfil/perfil.component';
 import { MisPedidosComponent } from './pages/mis-pedidos/mis-pedidos.component';
 import { DetallesPedidoComponent } from './pages/detalles-pedido/detalles-pedido.component';
+import { DireccionesPageComponent } from './pages/direcciones-page/direcciones-page.component';
 
 
 export const routes: Routes = [
@@ -22,6 +23,7 @@ export const routes: Routes = [
     { path: 'perfil', component: PerfilComponent }, // Perfil
     { path: 'mis-pedidos', component: MisPedidosComponent }, // Pedidos
     { path: 'detalles-pedido/:id', component: DetallesPedidoComponent }, // Detalle de pedido
+    { path: 'direcciones', component: DireccionesPageComponent }, // CRUD direcciones
     { path: '**', redirectTo: '', pathMatch: 'full' }
 
 ];
