@@ -23,6 +23,7 @@ export class CatalogoPageComponent implements OnInit {
 
   productos: Camiseta[] = [];
   loading = true;
+  error = false;
 
   filtros: FiltrosCatalogo = {
 
@@ -74,6 +75,8 @@ export class CatalogoPageComponent implements OnInit {
       error: () => {
 
         this.loading = false;
+        this.error = true;
+        
       }
     });
   }

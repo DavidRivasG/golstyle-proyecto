@@ -3,8 +3,26 @@
   background-color: #121212;
   color: white;
   font-family: 'Arial Narrow', sans-serif;
-  min-height: 100vh;
+  min-height: 70vh;
   padding: 20px;
+}
+
+.loading {
+    text-align: center;
+    color: #d4af37;
+    font-size: 1.1rem;
+    padding-top: 10%;
+    background-color: #121212;
+}
+
+.error {
+    text-align: center;
+    color: #ff6b6b;
+    background-color: #4a1f1f;
+    border: 1px solid #ff6b6b;
+    font-size: 1.1rem;
+    padding: 15px;
+    border-radius: 8px;
 }
 
 .contenedor-catalogo {

@@ -1,6 +1,14 @@
 <h1 class="titulo-catalogo">CATÁLOGO</h1>
 
-<div class="contenedor-catalogo">
+<div class="loading" *ngIf="loading">
+    <p>Cargando Catálogo...</p>
+</div>
+
+<div class="error" *ngIf="error">
+    <p>Ha ocurrido un error intentelo más tarde.</p>
+</div>
+
+<div class="contenedor-catalogo" *ngIf="!loading && !error">
 
     <aside class="panel-filtros">
 
