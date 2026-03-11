@@ -48,7 +48,7 @@
     </form>
   </div>
 
-  <div class="list-container" *ngIf="direcciones.length; else noDir">
+  <div class="list-container" *ngIf="!loading && !error">
     <table class="tabla-direcciones">
       <thead>
         <tr>
@@ -82,7 +82,11 @@
     </table>
   </div>
 
-  <ng-template #noDir>
-    <p>No tienes direcciones guardadas.</p>
-  </ng-template>
+  <div class="loading" *ngIf="loading">
+    <p>Cargando direcciones...</p>
+  </div>
+
+  <div class="error" *ngIf="error">
+    <p>Ha ocurrido un error, intentelo más tarde.</p>
+  </div>
 </div>

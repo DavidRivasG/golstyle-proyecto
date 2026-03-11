@@ -25,6 +25,8 @@ export class DireccionesPageComponent implements OnInit {
   };
   editingId: number | null = null;
   mensaje: string = '';
+  loading: boolean = true;
+  error: boolean = false;
 
   constructor(private direccionService: DireccionService) {}
 
@@ -34,8 +36,15 @@ export class DireccionesPageComponent implements OnInit {
 
   cargar(): void {
     this.direccionService.obtener().subscribe({
-      next: dirs => (this.direcciones = dirs),
-      error: err => console.error(err)
+      next: dirs => {
+        this.direcciones = dirs;
+        this.loading = false;
+      },
+      error: err => {
+        console.error(err);
+        this.loading = false;
+        this.error = true;
+      }
     });
   }
 

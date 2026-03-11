@@ -12,10 +12,10 @@
 
 .contenedor-direcciones {
   width: 100%;
-  min-height: 100vh;
+  min-height: 70vh;
   background-color: #121212;
   color: white;
-  padding: 60px 20px;
+  padding: 60px;
 }
 
 .contenedor-direcciones h1 {
@@ -199,8 +199,23 @@
   text-align: center;
   color: #aaa;
   font-size: 1.1rem;
-  margin-top: 30px;
   padding: 40px;
+}
+
+.loading p {
+  text-align: center;
+  color: #d4af37;
+  font-size: 1.1rem;
+  background-color: #121212;
+}
+
+.error {
+  text-align: center;
+  color: #ff6b6b;
+  background-color: #4a1f1f;
+  border: 1px solid #ff6b6b;
+  font-size: 1.1rem;
+  border-radius: 8px;
 }
 
 @media (max-width: 768px) {
