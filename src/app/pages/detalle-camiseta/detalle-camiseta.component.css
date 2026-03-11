@@ -170,3 +170,12 @@
         font-size: 1.8rem;
     }
 }
+
+.loading {
+    text-align: center;
+    color: #d4af37;
+    font-size: 1.1rem;
+    padding-top: 10%;
+    background-color: #121212;
+    min-height: 70vh;
+}
