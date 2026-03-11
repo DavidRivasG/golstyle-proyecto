@@ -1,7 +1,9 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
 import { Observable, tap } from 'rxjs';
+import { environment } from '../../environments/environment';
+
+
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -9,17 +11,17 @@ export class AuthService {
   private apiUrl = environment.apiUrl;
 
   register(userData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register/`, userData)
+    return this.http.post(`${this.apiUrl}/register`, userData)
   }
 
   login(credentials: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login/`, credentials).pipe(
+    return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
       tap((res: any) => this.handleAuth(res))
     );
   }
 
   logout(): Observable<any> {
-    return this.http.post(`${this.apiUrl}/logout/`, {}).pipe(
+    return this.http.post(`${this.apiUrl}/logout`, {}).pipe(
       tap(() => {
         localStorage.removeItem('auth_token');
         localStorage.removeItem('user_data');

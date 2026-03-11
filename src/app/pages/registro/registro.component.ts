@@ -1,34 +1,47 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { RegistroFormComponent } from '../../components/registro-form/registro-form.component';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-registro-page',
   standalone: true,
-  imports: [RegistroFormComponent],
-  template: `
-    <app-registro-form 
-      (onRegister)="handleRegister($event)" 
-      (onLoginRedirect)="goToLogin()">
-    </app-registro-form>
-  `
+  imports: [CommonModule, ReactiveFormsModule],
+  templateUrl: './registro.component.html',
+  styleUrls: ['./registro.component.css']
 })
 export class RegistroComponent {
+
+  registerForm: FormGroup;
+
   private authService = inject(AuthService);
   private router = inject(Router);
+  private fb = inject(FormBuilder);
 
-handleRegister(userData: any) {
-  this.authService.register(userData).subscribe({
-    next: (res) => {
-      console.log('Usuario registrado con éxito');
-      this.router.navigate(['/login']); 
-    },
-    error: (err) => console.error(err)
-  });
-}
+  constructor() {
+    this.registerForm = this.fb.group({
+      nombre: ['', [Validators.required]],
+      ape1: ['', [Validators.required]],
+      ape2: [''],
+      correo: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+    });
+  }
 
-  goToLogin() {
+  registrar() {
+    if (this.registerForm.invalid) return;
+
+    this.authService.register(this.registerForm.value).subscribe({
+      next: () => {
+        console.log('Usuario registrado con éxito');
+        this.router.navigate(['/login']);
+      },
+      error: (err) => console.error(err)
+    });
+  }
+
+  irALogin() {
     this.router.navigate(['/login']);
   }
 }

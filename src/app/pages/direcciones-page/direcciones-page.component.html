@@ -1,7 +1,10 @@
 <div class="contenedor-direcciones">
   <h1>Mis direcciones</h1>
 
-  <div *ngIf="mensaje" class="alerta">{{ mensaje }}</div>
+  <div *ngIf="mensaje" class="alerta" 
+    [ngClass]="error ? 'alerta-error' : 'alerta-ok'">
+    {{ mensaje }}
+  </div>
 
   <div class="form-container">
     <form (ngSubmit)="guardar()" #formDir="ngForm" class="form-direccion">
@@ -37,6 +40,7 @@
         <label>Provincia</label>
         <input type="text" [(ngModel)]="form.provincia" name="provincia" required />
       </div>
+
       <div class="botones">
         <button type="submit" class="btn-gold">
           {{ editingId ? 'Actualizar' : 'Guardar' }}
@@ -84,9 +88,5 @@
 
   <div class="loading" *ngIf="loading">
     <p>Cargando direcciones...</p>
-  </div>
-
-  <div class="error" *ngIf="error">
-    <p>Ha ocurrido un error, intentelo más tarde.</p>
   </div>
 </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
+import { CommonModule, NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Direccion } from '../../interfaces/direccion.interface';
 import { DireccionService } from '../../services/direccion.service';
@@ -7,7 +7,10 @@ import { DireccionService } from '../../services/direccion.service';
 @Component({
   selector: 'app-direcciones-page',
   standalone: true,
-  imports: [NgFor, NgIf, FormsModule],
+  imports: [
+    CommonModule, 
+    FormsModule
+  ],
   templateUrl: './direcciones-page.component.html',
   styleUrl: './direcciones-page.component.css'
 })
@@ -28,7 +31,7 @@ export class DireccionesPageComponent implements OnInit {
   loading: boolean = true;
   error: boolean = false;
 
-  constructor(private direccionService: DireccionService) {}
+  constructor(private direccionService: DireccionService) { }
 
   ngOnInit(): void {
     this.cargar();
@@ -49,25 +52,41 @@ export class DireccionesPageComponent implements OnInit {
   }
 
   guardar(): void {
+    this.mensaje = '';
+    this.error = false;
+
     if (this.editingId) {
-      this.direccionService
-        .actualizar(this.editingId, this.form)
-        .subscribe({
-          next: res => {
-            this.mensaje = res.mensaje || 'Dirección actualizada';
-            this.cancelarEdicion();
-            this.cargar();
-          },
-          error: err => console.error(err)
-        });
+      // Modo edición
+      this.direccionService.actualizar(this.editingId, this.form).subscribe({
+        next: res => {
+          this.mensaje = res.mensaje || 'Dirección actualizada';
+          this.cancelarEdicion();
+          this.cargar();
+        },
+        error: err => {
+          console.error(err);
+          this.error = true;
+          this.mensaje = err.error?.message || 'Error al actualizar la dirección';
+        }
+      });
     } else {
+      // Modo creación
       this.direccionService.crear(this.form).subscribe({
         next: res => {
           this.mensaje = res.mensaje || 'Dirección agregada';
           this.limpiarFormulario();
           this.cargar();
         },
-        error: err => console.error(err)
+        error: err => {
+          console.error(err);
+          this.error = true;
+
+          if (err.status === 422) {
+            this.mensaje = err.error?.message || 'Datos inválidos';
+          } else {
+            this.mensaje = 'Error inesperado al crear la dirección';
+          }
+        }
       });
     }
   }

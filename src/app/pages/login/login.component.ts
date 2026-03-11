@@ -1,38 +1,46 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { LoginFormComponent } from '../../components/login-form/login-form.component';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login-page',
   standalone: true,
-  imports: [LoginFormComponent],
-  template: `
-    <app-login-form 
-      (onLogin)="handleLogin($event)" 
-      (onRegisterRedirect)="navigateToRegister()">
-    </app-login-form>
-  `
+  imports: [CommonModule, ReactiveFormsModule],
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
+
+  loginForm: FormGroup;
+
   private authService = inject(AuthService);
   private router = inject(Router);
+  private fb = inject(FormBuilder);
 
-  handleLogin(credentials: any) {
-    this.authService.login(credentials).subscribe({
+  constructor() {
+    this.loginForm = this.fb.group({
+      correo: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]]
+    });
+  }
+
+  iniciarSesion() {
+    if (this.loginForm.invalid) return;
+
+    this.authService.login(this.loginForm.value).subscribe({
       next: (res) => {
-        // Al loguear, Laravel nos da el token y los datos del usuario
         console.log('Login exitoso:', res.usuario.nombre);
-        this.router.navigate(['/home']); // Redirigimos a la página principal
+        this.router.navigate(['/home']);
       },
       error: (err) => {
-        // Manejamos el error 401 que configuramos en Laravel
         alert(err.error.message || 'Credenciales incorrectas');
       }
     });
   }
 
-  navigateToRegister() {
+  irARegistro() {
     this.router.navigate(['/registro']);
   }
 }

@@ -1,21 +1,20 @@
-/* Reset básico para evitar problemas de espaciado */
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Poppins', sans-serif; /* Fuente moderna */
+  font-family: 'Poppins', sans-serif;
 }
 
 .register-container {
   display: flex;
   height: 700px;
   width: 100%;
-  background-color: #121212; /* Negro suave, menos agresivo */
+  background-color: #121212;
 }
 
-/* Sección Imagen */
 .image-section {
-  display: none; /* Oculta en móviles por defecto */
+  display: none;
   flex: 1.2;
   position: relative;
   overflow: hidden;
@@ -29,7 +28,6 @@
   filter: brightness(0.8); 
 }
 
-/* Sección Formulario */
 .form-section {
   flex: 1;
   display: flex;
@@ -48,7 +46,7 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
-/* Inputs */
+
 .input-group {
   margin-bottom: 20px;
 }
@@ -73,7 +71,6 @@
   transition: all 0.3s ease;
 }
 
-/* Efecto al hacer clic en el input */
 .input-group input:focus {
   outline: none;
   background-color: #333;
@@ -81,7 +78,6 @@
   box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
 }
 
-/* Botones */
 .button-group {
   margin-top: 35px;
   display: flex;
@@ -100,7 +96,6 @@ button {
   letter-spacing: 1px;
 }
 
-/* Botón Principal (Iniciar Sesión) */
 .btn-gold {
   background: linear-gradient(135deg, #d4af37 0%, #b5952f 100%);
   color: #000;
@@ -117,7 +112,7 @@ button {
   box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
 }
 
-/* Botón Secundario (Crear Cuenta) - Estilo "Outline" */
+
 .btn-gold:last-child { 
   background: transparent;
   border: 2px solid #d4af37;
@@ -137,10 +132,10 @@ button {
 }
 
 button:disabled {
-  background: #555 !important;
+  background: #555;
   cursor: not-allowed;
-  transform: none !important;
-  box-shadow: none !important;
+  transform: none;
+  box-shadow: none;
   opacity: 0.6;
 }
 

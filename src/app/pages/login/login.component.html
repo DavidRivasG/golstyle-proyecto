@@ -4,23 +4,34 @@
   </div>
 
   <div class="form-section">
-    <form #loginForm="ngForm" (ngSubmit)="iniciarSesion()" class="form-wrapper">
+    <form [formGroup]="loginForm" (ngSubmit)="iniciarSesion()" class="form-wrapper">
+
       <div class="input-group">
         <label>CORREO:</label>
-        <input type="email" [(ngModel)]="email" name="email" #emailInput="ngModel" required email>
-        <div *ngIf="emailInput.invalid && emailInput.touched" class="error">Email inválido</div>
+        <input type="email" formControlName="correo">
+        <div *ngIf="loginForm.get('correo')?.invalid && loginForm.get('correo')?.touched" class="error">
+          Email inválido
+        </div>
       </div>
 
       <div class="input-group">
         <label>CONTRASEÑA:</label>
-        <input type="password" [(ngModel)]="password" name="password" #passwordInput="ngModel" required>
-        <div *ngIf="passwordInput.invalid && passwordInput.touched" class="error">Contraseña requerida</div>
+        <input type="password" formControlName="password">
+        <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="error">
+          Contraseña requerida
+        </div>
       </div>
 
       <div class="button-group">
-        <button type="submit" class="btn-gold" [disabled]="!loginForm.valid">INICIAR SESIÓN</button>
-        <button type="button" class="btn-gold" (click)="irARegistro()">CREAR CUENTA</button>
+        <button type="submit" class="btn-gold" [disabled]="loginForm.invalid">
+          INICIAR SESIÓN
+        </button>
+
+        <button type="button" class="btn-gold" (click)="irARegistro()">
+          CREAR CUENTA
+        </button>
       </div>
+
     </form>
   </div>
 </div>

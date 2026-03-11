@@ -1,8 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
 import { Pedido } from '../interfaces/pedido.interface';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'

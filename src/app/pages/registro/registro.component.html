@@ -5,44 +5,44 @@
     </div>
 
     <div class="form-section">
-        <form #registroForm="ngForm" (ngSubmit)="registrar()" class="form-wrapper">
-            <!-- Nombre -->
+        <form [formGroup]="registerForm" (ngSubmit)="registrar()" class="form-wrapper">
+
             <div class="input-group">
                 <label>NOMBRE:</label>
-                <input type="text" [(ngModel)]="nuevoUsuario.nombre" name="nombre" #nombreInput="ngModel" required>
-                <div *ngIf="nombreInput.invalid && nombreInput.touched" class="error">Nombre requerido</div>
+                <input type="text" formControlName="nombre">
             </div>
 
-            <!-- Apellidos -->
             <div class="input-group">
-                <label>APELLIDOS:</label>
-                <input type="text" [(ngModel)]="apellidos" name="apellidos" #apellidosInput="ngModel" required>
-                <div *ngIf="apellidosInput.invalid && apellidosInput.touched" class="error">Apellidos requeridos</div>
+                <label>APELLIDO 1:</label>
+                <input type="text" formControlName="ape1">
             </div>
 
-            <!-- Correo -->
+            <div class="input-group">
+                <label>APELLIDO 2 (OPCIONAL):</label>
+                <input type="text" formControlName="ape2">
+            </div>
+
             <div class="input-group">
                 <label>CORREO:</label>
-                <input type="email" [(ngModel)]="nuevoUsuario.correo" name="correo" #correoInput="ngModel" placeholder=""
-                    required email>
-                <div *ngIf="correoInput.invalid && correoInput.touched" class="error">Email inválido</div>
+                <input type="email" formControlName="correo">
             </div>
 
-            <!-- Contraseña -->
             <div class="input-group">
                 <label>CONTRASEÑA:</label>
-                <input type="password" [(ngModel)]="nuevoUsuario.password" name="password" #passwordInput="ngModel" required>
-                <div *ngIf="passwordInput.invalid && passwordInput.touched" class="error">Contraseña requerida</div>
+                <input type="password" formControlName="password">
             </div>
 
             <div class="button-group">
-                <button type="submit" class="btn-gold" [disabled]="!registroForm.valid">REGISTRARSE</button>
-                <button type="button" class="btn-gold" (click)="irALogin()">INICIAR SESIÓN</button>
+                <button type="submit" class="btn-gold" [disabled]="registerForm.invalid">
+                    REGISTRARSE
+                </button>
+
+                <button type="button" class="btn-gold" (click)="irALogin()">
+                    INICIAR SESIÓN
+                </button>
             </div>
 
         </form>
-
-
     </div>
 
 </div>
