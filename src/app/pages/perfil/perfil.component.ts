@@ -11,6 +11,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './perfil.component.css'
 })
 export class PerfilComponent implements OnInit {
+  // Injección de servicios
   private authService = inject(AuthService);
   private router = inject(Router);
   user: any = null;
@@ -20,6 +21,7 @@ export class PerfilComponent implements OnInit {
     console.log('Usuario en perfil:', this.user);
   }
 
+  // Cerrar sesión
   logout() {
     this.authService.logout().subscribe({
       next: () => {

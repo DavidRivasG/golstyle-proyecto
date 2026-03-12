@@ -1,8 +1,10 @@
 <div class="producto">
+    <!-- Imagen del producto -->
     <div class="producto-imagen">
         <img [src]="producto.imagen" alt="{{ producto.nombre_camiseta }}">
     </div>
 
+    <!-- Información del producto -->
     <div class="info">
         <div class="info-contenido">
             <div class="info-textos">
@@ -19,6 +21,7 @@
                 </p>
             </div>
 
+            <!-- Acciones -->
             <div class="acciones">
                 <div class="cantidad-control">
                     <button class="btn-cantidad" (click)="onDisminuir()" [disabled]="producto.cantidad <= 1">−</button>

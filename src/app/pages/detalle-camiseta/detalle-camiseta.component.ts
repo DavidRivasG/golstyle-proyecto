@@ -28,6 +28,7 @@ export class DetalleCamisetaComponent implements OnInit {
   nombrePersonalizado: string | null = null;
   dorsalPersonalizado: number | null = null;
 
+  // Injección de servicio
   private camisetasService = inject(CamisetasService);
   private carritoService = inject(CarritoService);
   private authService = inject(AuthService);
@@ -58,6 +59,7 @@ export class DetalleCamisetaComponent implements OnInit {
     });
   }
 
+  // Obtener el stock de una variante de la camiseta
   getStockVariante(): number {
 
     if (!this.camiseta || !this.tallaSeleccionada) return 0;
@@ -71,6 +73,7 @@ export class DetalleCamisetaComponent implements OnInit {
   }
 
 
+  // Comprobar la cantidad del formulario
   validarCantidad() {
 
     const max = this.getStockVariante();
@@ -86,6 +89,7 @@ export class DetalleCamisetaComponent implements OnInit {
   }
 
 
+  // Validar el dorsal del formulario
   validarDorsal() {
     if (this.dorsalPersonalizado !== null) {
 
@@ -94,6 +98,7 @@ export class DetalleCamisetaComponent implements OnInit {
     }
   }
 
+  // Agregar camiseta al carrito
   agregarAlCarrito() {
 
 
@@ -141,9 +146,8 @@ export class DetalleCamisetaComponent implements OnInit {
     });
   }
 
+  // Manejo de errores
   private handleError(err: any) {
-
-    console.error("Error al añadir al carrito:", err);
 
     if (err.status === 401) {
 

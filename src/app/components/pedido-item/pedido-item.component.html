@@ -1,12 +1,15 @@
 <div class="pedido-item">
+  <!-- Cabecera del pedido -->
   <div class="pedido-header">
     <h3>Pedido #{{ pedido.cod_ped }}</h3>
     <span class="estado" [ngClass]="pedido.estado">{{ pedido.estado }}</span>
   </div>
+  <!-- Detalles del pedido -->
   <div class="pedido-details">
     <p><strong>Fecha:</strong><span class="datos"> {{ pedido.fecha | date:'dd/MM/yyyy' }}</span> </p>
     <p><strong>Total:</strong><span class="datos"> {{ pedido.total }}€</span></p>
   </div>
+  <!-- Acciones del pedido -->
   <div class="pedido-acciones">
     <a [routerLink]="['/detalles-pedido', pedido.cod_ped]" class="btn-detalles">Ver Detalles</a>
     <button *ngIf="pedido.estado === 'pendiente'" (click)="onCancelar()" class="btn-cancelar">Cancelar Pedido</button>

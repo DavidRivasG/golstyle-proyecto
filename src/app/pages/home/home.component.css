@@ -37,8 +37,11 @@
   cursor: pointer;
   transition: transform 0.2s;
 }
-.btn-gold:hover { transform: scale(1.05); }
+.btn-gold:hover { 
+  transform: scale(1.05); 
+}
 
+/* Hero section */
 .hero {
   height: 80vh;
   background: url('/assets/images/campo-futbol.jpg') no-repeat center center/cover;

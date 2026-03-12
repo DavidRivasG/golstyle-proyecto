@@ -6,6 +6,7 @@
   <div class="form-section">
     <form [formGroup]="loginForm" (ngSubmit)="iniciarSesion()" class="form-wrapper">
 
+      <!-- Correo -->
       <div class="input-group">
         <label>CORREO:</label>
         <input type="email" formControlName="correo">
@@ -14,6 +15,7 @@
         </div>
       </div>
 
+      <!-- Contraseña -->
       <div class="input-group">
         <label>CONTRASEÑA:</label>
         <input type="password" formControlName="password">
@@ -22,11 +24,12 @@
         </div>
       </div>
 
+      <!-- Iniciar sesión -->
       <div class="button-group">
         <button type="submit" class="btn-gold" [disabled]="loginForm.invalid">
           INICIAR SESIÓN
         </button>
-
+      <!-- Ir al registro -->
         <button type="button" class="btn-gold" (click)="irARegistro()">
           CREAR CUENTA
         </button>

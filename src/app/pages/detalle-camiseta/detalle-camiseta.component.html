@@ -1,3 +1,4 @@
+<!-- Cargando camiseta -->
 <div *ngIf="loading" class="loading">
     <div class="spinner"></div>
     <p>Cargando camiseta...</p>
@@ -9,6 +10,7 @@
         <img [src]="camiseta.imagen_principal" [alt]="camiseta.nombre">
     </div>
 
+    <!-- Información de la camiseta -->
     <div class="info-section">
         <div class="info-wrapper">
 
@@ -21,6 +23,7 @@
                 <p class="detalle"><strong>Temporada:</strong> {{ camiseta.temporada }}</p>
             </div>
 
+            <!-- Talla -->
             <div class="input-group">
                 <label for="talla">Seleccionar Talla</label>
                 <select id="talla" [(ngModel)]="tallaSeleccionada" (change)="validarCantidad()">
@@ -31,6 +34,7 @@
                 </select>
             </div>
 
+            <!-- Cantidad -->
             <div class="input-group">
                 <label for="cantidad">Cantidad</label>
                 <input 
@@ -43,13 +47,16 @@
                     [disabled]="!tallaSeleccionada || getStockVariante() === 0">
             </div>
 
+            <!-- Personalización -->
             <div class="personalizacion-box">
-                
+
+                <!-- Nombre -->
                 <div class="input-group">
                     <label>NOMBRE PERSONALIZADO</label>
                     <input type="text" [(ngModel)]="nombrePersonalizado" placeholder="Ej: MESSI" maxlength="50">
                 </div>
 
+                <!-- Dorsal -->
                 <div class="input-group">
                     <label>DORSAL (0-99)</label>
                     <input 
@@ -62,6 +69,7 @@
                 </div>
             </div>
 
+            <!-- Agregar al carrito -->
             <div class="button-group">
                 <button class="btn-gold" (click)="agregarAlCarrito()"
                     [disabled]="!tallaSeleccionada || getStockVariante() === 0"

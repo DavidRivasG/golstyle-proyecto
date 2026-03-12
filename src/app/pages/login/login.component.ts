@@ -15,10 +15,12 @@ export class LoginComponent {
 
   loginForm: FormGroup;
 
+  // Injección de servicios
   private authService = inject(AuthService);
   private router = inject(Router);
   private fb = inject(FormBuilder);
 
+  // Validación del formulario
   constructor() {
     this.loginForm = this.fb.group({
       correo: ['', [Validators.required, Validators.email]],
@@ -26,6 +28,7 @@ export class LoginComponent {
     });
   }
 
+  // Iniciar sesión
   iniciarSesion() {
     if (this.loginForm.invalid) return;
 

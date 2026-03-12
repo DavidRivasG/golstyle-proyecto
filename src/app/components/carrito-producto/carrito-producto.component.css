@@ -1,3 +1,4 @@
+/* Estilo general */
 * {
     font-family: 'Poppins', sans-serif;
     padding: 0;
@@ -93,7 +94,7 @@
     background-color: #e60000;
 }
 
-
+/* Responsive */
 @media ( width <= 670px) {
 
     .producto {

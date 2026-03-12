@@ -6,6 +6,7 @@ import { environment } from '../../environments/environment';
 @Injectable({ providedIn: 'root' })
 export class ContactoService {
 
+    // Injección de servicios
     private http = inject(HttpClient);
     private apiUrl = environment.apiUrl;
 

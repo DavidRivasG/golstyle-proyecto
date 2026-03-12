@@ -1,11 +1,13 @@
 <div class="contenedor-direcciones">
   <h1>Mis direcciones</h1>
 
+  <!-- Mostrar error -->
   <div *ngIf="mensaje" class="alerta" 
     [ngClass]="error ? 'alerta-error' : 'alerta-ok'">
     {{ mensaje }}
   </div>
 
+  <!-- Formulario de edición / creación -->
   <div class="form-container">
     <form (ngSubmit)="guardar()" #formDir="ngForm" class="form-direccion">
       <div class="campo">
@@ -41,10 +43,12 @@
         <input type="text" [(ngModel)]="form.provincia" name="provincia" required />
       </div>
 
+      <!-- Botónde confirmación -->
       <div class="botones">
         <button type="submit" class="btn-gold">
           {{ editingId ? 'Actualizar' : 'Guardar' }}
         </button>
+        <!-- Botón para cancelar edición -->
         <button type="button" class="btn-cancel" *ngIf="editingId" (click)="cancelarEdicion()">
           Cancelar edición
         </button>
@@ -52,6 +56,7 @@
     </form>
   </div>
 
+  <!-- Tabla para la información de las direcciones del usuario -->
   <div class="list-container" *ngIf="!loading && !error">
     <table class="tabla-direcciones">
       <thead>
@@ -67,6 +72,7 @@
           <th>Acciones</th>
         </tr>
       </thead>
+      <!-- Cargar la información de las direcciones del usuario -->
       <tbody>
         <tr *ngFor="let d of direcciones">
           <td data-label="Nombre">{{ d.nombre }}</td>
@@ -86,6 +92,7 @@
     </table>
   </div>
 
+  <!-- Cargando -->
   <div class="loading" *ngIf="loading">
     <p>Cargando direcciones...</p>
   </div>

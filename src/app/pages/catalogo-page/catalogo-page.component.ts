@@ -25,6 +25,7 @@ export class CatalogoPageComponent implements OnInit {
   loading = true;
   error = false;
 
+  // Lista de filtros aplicables
   filtros: FiltrosCatalogo = {
 
     liga: [],
@@ -33,6 +34,7 @@ export class CatalogoPageComponent implements OnInit {
     temporada: [],
   };
 
+  // Opciones mostradas en la página
   opciones = {
 
     ligas: [] as string[],
@@ -41,15 +43,18 @@ export class CatalogoPageComponent implements OnInit {
     temporadas: [] as string[],
   };
 
+  // Injección de servicios
   camisetasService = inject(CamisetasService);
   filtrosService = inject(FiltrosService);
 
+  // Al cargarse la página
   ngOnInit(): void {
 
     this.cargarFiltros();
     this.cargarCatalogo();
   }
 
+  // Cargar los filtros desde el back
   cargarFiltros() {
 
     this.filtrosService.getLigas().subscribe(res => this.opciones.ligas = res);
@@ -58,6 +63,7 @@ export class CatalogoPageComponent implements OnInit {
     this.filtrosService.getTemporadas().subscribe(res => this.opciones.temporadas = res);
   }
 
+  // Cargar elementos del catálogo
   cargarCatalogo() {
     this.loading = true;
 
@@ -81,6 +87,7 @@ export class CatalogoPageComponent implements OnInit {
     });
   }
 
+  // Aplicar fitros y llamar al back
   aplicarFiltro(tipo: keyof FiltrosCatalogo, valor: string) {
 
     const lista = this.filtros[tipo];

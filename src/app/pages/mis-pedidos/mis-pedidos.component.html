@@ -1,14 +1,15 @@
 <div class="mis-pedidos-container">
   <h1 class="titulo-pedidos">MIS PEDIDOS</h1>
-  
+  <!-- Cargando -->
   <div *ngIf="loading" class="loading-message">
     <p>Cargando pedidos...</p>
   </div>
-
+    <!-- Error -->
   <div *ngIf="error" class="error-message">
     <p>{{ error }}</p>
   </div>
   
+  <!-- Comunicación con el componente padre -->
   <div class="pedidos-list" *ngIf="!loading && !error">
     <app-pedido-item 
       *ngFor="let pedido of pedidos" 

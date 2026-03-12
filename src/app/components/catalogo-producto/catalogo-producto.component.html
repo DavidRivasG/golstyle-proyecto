@@ -1,9 +1,12 @@
+<!-- Enlace de la camiseta -->
 <a [routerLink]="['/camiseta', camiseta.cod_cam]" class="tarjeta-producto">
 
+    <!-- Contenedor de la imagen -->
     <div class="contenedor-imagen">
         <img *ngIf="camiseta.imagen_principal" [src]="camiseta.imagen_principal" [alt]="camiseta.nombre">
     </div>
 
+    <!-- Información del producto -->
     <div class="info-producto">
         <span class="nombre-producto">{{ camiseta.nombre }}</span>
         <span class="precio-producto">{{ camiseta.precio }}€</span>

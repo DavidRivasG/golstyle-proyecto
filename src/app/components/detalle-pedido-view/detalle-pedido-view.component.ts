@@ -22,6 +22,7 @@ export class DetallePedidoViewComponent implements OnInit, OnChanges {
     //
   }
 
+  // Enviar el código del pedido al padre para cancelar el pedido
   onCancelar() {
     this.cancelar.emit(this.pedido.pedido.cod_ped);
   }

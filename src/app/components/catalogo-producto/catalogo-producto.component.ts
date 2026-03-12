@@ -16,5 +16,6 @@ import { RouterLink } from '@angular/router';
 
 export class CatalogoProductoComponent {
   
+  // Obtener la camiseta del padre
   @Input() camiseta!: Camiseta;
 }

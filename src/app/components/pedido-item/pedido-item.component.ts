@@ -14,6 +14,7 @@ export class PedidoItemComponent {
   @Input() pedido!: Pedido;
   @Output() cancelar = new EventEmitter<number>();
 
+  // Emitir el código al padre
   onCancelar() {
     this.cancelar.emit(this.pedido.cod_ped);
   }

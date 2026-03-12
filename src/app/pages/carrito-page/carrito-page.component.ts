@@ -35,17 +35,20 @@ export class CarritoPageComponent implements OnInit {
   cargandoDirecciones = false;
   creandoPedido = false;
 
+  // Injección de servicios
   carritoService = inject(CarritoService);
   authService = inject(AuthService);
   direccionService = inject(DireccionService);
   pedidoService = inject(PedidoService);
   router = inject(Router);
 
+
   ngOnInit(): void {
 
     this.cargarCarrito();
   }
 
+  // Función para cargar la información del carrito
   cargarCarrito() {
 
     if(!this.authService.isLoggedIn()) {
@@ -72,6 +75,7 @@ export class CarritoPageComponent implements OnInit {
     });
   }
 
+  // Función para eliminar un elemento del carrito
   eliminarProducto(id: number) {
 
     this.carritoService.eliminarProducto(id).subscribe({
@@ -86,6 +90,7 @@ export class CarritoPageComponent implements OnInit {
     });
   }
 
+  // Función para aumentar la cantidad de un producto del carrito a +1
   aumentarCantidad(id: number) {
 
     this.carritoService.aumentarCantidad(id).subscribe({
@@ -101,6 +106,7 @@ export class CarritoPageComponent implements OnInit {
   }
 
 
+  // Función para disminuir la cantidad de un producto del carrito a -1
   disminuirCantidad(id: number) {
 
     this.carritoService.disminuirCantidad(id).subscribe({
@@ -115,18 +121,21 @@ export class CarritoPageComponent implements OnInit {
     })
   }
 
+  // Mostrar la ventana de selección de dirección
   abrirModalPedido() {
 
     this.mostrarModalPedido = true;
     this.cargarDirecciones();
   }
 
+  // Cerrar la ventana de selección de dirección
   cerrarModalPedido() {
 
     this.mostrarModalPedido = false;
     this.direccionSeleccionada = null;
   }
 
+  // Cargar las direcciones del usuario
   cargarDirecciones() {
 
     this.cargandoDirecciones = true;
@@ -145,6 +154,7 @@ export class CarritoPageComponent implements OnInit {
     });
   }
 
+  // Creación del pedido
   crearPedido() {
 
     if (!this.direccionSeleccionada) {

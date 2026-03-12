@@ -13,6 +13,7 @@ import { Pedido } from '../../interfaces/pedido.interface';
 })
 export class MisPedidosComponent implements OnInit {
 
+  // Injección de servicio
   private pedidoService = inject(PedidoService);
 
   pedidos: Pedido[] = [];
@@ -23,6 +24,7 @@ export class MisPedidosComponent implements OnInit {
     this.cargarPedidos();
   }
 
+  // Cargar los pedidos
   private cargarPedidos(): void {
     this.loading = true;
     this.error = null;
@@ -39,6 +41,7 @@ export class MisPedidosComponent implements OnInit {
     });
   }
 
+  // Cancelar el pedido
   onCancelarPedido(codPed: number): void {
     const confirmar = confirm('¿Estás seguro de que deseas cancelar este pedido?');
     if (!confirmar) return;

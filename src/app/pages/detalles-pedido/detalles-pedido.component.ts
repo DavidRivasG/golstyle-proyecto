@@ -14,6 +14,7 @@ import { Pedido } from '../../interfaces/pedido.interface';
 })
 export class DetallesPedidoComponent implements OnInit {
 
+  // Injección de servicios
   private pedidoService = inject(PedidoService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
@@ -34,6 +35,7 @@ export class DetallesPedidoComponent implements OnInit {
     this.cargarPedido(id);
   }
 
+  // Cargar el pedido del back
   private cargarPedido(id: number): void {
     this.loading = true;
     this.error = null;
@@ -50,6 +52,7 @@ export class DetallesPedidoComponent implements OnInit {
     });
   }
 
+  // Cancelar el pedido del usuario
   onCancelarPedido(codPed: number): void {
     const confirmar = confirm('¿Estás seguro de que deseas cancelar este pedido?');
 

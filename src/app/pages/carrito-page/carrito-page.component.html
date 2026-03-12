@@ -3,6 +3,7 @@
         <h1>CARRITO</h1>
     </div>
 
+    <!-- Si el usuario no está logueado -->
     <div *ngIf="!loggedIn" class="loggedIn">
         <p>Para acceder al carrito debes estar una sesion iniciada.</p>
         <div class="enlace">
@@ -10,15 +11,18 @@
         </div>
     </div>
 
+    <!-- Cargando -->
     <div *ngIf="loading" class="loading">
         <div class="spinner"></div>
         <p>Cargando carrito...</p>
     </div>
 
+    <!-- Carrito vacío -->
     <div *ngIf="!loading && productos.length === 0 && loggedIn" class="carrito-vacio">
         <p>Tu carrito está vacío.</p>
     </div>
 
+    <!-- Mostrar los productos -->
     <div *ngIf="!loading && productos.length > 0 && loggedIn" class="carrito-container">
 
         <div class="productos">
@@ -43,6 +47,7 @@
 
     </div>
 
+    <!-- Ventana de selección de dirección -->
     <div *ngIf="mostrarModalPedido" class="modal-overlay">
         <div class="modal-content">
             <div class="modal-header">
@@ -74,6 +79,7 @@
                         </select>
                     </div>
 
+                    <!-- Resumen del carrito -->
                     <div class="resumen-pedido">
                         <h3>Resumen del Pedido</h3>
                         <p><strong>Total a pagar:</strong> {{ total | currency:'EUR' }}</p>

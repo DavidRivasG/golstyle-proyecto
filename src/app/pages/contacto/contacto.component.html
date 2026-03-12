@@ -1,5 +1,6 @@
 <form [formGroup]="form" (ngSubmit)="enviar()" class="form-wrapper">
 
+    <!-- Correo electrónico -->
     <div class="input-group">
         <label>CORREO:</label>
         <input type="email" formControlName="correo">
@@ -8,6 +9,7 @@
         </div>
     </div>
 
+<!-- Asunto del mensaje -->
     <div class="input-group">
         <label>ASUNTO:</label>
         <select formControlName="asunto">
@@ -23,6 +25,7 @@
         </div>
     </div>
 
+    <!-- ID del pedido (solo si es asunto = Localizar mi pedido) -->
     <div class="input-group" *ngIf="form.get('asunto')?.value === 'localizar-pedido'">
         <label>ID DEL PEDIDO:</label>
         <input type="text" formControlName="idPedido">
@@ -31,6 +34,7 @@
         </div>
     </div>
 
+    <!-- Mensaje de contexto -->
     <div class="input-group">
         <label>MENSAJE:</label>
         <textarea rows="5" formControlName="mensaje"></textarea>
@@ -39,6 +43,7 @@
         </div>
     </div>
 
+    <!-- Botón para enviar -->
     <div class="button-group">
         <button type="submit" class="btn-gold" [disabled]="form.invalid">ENVIAR</button>
     </div>

@@ -31,12 +31,14 @@ export class DireccionesPageComponent implements OnInit {
   loading: boolean = true;
   error: boolean = false;
 
+  // Injección de servicios
   constructor(private direccionService: DireccionService) { }
 
   ngOnInit(): void {
     this.cargar();
   }
 
+  // Cargar las direcciones del usuario
   cargar(): void {
     this.direccionService.obtener().subscribe({
       next: dirs => {
@@ -51,6 +53,7 @@ export class DireccionesPageComponent implements OnInit {
     });
   }
 
+  // Guardar una dirección nueva o editada
   guardar(): void {
     this.mensaje = '';
     this.error = false;
@@ -96,11 +99,13 @@ export class DireccionesPageComponent implements OnInit {
     this.form = { ...d };
   }
 
+  // Cancelar edición
   cancelarEdicion(): void {
     this.editingId = null;
     this.limpiarFormulario();
   }
 
+  // Reset del formulario
   limpiarFormulario(): void {
     this.form = {
       nombre: '',
@@ -114,6 +119,7 @@ export class DireccionesPageComponent implements OnInit {
     };
   }
 
+  //  Confirmación de la eliminación de una dirección
   eliminar(id: number): void {
     if (confirm('¿Deseas eliminar esta dirección?')) {
       this.direccionService.eliminar(id).subscribe({

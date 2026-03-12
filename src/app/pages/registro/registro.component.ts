@@ -15,10 +15,12 @@ export class RegistroComponent {
 
   registerForm: FormGroup;
 
+  // Injección de servicios
   private authService = inject(AuthService);
   private router = inject(Router);
   private fb = inject(FormBuilder);
 
+  // Validación del formulario
   constructor() {
     this.registerForm = this.fb.group({
       nombre: ['', [Validators.required]],
@@ -29,6 +31,7 @@ export class RegistroComponent {
     });
   }
 
+  // Registro
   registrar() {
     if (this.registerForm.invalid) return;
 
@@ -41,6 +44,7 @@ export class RegistroComponent {
     });
   }
 
+  // Ir al loguin
   irALogin() {
     this.router.navigate(['/login']);
   }

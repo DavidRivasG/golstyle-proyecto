@@ -1,4 +1,5 @@
 <div class="pedido-info">
+  <!-- Información general del pedido -->
   <div class="info-header">
     <div class="info-block">
       <p><strong>Fecha:</strong> <span class="datos"> {{ pedido.pedido.fecha | date:'dd/MM/yyyy' }}</span></p>
@@ -12,6 +13,7 @@
     </div>
   </div>
 
+  <!-- Lista de articulos del pedido -->
   <div class="detalles-lista" *ngIf="pedido.detalles && pedido.detalles.length > 0">
     <h2>Artículos del Pedido</h2>
     <div class="detalles-items">
@@ -42,6 +44,7 @@
     <p style="color: #d4af37;">No hay artículos en este pedido.</p>
   </div>
 
+  <!-- Acciones del pedido -->
   <div class="pedido-acciones">
     <a routerLink="/mis-pedidos" class="btn-volver">Volver a Mis Pedidos</a>
     <button *ngIf="pedido.pedido.estado === 'pendiente'" (click)="onCancelar()" class="btn-cancelar">Cancelar

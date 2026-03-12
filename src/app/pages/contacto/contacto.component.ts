@@ -12,6 +12,7 @@ import { ContactoService } from '../../services/contacto.service';
 })
 export class ContactoComponent {
 
+  // Injección de servicio
   fb = inject(FormBuilder);
   contactoService = inject(ContactoService);
 
@@ -26,6 +27,7 @@ export class ContactoComponent {
     idPedido: ['']
   });
 
+  // Enviar el mensaje
   enviar() {
 
     if (this.form.invalid) {

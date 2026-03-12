@@ -27,6 +27,7 @@
   font-size: 0.9rem;
 }
 
+/* Colores de los estados */
 .estado.pendiente {
   background-color: #fff3cd;
   color: #856404;

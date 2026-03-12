@@ -4,6 +4,7 @@
         <div *ngIf="user; else noUser" class="contenido-perfil">
             <div class="contenedor-columnas">
                 <div class="columna">
+                    <!-- Información del usuario -->
                     <div class="grupo-info">
                         <label>NOMBRE COMPLETO:</label>
                         <p>{{ user.nombre }} {{ user.ape1 }} {{ user.ape2 || '' }}</p>
