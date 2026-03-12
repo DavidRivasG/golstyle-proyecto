@@ -4,6 +4,11 @@ import { CarritoService } from '../../services/carrito.service';
 import { CommonModule, CurrencyPipe, NgFor } from '@angular/common';
 import { CarritoProductoComponent } from '../../components/carrito-producto/carrito-producto.component';
 import { AuthService } from '../../services/auth.service';
+import { DireccionService } from '../../services/direccion.service';
+import { PedidoService } from '../../services/pedido.service';
+import { Direccion } from '../../interfaces/direccion.interface';
+import { FormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-carrito-page',
@@ -12,6 +17,8 @@ import { AuthService } from '../../services/auth.service';
     CommonModule,
     CurrencyPipe,
     CarritoProductoComponent,
+    FormsModule,
+    RouterModule,
   ],
   templateUrl: './carrito-page.component.html',
   styleUrl: './carrito-page.component.css'
@@ -22,9 +29,17 @@ export class CarritoPageComponent implements OnInit {
   total = 0;
   loading = true;
   loggedIn = true;
+  direcciones: Direccion[] = [];
+  direccionSeleccionada: number | null = null;
+  mostrarModalPedido = false;
+  cargandoDirecciones = false;
+  creandoPedido = false;
 
   carritoService = inject(CarritoService);
   authService = inject(AuthService);
+  direccionService = inject(DireccionService);
+  pedidoService = inject(PedidoService);
+  router = inject(Router);
 
   ngOnInit(): void {
 
@@ -97,6 +112,60 @@ export class CarritoPageComponent implements OnInit {
 
       error: (err) => alert("Error actualizando cantidad" + err)
     })
+  }
+
+  abrirModalPedido() {
+    this.mostrarModalPedido = true;
+    this.cargarDirecciones();
+  }
+
+  cerrarModalPedido() {
+    this.mostrarModalPedido = false;
+    this.direccionSeleccionada = null;
+  }
+
+  cargarDirecciones() {
+    this.cargandoDirecciones = true;
+    this.direccionService.obtener().subscribe({
+      next: (dirs) => {
+        this.direcciones = dirs;
+        this.cargandoDirecciones = false;
+      },
+      error: (err) => {
+        console.error("Error cargando direcciones", err);
+        this.cargandoDirecciones = false;
+        alert("Error al cargar las direcciones");
+      }
+    });
+  }
+
+  crearPedido() {
+    if (!this.direccionSeleccionada) {
+      alert("Por favor selecciona una dirección");
+      return;
+    }
+
+    this.creandoPedido = true;
+    const pedidoData = {
+      cod_dir: this.direccionSeleccionada,
+      estado: 'pendiente'
+    };
+
+    this.pedidoService.crearPedido(pedidoData).subscribe({
+      next: (resp: any) => {
+        this.creandoPedido = false;
+        this.cerrarModalPedido();
+        alert("Pedido creado exitosamente");
+        this.loading = true;
+        this.cargarCarrito();
+        this.router.navigate(['/mis-pedidos']);
+      },
+      error: (err) => {
+        this.creandoPedido = false;
+        console.error("Error creando pedido", err);
+        alert("Error al crear el pedido: " + (err.error?.message || err.message));
+      }
+    });
   }
 
 

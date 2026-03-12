@@ -34,8 +34,52 @@
 
             <p><strong>Total:</strong> {{ total | currency:'EUR' }}</p>
 
-            <button class="btn-comprar">COMPRAR</button>
+            <button class="btn-comprar" (click)="abrirModalPedido()">COMPRAR</button>
         </div>
 
+    </div>
+
+    <div *ngIf="mostrarModalPedido" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Realizar Pedido</h2>
+                <button class="btn-close" (click)="cerrarModalPedido()">×</button>
+            </div>
+
+            <div class="modal-body">
+                <div *ngIf="cargandoDirecciones" class="loading-small">
+                    <p>Cargando direcciones...</p>
+                </div>
+
+                <div *ngIf="!cargandoDirecciones && direcciones.length === 0" class="sin-direcciones">
+                    <p>No tienes direcciones registradas. Por favor ve a tu perfil y agrega una.</p>
+                </div>
+
+                <div *ngIf="!cargandoDirecciones && direcciones.length > 0" class="form-pedido">
+                    <div class="form-group">
+                        <label for="direccion">Selecciona tu dirección de entrega:</label>
+                        <select id="direccion" [(ngModel)]="direccionSeleccionada" class="select-direccion">
+                            <option [value]="null">-- Selecciona una dirección --</option>
+                            <option *ngFor="let dir of direcciones" [value]="dir.cod_dir">
+                                {{ dir.nombre }} - {{ dir.calle }}, {{ dir.num }} {{ dir.piso ? '- ' + dir.piso : '' }} - {{ dir.cp }} ({{ dir.ciudad }}, {{ dir.provincia }})
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="resumen-pedido">
+                        <h3>Resumen del Pedido</h3>
+                        <p><strong>Total a pagar:</strong> {{ total | currency:'EUR' }}</p>
+                        <p><strong>Cantidad de artículos:</strong> {{ productos.length }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn-cancelar" (click)="cerrarModalPedido()" [disabled]="creandoPedido">Cancelar</button>
+                <button class="btn-crear" (click)="crearPedido()" [disabled]="!direccionSeleccionada || creandoPedido || cargandoDirecciones">
+                    {{ creandoPedido ? 'Creando pedido...' : 'Crear Pedido' }}
+                </button>
+            </div>
+        </div>
     </div>
 </div>
