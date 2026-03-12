@@ -1,6 +1,5 @@
 * {
     font-family: 'Poppins', sans-serif;
-    padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
@@ -40,25 +39,9 @@ h2, p {
     background-color: #1e1e1e;
 }
 
-.btn-comprar {
-    width: 100%;
-    padding: 1rem;
-    background: #f7c600;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 1rem;
-}
-
 .btn-gold {
-    background-color: #d4af37;
-    color: #fff;
+    width: 100%;
     border: none;
-    padding: 12px 24px;
-    font-weight: bold;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: transform 0.2s;
 }
 
 .titulo{
@@ -86,7 +69,6 @@ h2, p {
 
 }
 
-/* Modal styles */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -226,11 +208,8 @@ h2, p {
 .btn-cancelar, .btn-crear {
     padding: 0.75rem 1.5rem;
     border: none;
-    border-radius: 4px;
     cursor: pointer;
-    font-weight: bold;
     font-size: 1rem;
-    transition: all 0.3s;
 }
 
 .btn-cancelar {
@@ -240,11 +219,6 @@ h2, p {
 
 .btn-cancelar:hover:not(:disabled) {
     background-color: #555;
-}
-
-.btn-crear {
-    background-color: #f7c600;
-    color: #000;
 }
 
 .btn-crear:hover:not(:disabled) {

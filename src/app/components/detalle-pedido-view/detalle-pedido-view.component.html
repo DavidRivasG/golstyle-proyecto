@@ -40,7 +40,7 @@
   </div>
 
   <div class="pedido-acciones">
-    <a routerLink="/mis-pedidos" class="btn-volver">Volver a Mis Pedidos</a>
-    <button *ngIf="pedido.pedido.estado === 'pendiente'" (click)="onCancelar()" class="btn-cancelar">Cancelar Pedido</button>
+    <a routerLink="/mis-pedidos" class="btn-gold">Volver a Mis Pedidos</a>
+    <button *ngIf="pedido.pedido.estado === 'pendiente'" (click)="onCancelar()" class="btn-rojo">Cancelar Pedido</button>
   </div>
 </div>

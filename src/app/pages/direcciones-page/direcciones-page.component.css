@@ -1,7 +1,6 @@
 * {
   box-sizing: border-box;
   margin: 0;
-  padding: 0;
   font-family: 'Poppins', sans-serif;
 }
 
@@ -97,21 +96,8 @@
 
 .btn-gold {
   padding: 14px 30px;
-  background: #d4af37;
-  border: none;
   border-radius: 6px;
-  cursor: pointer;
-  font-weight: 600;
-  color: #121212;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: all 0.3s ease;
-}
-
-.btn-gold:hover {
-  background: #b8941f;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+  border: none;
 }
 
 .btn-cancel {
@@ -176,23 +162,8 @@
   min-width: auto;
 }
 
-.btn-red {
+.btn-rojo {
   padding: 8px 14px;
-  background: #dc3545;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  color: white;
-  font-size: 0.85rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  transition: all 0.3s ease;
-}
-
-.btn-red:hover {
-  background: #c82333;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
 }
 
 .contenedor-direcciones p {

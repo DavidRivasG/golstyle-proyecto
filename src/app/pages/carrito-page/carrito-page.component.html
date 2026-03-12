@@ -34,7 +34,7 @@
 
             <p><strong>Total:</strong> {{ total | currency:'EUR' }}</p>
 
-            <button class="btn-comprar" (click)="abrirModalPedido()">COMPRAR</button>
+            <button class="btn-gold" (click)="abrirModalPedido()">COMPRAR</button>
         </div>
 
     </div>
@@ -75,8 +75,8 @@
             </div>
 
             <div class="modal-footer">
-                <button class="btn-cancelar" (click)="cerrarModalPedido()" [disabled]="creandoPedido">Cancelar</button>
-                <button class="btn-crear" (click)="crearPedido()" [disabled]="!direccionSeleccionada || creandoPedido || cargandoDirecciones">
+                <button class="btn-gold btn-cancelar" (click)="cerrarModalPedido()" [disabled]="creandoPedido">Cancelar</button>
+                <button class="btn-gold btn-crear" (click)="crearPedido()" [disabled]="!direccionSeleccionada || creandoPedido || cargandoDirecciones">
                     {{ creandoPedido ? 'Creando pedido...' : 'Crear Pedido' }}
                 </button>
             </div>

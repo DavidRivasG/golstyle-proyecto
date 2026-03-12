@@ -93,23 +93,12 @@ button {
     width: 100%;
     padding: 16px;
     font-size: 0.95rem;
-    font-weight: 600;
-    border-radius: 8px;
     cursor: pointer;
-    transition: all 0.3s ease;
     letter-spacing: 1px;
 }
 
-/* Botón Principal */
 .btn-gold {
-    background: linear-gradient(135deg, #d4af37 0%, #b5952f 100%);
-    color: #000;
     border: none;
-}
-
-.btn-gold:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
 }
 
 .error {

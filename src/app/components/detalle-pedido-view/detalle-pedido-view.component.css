@@ -136,39 +136,8 @@
   text-align: center;
 }
 
-.btn-volver {
-  display: inline-block;
-  background-color: #d4af37;
-  color: #000;
-  padding: 12px 30px;
-  text-decoration: none;
-  border-radius: 4px;
-  font-weight: bold;
-  transition: transform 0.2s, background-color 0.2s;
-}
-
-.btn-volver:hover {
-  transform: scale(1.05);
-  background-color: #e5c158;
-}
-
-.btn-cancelar {
-  display: inline-block;
-  background-color: #d32f2f;
-  color: white;
-  padding: 12px 30px;
-  text-decoration: none;
-  border-radius: 4px;
-  font-weight: bold;
-  margin-left: 15px;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.2s, background-color 0.2s;
-}
-
-.btn-cancelar:hover {
-  transform: scale(1.05);
-  background-color: #b71c1c;
+.btn-rojo {
+  padding: 14px 30px;
 }
 
 @media (max-width: 768px) {
