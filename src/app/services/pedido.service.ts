@@ -12,18 +12,22 @@ export class PedidoService {
   private apiUrl = environment.apiUrl;
 
   getPedidos(): Observable<Pedido[]> {
+    
     return this.http.get<Pedido[]>(`${this.apiUrl}/pedidos`);
   }
 
   getPedido(id: number): Observable<Pedido> {
+
     return this.http.get<Pedido>(`${this.apiUrl}/pedidos/${id}`);
   }
 
   crearPedido(pedido: any): Observable<any> {
+
     return this.http.post(`${this.apiUrl}/pedidos/crear`, pedido);
   }
 
   cancelarPedido(id: number): Observable<any> {
+
     return this.http.delete(`${this.apiUrl}/pedidos/cancelar/${id}`);
   }
 }

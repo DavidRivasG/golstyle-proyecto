@@ -1,23 +1,23 @@
-/* Reset global */
+
 * {
     box-sizing: border-box;
     margin: 0;
+    padding: 0;
     font-family: 'Poppins', sans-serif;
 }
 
-/* Contenedor principal */
+
 .detalle-container {
     display: grid;
-    /* Usamos 1fr para que el navegador reste el gap automáticamente */
     grid-template-columns: 1fr 1fr; 
     min-height: 80vh;
     background-color: #121212;
     padding: 40px;
     gap: 40px;
-    align-items: center; /* Alineación vertical central para que todo respire */
+    align-items: center; 
 }
 
-/* Imagen */
+
 .image-section {
     display: flex;
     justify-content: center;
@@ -30,30 +30,26 @@
     height: auto;
     object-fit: contain;
     border-radius: 12px;
-    /* Sutil sombra para que la imagen no se vea plana en el fondo oscuro */
     filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
 }
 
-/* Sección derecha */
 .info-section {
     display: flex;
-    /* CAMBIO CLAVE: Centra el wrapper dentro del 50% de la derecha */
     justify-content: center; 
     align-items: center;
 }
 
 .info-wrapper {
     width: 100%;
-    /* Aumentamos un poco el max-width para mejor legibilidad */
     max-width: 550px; 
     background: #1e1e1e;
     padding: 40px;
     border-radius: 16px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
-    border: 1px solid #333; /* Un borde sutil para definir el bloque */
+    border: 1px solid #333;
 }
 
-/* Títulos */
+
 .titulo {
     color: white;
     font-size: 2.2rem;
@@ -68,7 +64,7 @@
     font-weight: 600;
 }
 
-/* Información */
+
 .detalle {
     color: #bbb;
     margin-bottom: 12px;
@@ -81,7 +77,7 @@
     color: #eee;
 }
 
-/* Inputs */
+
 .input-group {
     margin-bottom: 20px;
 }
@@ -114,6 +110,7 @@
     border-color: #d4af37;
 }
 
+
 .button-group {
     margin-top: 30px;
 }
@@ -123,8 +120,24 @@
     padding: 18px;
     font-size: 1.1rem;
     font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    background: linear-gradient(135deg, #d4af37 0%, #b5952f 100%);
+    color: #000;
     border: none;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-transform: uppercase;
 }
+
+.btn-gold:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(212, 175, 55, 0.5);
+}
+
+.btn-gold:active {
+    transform: translateY(0);
+}
+
 
 @media (max-width: 1100px) {
     .detalle-container {

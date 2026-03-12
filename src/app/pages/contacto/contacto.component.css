@@ -1,4 +1,14 @@
-/* Reset básico para evitar problemas de espaciado */
+:host {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #121212;
+    color: white;
+    font-family: 'Arial Narrow', sans-serif;
+    min-height: 70vh;
+    padding: 20px;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -6,40 +16,15 @@
     font-family: 'Poppins', sans-serif;
 }
 
-.contact-container {
-    display: grid;
-    grid-template-columns: 40% 60%;
-    height: 80vh;
-    background-color: #121212;
-    justify-content: center;
-    align-items: center;
-}
-
-.image-section,
-.image-section img {
-    width: 100%;
-    height: 100%;
-    opacity: 0.8;
-}
-
-/* Sección Formulario */
-.form-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #121212;
-    padding: 20px;
-}
-
 .form-wrapper {
-    width: 70%;
+    width: 100%;
+    max-width: 650px;
     padding: 40px;
     background: #1e1e1e;
     border-radius: 16px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
-/* Inputs */
 .input-group {
     margin-bottom: 20px;
 }
@@ -71,7 +56,6 @@
     min-height: 100px;
 }
 
-/* Efecto al hacer clic en los inputs */
 .input-group input:focus,
 .input-group select:focus,
 .input-group textarea:focus {
@@ -81,7 +65,6 @@
     box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
 }
 
-/* Botones */
 .button-group {
     margin-top: 35px;
     display: flex;
@@ -93,12 +76,22 @@ button {
     width: 100%;
     padding: 16px;
     font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 8px;
     cursor: pointer;
+    transition: all 0.3s ease;
     letter-spacing: 1px;
 }
 
 .btn-gold {
+    background: linear-gradient(135deg, #d4af37 0%, #b5952f 100%);
+    color: #000;
     border: none;
+}
+
+.btn-gold:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
 }
 
 .error {
@@ -112,21 +105,4 @@ button:disabled {
     cursor: not-allowed;
     transform: none;
     box-shadow: none;
-}
-
-@media (max-width: 1400px) {
-    .contact-container {
-        display: grid;
-        grid-template-columns: 1fr;
-    }
-
-    .image-section {
-        display: none;
-    }
-
-    .form-wrapper {
-        width: 100%;
-        max-width: 1000px;
-        margin: 0 auto;
-    }
 }

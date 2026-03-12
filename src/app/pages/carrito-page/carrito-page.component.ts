@@ -49,6 +49,7 @@ export class CarritoPageComponent implements OnInit {
   cargarCarrito() {
 
     if(!this.authService.isLoggedIn()) {
+
       this.loggedIn = false;
       this.loading = false;
       return;
@@ -115,23 +116,28 @@ export class CarritoPageComponent implements OnInit {
   }
 
   abrirModalPedido() {
+
     this.mostrarModalPedido = true;
     this.cargarDirecciones();
   }
 
   cerrarModalPedido() {
+
     this.mostrarModalPedido = false;
     this.direccionSeleccionada = null;
   }
 
   cargarDirecciones() {
+
     this.cargandoDirecciones = true;
     this.direccionService.obtener().subscribe({
       next: (dirs) => {
+
         this.direcciones = dirs;
         this.cargandoDirecciones = false;
       },
       error: (err) => {
+
         console.error("Error cargando direcciones", err);
         this.cargandoDirecciones = false;
         alert("Error al cargar las direcciones");
@@ -140,6 +146,7 @@ export class CarritoPageComponent implements OnInit {
   }
 
   crearPedido() {
+
     if (!this.direccionSeleccionada) {
       alert("Por favor selecciona una dirección");
       return;
@@ -147,12 +154,15 @@ export class CarritoPageComponent implements OnInit {
 
     this.creandoPedido = true;
     const pedidoData = {
+
       cod_dir: this.direccionSeleccionada,
       estado: 'pendiente'
     };
 
     this.pedidoService.crearPedido(pedidoData).subscribe({
+
       next: (resp: any) => {
+        
         this.creandoPedido = false;
         this.cerrarModalPedido();
         alert("Pedido creado exitosamente");

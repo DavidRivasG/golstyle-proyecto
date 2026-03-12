@@ -2,11 +2,13 @@
   <div class="info-header">
     <div class="info-block">
       <p><strong>Fecha:</strong> <span class="datos"> {{ pedido.pedido.fecha | date:'dd/MM/yyyy' }}</span></p>
-      <p><strong>Estado:</strong> <span class="estado" [ngClass]="pedido.pedido.estado">{{ pedido.pedido.estado }}</span></p>
+      <p><strong>Estado:</strong> <span class="estado" [ngClass]="pedido.pedido.estado">{{ pedido.pedido.estado
+          }}</span></p>
     </div>
     <div class="info-block">
       <p><strong>Total:</strong> <span class="datos"> {{ pedido.pedido.total }}€</span></p>
-      <p><strong>Dirección:</strong><span class="datos"> {{ pedido.direccion.calle }} {{ pedido.direccion.num }} {{ pedido.direccion.piso || '' }}, {{ pedido.direccion.ciudad }} ({{ pedido.direccion.provincia }})</span>
+      <p><strong>Dirección:</strong><span class="datos"> {{ pedido.direccion.calle }} {{ pedido.direccion.num }} {{
+          pedido.direccion.piso || '' }}, {{ pedido.direccion.ciudad }} ({{ pedido.direccion.provincia }})</span>
     </div>
   </div>
 
@@ -24,7 +26,8 @@
             <p><strong>Subtotal:</strong><span class="datos"> {{ detalle.cantidad * detalle.precio_unid }}€</span></p>
           </div>
           <div class="detalle-imagen">
-            <img [src]="detalle.variante.camiseta.imagen_principal" alt="Camiseta" *ngIf="detalle.variante.camiseta.imagen_principal">
+            <img [src]="detalle.variante.camiseta.imagen_principal" alt="Camiseta"
+              *ngIf="detalle.variante.camiseta.imagen_principal">
           </div>
           <div class="detalle-personalizacion">
             <p><strong>Nombre personalizado:</strong> {{ detalle.nombre_personalizado || 'Sin nombre'}}</p>
@@ -40,7 +43,8 @@
   </div>
 
   <div class="pedido-acciones">
-    <a routerLink="/mis-pedidos" class="btn-gold">Volver a Mis Pedidos</a>
-    <button *ngIf="pedido.pedido.estado === 'pendiente'" (click)="onCancelar()" class="btn-rojo">Cancelar Pedido</button>
+    <a routerLink="/mis-pedidos" class="btn-volver">Volver a Mis Pedidos</a>
+    <button *ngIf="pedido.pedido.estado === 'pendiente'" (click)="onCancelar()" class="btn-cancelar">Cancelar
+      Pedido</button>
   </div>
 </div>

@@ -43,7 +43,7 @@
 
       <div class="botones">
         <button type="submit" class="btn-gold">
-          {{ editingId ? 'ACTUALIZAR' : 'GUARDAR' }}
+          {{ editingId ? 'Actualizar' : 'Guardar' }}
         </button>
         <button type="button" class="btn-cancel" *ngIf="editingId" (click)="cancelarEdicion()">
           Cancelar edición
@@ -78,8 +78,8 @@
           <td data-label="Ciudad">{{ d.ciudad }}</td>
           <td data-label="Provincia">{{ d.provincia }}</td>
           <td class="acciones" data-label="Acciones">
-            <button class="btn-gold small" (click)="editar(d)">EDITAR</button>
-            <button class="btn-rojo small" (click)="eliminar(d.cod_dir!)">Eliminar</button>
+            <button class="btn-gold small" (click)="editar(d)">Editar</button>
+            <button class="btn-red small" (click)="eliminar(d.cod_dir!)">Eliminar</button>
           </td>
         </tr>
       </tbody>

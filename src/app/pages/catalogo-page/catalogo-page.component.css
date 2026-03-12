@@ -32,8 +32,6 @@
   padding-right: 50px;
 }
 
-/* Sección de Contenido */
-
 .titulo-catalogo {
   text-align: center;
   color: #d4af37;
@@ -48,7 +46,6 @@
   row-gap: 45px;
 }
 
-/* PANEL DE FILTROS */
 .panel-filtros {
   background-color: #e5e5e5;
   padding: 0;

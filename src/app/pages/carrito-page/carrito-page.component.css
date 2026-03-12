@@ -1,5 +1,6 @@
 * {
     font-family: 'Poppins', sans-serif;
+    padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
@@ -9,7 +10,8 @@
     background-color: #121212;
 }
 
-h2, p {
+h2,
+p {
     margin-bottom: 2rem;
     margin-top: 2rem;
 }
@@ -39,12 +41,28 @@ h2, p {
     background-color: #1e1e1e;
 }
 
-.btn-gold {
+.btn-comprar {
     width: 100%;
+    padding: 1rem;
+    background: #f7c600;
     border: none;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 1rem;
 }
 
-.titulo{
+.btn-gold {
+    background-color: #d4af37;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.titulo {
     display: block;
     text-align: center;
     padding-top: 40px;
@@ -53,13 +71,15 @@ h2, p {
     background-color: #121212;
 }
 
-.loading , .carrito-vacio , .loggedIn{
-  text-align: center;
-  color: #d4af37;
-  font-size: 1.1rem;
+.loading,
+.carrito-vacio,
+.loggedIn {
+    text-align: center;
+    color: #d4af37;
+    font-size: 1.1rem;
 }
 
-@media ( width <= 1050px ) {
+@media (width <=1050px) {
 
     .carrito-container {
 
@@ -68,6 +88,7 @@ h2, p {
     }
 
 }
+
 
 .modal-overlay {
     position: fixed;
@@ -205,11 +226,15 @@ h2, p {
     background-color: #121212;
 }
 
-.btn-cancelar, .btn-crear {
+.btn-cancelar,
+.btn-crear, .btn-comprar {
     padding: 0.75rem 1.5rem;
     border: none;
+    border-radius: 4px;
     cursor: pointer;
+    font-weight: bold;
     font-size: 1rem;
+    transition: all 0.3s;
 }
 
 .btn-cancelar {
@@ -221,11 +246,17 @@ h2, p {
     background-color: #555;
 }
 
+.btn-crear, .btn-comprar {
+    background-color: #f7c600;
+    color: #000;
+}
+
 .btn-crear:hover:not(:disabled) {
     background-color: #d4af37;
 }
 
-.btn-cancelar:disabled, .btn-crear:disabled {
+.btn-cancelar:disabled,
+.btn-crear:disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }
@@ -236,5 +267,3 @@ h2, p {
         max-width: 90%;
     }
 }
-
-

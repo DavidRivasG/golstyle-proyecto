@@ -15,11 +15,11 @@ export class DetallePedidoViewComponent implements OnInit, OnChanges {
   @Output() cancelar = new EventEmitter<number>();
 
   ngOnInit() {
-    console.log('DetallePedidoViewComponent - pedido recibido:', this.pedido);
+    //
   }
 
   ngOnChanges() {
-    console.log('DetallePedidoViewComponent - ngOnChanges, pedido:', this.pedido);
+    //
   }
 
   onCancelar() {

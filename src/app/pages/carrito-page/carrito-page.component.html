@@ -23,9 +23,13 @@
 
         <div class="productos">
 
-            <app-carrito-producto *ngFor="let producto of productos" [producto]="producto"
-                (eliminar)="eliminarProducto($event)" (aumentar)="aumentarCantidad($event)"
-                (disminuir)="disminuirCantidad($event)"></app-carrito-producto>
+            <app-carrito-producto 
+            *ngFor="let producto of productos" 
+            [producto]="producto"
+            (eliminar)="eliminarProducto($event)"
+            (aumentar)="aumentarCantidad($event)"
+            (disminuir)="disminuirCantidad($event)">
+            </app-carrito-producto>
 
         </div>
 
@@ -34,7 +38,7 @@
 
             <p><strong>Total:</strong> {{ total | currency:'EUR' }}</p>
 
-            <button class="btn-gold" (click)="abrirModalPedido()">COMPRAR</button>
+            <button class="btn-comprar" (click)="abrirModalPedido()">COMPRAR</button>
         </div>
 
     </div>
@@ -59,8 +63,12 @@
                     <div class="form-group">
                         <label for="direccion">Selecciona tu dirección de entrega:</label>
                         <select id="direccion" [(ngModel)]="direccionSeleccionada" class="select-direccion">
-                            <option [value]="null">-- Selecciona una dirección --</option>
-                            <option *ngFor="let dir of direcciones" [value]="dir.cod_dir">
+                            <option 
+                            [value]="null">-- Selecciona una dirección --
+                            </option>
+                            <option 
+                            *ngFor="let dir of direcciones" 
+                            [value]="dir.cod_dir">
                                 {{ dir.nombre }} - {{ dir.calle }}, {{ dir.num }} {{ dir.piso ? '- ' + dir.piso : '' }} - {{ dir.cp }} ({{ dir.ciudad }}, {{ dir.provincia }})
                             </option>
                         </select>
@@ -75,8 +83,13 @@
             </div>
 
             <div class="modal-footer">
-                <button class="btn-gold btn-cancelar" (click)="cerrarModalPedido()" [disabled]="creandoPedido">Cancelar</button>
-                <button class="btn-gold btn-crear" (click)="crearPedido()" [disabled]="!direccionSeleccionada || creandoPedido || cargandoDirecciones">
+                <button class="btn-cancelar" 
+                (click)="cerrarModalPedido()" 
+                [disabled]="creandoPedido">Cancelar</button>
+                <button 
+                class="btn-crear" 
+                (click)="crearPedido()" 
+                [disabled]="!direccionSeleccionada || creandoPedido || cargandoDirecciones">
                     {{ creandoPedido ? 'Creando pedido...' : 'Crear Pedido' }}
                 </button>
             </div>

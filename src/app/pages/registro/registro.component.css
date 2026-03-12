@@ -97,8 +97,21 @@ button {
 }
 
 .btn-gold {
+  background: linear-gradient(135deg, #d4af37 0%, #b5952f 100%);
+  color: #000;
   border: none;
 }
+
+.btn-gold a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+}
+
 
 .btn-gold:last-child { 
   background: transparent;
