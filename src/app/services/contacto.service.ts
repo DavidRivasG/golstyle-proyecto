@@ -10,6 +10,7 @@ export class ContactoService {
     private http = inject(HttpClient);
     private apiUrl = environment.apiUrl;
 
+    // Enviar el mensaje al back
     enviarMensaje(data: any): Observable<any> {
 
         return this.http.post(`${this.apiUrl}/contacto/enviar`, data);
