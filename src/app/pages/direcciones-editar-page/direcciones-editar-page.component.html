@@ -1,0 +1,51 @@
+<div class="contenedor-direcciones">
+  <h1>Editar dirección</h1>
+
+  <div *ngIf="mensaje" class="alerta alerta-error">{{ mensaje }}</div>
+
+  <div class="loading" *ngIf="loading">
+    <p>Cargando dirección...</p>
+  </div>
+
+  <div class="form-container" *ngIf="!loading && !error">
+    <form (ngSubmit)="guardar()" #formDir="ngForm" class="form-direccion">
+      <div class="campo">
+        <label>Nombre</label>
+        <input type="text" [(ngModel)]="form.nombre" name="nombre" required />
+      </div>
+      <div class="campo">
+        <label>Calle</label>
+        <input type="text" [(ngModel)]="form.calle" name="calle" required />
+      </div>
+      <div class="campo">
+        <label>Número</label>
+        <input type="text" [(ngModel)]="form.num" name="num" required />
+      </div>
+      <div class="campo">
+        <label>Piso</label>
+        <input type="text" [(ngModel)]="form.piso" name="piso" />
+      </div>
+      <div class="campo">
+        <label>Código postal</label>
+        <input type="text" [(ngModel)]="form.cp" name="cp" required />
+      </div>
+      <div class="campo">
+        <label>Teléfono</label>
+        <input type="text" [(ngModel)]="form.telefono" name="telefono" required />
+      </div>
+      <div class="campo">
+        <label>Ciudad</label>
+        <input type="text" [(ngModel)]="form.ciudad" name="ciudad" required />
+      </div>
+      <div class="campo">
+        <label>Provincia</label>
+        <input type="text" [(ngModel)]="form.provincia" name="provincia" required />
+      </div>
+
+      <div class="botones">
+        <button type="submit" class="btn-gold">Actualizar</button>
+        <a routerLink="/direcciones" class="btn-cancel">Cancelar</a>
+      </div>
+    </form>
+  </div>
+</div>

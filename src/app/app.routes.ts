@@ -10,6 +10,8 @@ import { PerfilComponent } from './pages/perfil/perfil.component';
 import { MisPedidosComponent } from './pages/mis-pedidos/mis-pedidos.component';
 import { DetallesPedidoComponent } from './pages/detalles-pedido/detalles-pedido.component';
 import { DireccionesPageComponent } from './pages/direcciones-page/direcciones-page.component';
+import { DireccionesCrearPageComponent } from './pages/direcciones-crear-page/direcciones-crear-page.component';
+import { DireccionesEditarPageComponent } from './pages/direcciones-editar-page/direcciones-editar-page.component';
 import { authGuard } from './guards/auth.guard';
 import { publicGuard } from './guards/public-guard.guard';
 
@@ -25,7 +27,9 @@ export const routes: Routes = [
     { path: 'perfil', component: PerfilComponent , canActivate: [authGuard]}, // Perfil
     { path: 'mis-pedidos', component: MisPedidosComponent , canActivate: [authGuard]}, // Pedidos
     { path: 'detalles-pedido/:id', component: DetallesPedidoComponent , canActivate: [authGuard]}, // Detalle de pedido
-    { path: 'direcciones', component: DireccionesPageComponent , canActivate: [authGuard]}, // CRUD direcciones
+    { path: 'direcciones', component: DireccionesPageComponent , canActivate: [authGuard]}, // Lista y borrar
+    { path: 'direcciones/crear', component: DireccionesCrearPageComponent , canActivate: [authGuard]}, // Crear dirección
+    { path: 'direcciones/editar/:id', component: DireccionesEditarPageComponent , canActivate: [authGuard]}, // Editar dirección
     { path: '**', redirectTo: '', pathMatch: 'full' }
 
 ];
