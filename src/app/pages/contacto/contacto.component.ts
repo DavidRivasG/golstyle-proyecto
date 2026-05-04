@@ -16,8 +16,7 @@ export class ContactoComponent {
   fb = inject(FormBuilder);
   contactoService = inject(ContactoService);
 
-  respuesta = '';
-  error = false;
+  estadoEnvio: 'enviando' | 'enviado' | 'error' | null = null;
 
   form = this.fb.group({
 
@@ -30,8 +29,9 @@ export class ContactoComponent {
   // Enviar el mensaje
   enviar() {
 
-    if (this.form.invalid) {
+    this.estadoEnvio = 'enviando';
 
+    if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
@@ -41,14 +41,12 @@ export class ContactoComponent {
     this.contactoService.enviarMensaje(data).subscribe({
       next: (res) => {
 
-        this.error = false;
-        alert(res.mensaje || 'Mensaje enviado correctamente.');
+        this.estadoEnvio = 'enviado';
         this.form.reset();
       },
       error: (err) => {
 
-        this.error = true;
-        alert(err.error?.mensaje || 'Error al enviar el mensaje');
+        this.estadoEnvio = 'error';
       }
     });
   }
