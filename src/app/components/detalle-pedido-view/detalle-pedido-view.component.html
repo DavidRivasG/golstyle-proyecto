@@ -3,8 +3,7 @@
   <div class="info-header">
     <div class="info-block">
       <p><strong>Fecha:</strong> <span class="datos"> {{ pedido.pedido.fecha | date:'dd/MM/yyyy' }}</span></p>
-      <p><strong>Estado:</strong> <span class="estado" [ngClass]="pedido.pedido.estado">{{ pedido.pedido.estado
-          }}</span></p>
+      <p><strong>Estado:</strong> <span class="estado" [ngClass]="pedido.pedido.estado">{{ pedido.pedido.estado }}</span></p>
     </div>
     <div class="info-block">
       <p><strong>Total:</strong> <span class="datos"> {{ pedido.pedido.total }}€</span></p>

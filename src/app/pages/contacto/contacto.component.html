@@ -48,4 +48,11 @@
         <button type="submit" class="btn-gold" [disabled]="form.invalid">ENVIAR</button>
     </div>
 
+    <!-- El mensaje de feedback -->
+    <div *ngIf="estadoEnvio" [ngClass]="estadoEnvio" class="mensaje-alerta">
+        <span *ngIf="estadoEnvio === 'enviando'">Enviando mensaje a Golstyle...</span>
+        <span *ngIf="estadoEnvio === 'enviado'">¡Mensaje Enviado! Te responderemos lo más pronto posible.</span>
+        <span *ngIf="estadoEnvio === 'error'">Error al enviar.</span>
+    </div>
+
 </form>
