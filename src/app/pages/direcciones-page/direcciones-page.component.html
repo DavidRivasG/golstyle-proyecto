@@ -1,62 +1,14 @@
 <div class="contenedor-direcciones">
   <h1>Mis direcciones</h1>
 
-  <!-- Mostrar error -->
-  <div *ngIf="mensaje" class="alerta" 
-    [ngClass]="error ? 'alerta-error' : 'alerta-ok'">
+  <div class="cabecera-acciones">
+    <a routerLink="/direcciones/crear" class="btn-gold">+ Nueva dirección</a>
+  </div>
+
+  <div *ngIf="mensaje" class="alerta" [ngClass]="error ? 'alerta-error' : 'alerta-ok'">
     {{ mensaje }}
   </div>
 
-  <!-- Formulario de edición / creación -->
-  <div class="form-container">
-    <form (ngSubmit)="guardar()" #formDir="ngForm" class="form-direccion">
-      <div class="campo">
-        <label>Nombre</label>
-        <input type="text" [(ngModel)]="form.nombre" name="nombre" required />
-      </div>
-      <div class="campo">
-        <label>Calle</label>
-        <input type="text" [(ngModel)]="form.calle" name="calle" required />
-      </div>
-      <div class="campo">
-        <label>Número</label>
-        <input type="text" [(ngModel)]="form.num" name="num" required />
-      </div>
-      <div class="campo">
-        <label>Piso</label>
-        <input type="text" [(ngModel)]="form.piso" name="piso" />
-      </div>
-      <div class="campo">
-        <label>Código postal</label>
-        <input type="text" [(ngModel)]="form.cp" name="cp" required />
-      </div>
-      <div class="campo">
-        <label>Teléfono</label>
-        <input type="text" [(ngModel)]="form.telefono" name="telefono" required />
-      </div>
-      <div class="campo">
-        <label>Ciudad</label>
-        <input type="text" [(ngModel)]="form.ciudad" name="ciudad" required />
-      </div>
-      <div class="campo">
-        <label>Provincia</label>
-        <input type="text" [(ngModel)]="form.provincia" name="provincia" required />
-      </div>
-
-      <!-- Botónde confirmación -->
-      <div class="botones">
-        <button type="submit" class="btn-gold">
-          {{ editingId ? 'Actualizar' : 'Guardar' }}
-        </button>
-        <!-- Botón para cancelar edición -->
-        <button type="button" class="btn-cancel" *ngIf="editingId" (click)="cancelarEdicion()">
-          Cancelar edición
-        </button>
-      </div>
-    </form>
-  </div>
-
-  <!-- Tabla para la información de las direcciones del usuario -->
   <div class="list-container" *ngIf="!loading && !error">
     <table class="tabla-direcciones">
       <thead>
@@ -72,7 +24,6 @@
           <th>Acciones</th>
         </tr>
       </thead>
-      <!-- Cargar la información de las direcciones del usuario -->
       <tbody>
         <tr *ngFor="let d of direcciones">
           <td data-label="Nombre">{{ d.nombre }}</td>
@@ -84,16 +35,20 @@
           <td data-label="Ciudad">{{ d.ciudad }}</td>
           <td data-label="Provincia">{{ d.provincia }}</td>
           <td class="acciones" data-label="Acciones">
-            <button class="btn-gold small" (click)="editar(d)">Editar</button>
+            <a [routerLink]="['/direcciones/editar', d.cod_dir]" class="btn-gold small">Editar</a>
             <button class="btn-red small" (click)="eliminar(d.cod_dir!)">Eliminar</button>
           </td>
         </tr>
       </tbody>
     </table>
+    <p *ngIf="direcciones.length === 0" class="sin-resultados">No tienes direcciones guardadas.</p>
   </div>
 
-  <!-- Cargando -->
   <div class="loading" *ngIf="loading">
     <p>Cargando direcciones...</p>
+  </div>
+
+  <div class="error" *ngIf="error && !loading">
+    <p>Error al cargar las direcciones.</p>
   </div>
 </div>
