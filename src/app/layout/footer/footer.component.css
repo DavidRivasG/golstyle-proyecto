@@ -1,7 +1,7 @@
 
 
 footer {
-  background-color: #cba937;
+  background-color: #1d1d1d;
   color: white;
   padding: 15px 40px;
   height: 130px;
@@ -22,7 +22,7 @@ footer {
 }
 
 .footer-col.left {
-  justify-content: flex-start;
+  justify-content: center;
 }
 
 .footer-col.center {
@@ -31,7 +31,7 @@ footer {
 }
 
 .footer-col.right {
-  justify-content: flex-end;
+  justify-content: center;
 }
 
 .flag-img {
