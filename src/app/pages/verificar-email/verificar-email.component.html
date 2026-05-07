@@ -1,0 +1,31 @@
+<div class="verificacion-container">
+  <div class="tarjeta-verificacion">
+    
+    @if (estado === 'cargando') {
+      <div class="estado cargando">
+        <div class="spinner"></div>
+        <h2>Verificando tu cuenta...</h2>
+        <p>Estamos confirmando tu correo electrónico, espera un segundo.</p>
+      </div>
+    }
+
+    @else if (estado === 'exito') {
+      <div class="estado exito">
+        <div class="icono">✅</div>
+        <h2>¡Cuenta verificada!</h2>
+        <p>Bienvenido a GolStyle. Tu correo se ha confirmado correctamente.</p>
+        <p class="redireccion-texto">Te estamos redirigiendo al login...</p>
+      </div>
+    }
+
+    @else if (estado === 'error') {
+      <div class="estado error">
+        <div class="icono">❌</div>
+        <h2>Enlace no válido</h2>
+        <p>El enlace de verificación ha caducado o está mal formado.</p>
+        <button routerLink="/login" class="btn-secundario">Volver al inicio</button>
+      </div>
+    }
+
+  </div>
+</div>

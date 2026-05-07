@@ -1,0 +1,79 @@
+.verificacion-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 65.5vh;
+  background-color: #f9f9f9;
+  padding: 20px;
+}
+
+.tarjeta-verificacion {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  text-align: center;
+  max-width: 450px;
+  width: 100%;
+}
+
+.icono {
+  font-size: 50px;
+  margin-bottom: 15px;
+}
+
+h2 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+p {
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.redireccion-texto {
+  font-size: 0.9em;
+  color: #999;
+}
+
+/* Botones */
+.btn-primario, .btn-secundario {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+  width: 100%;
+  font-weight: bold;
+}
+
+.btn-primario {
+  background-color: #000;
+  color: white;
+}
+
+.btn-primario:hover { background-color: #333; }
+
+.btn-secundario {
+  background-color: #eee;
+  color: #333;
+}
+
+/* Spinner de carga */
+.spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #000;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 20px auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

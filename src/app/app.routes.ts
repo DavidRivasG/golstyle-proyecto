@@ -12,6 +12,7 @@ import { DetallesPedidoComponent } from './pages/detalles-pedido/detalles-pedido
 import { DireccionesPageComponent } from './pages/direcciones-page/direcciones-page.component';
 import { authGuard } from './guards/auth.guard';
 import { publicGuard } from './guards/public-guard.guard';
+import { VerificarEmailComponent } from './pages/verificar-email/verificar-email.component';
 
 
 export const routes: Routes = [
@@ -26,6 +27,7 @@ export const routes: Routes = [
     { path: 'mis-pedidos', component: MisPedidosComponent , canActivate: [authGuard]}, // Pedidos
     { path: 'detalles-pedido/:id', component: DetallesPedidoComponent , canActivate: [authGuard]}, // Detalle de pedido
     { path: 'direcciones', component: DireccionesPageComponent , canActivate: [authGuard]}, // CRUD direcciones
+    { path: 'verificar-email', component: VerificarEmailComponent }, // Página de verificación de email
     { path: '**', redirectTo: '', pathMatch: 'full' }
 
 ];
