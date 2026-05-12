@@ -24,16 +24,17 @@
             <!-- Acciones -->
             <div class="acciones">
                 <div class="cantidad-control">
-                    <button class="btn-cantidad" (click)="onDisminuir()" [disabled]="producto.cantidad <= 1">−</button>
+                    <button class="btn-cantidad" (click)="onDisminuir()" [disabled]="producto.cantidad <= 1 || procesando">−</button>
 
 
                     <span>{{ producto.cantidad }}</span>
                     <button class="btn-cantidad" (click)="onAumentar()"
-                        [disabled]="producto.cantidad >= producto.stock">+</button>
+                        [disabled]="producto.cantidad >= producto.stock || procesando">+</button>
                 </div>
 
-                <button class="btn-eliminar" (click)="onEliminar()"><img src="/assets/images/delete-icon.svg"
-                        alt=""></button>
+                <button class="btn-eliminar" (click)="onEliminar()" [disabled]="procesando">
+                    <img src="/assets/images/delete-icon.svg" alt="">
+                </button>
             </div>
         </div>
     </div>

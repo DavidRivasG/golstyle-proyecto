@@ -11,6 +11,7 @@ import { CurrencyPipe } from '@angular/common';
 })
 export class CarritoProductoComponent {
   @Input() producto!: ProductoCarrito;
+  @Input() procesando: boolean = false;
 
   @Output() eliminar = new EventEmitter<number>();
   @Output() aumentar = new EventEmitter<number>();

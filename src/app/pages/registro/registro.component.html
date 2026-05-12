@@ -40,8 +40,12 @@
 
             <!-- Registro -->
             <div class="button-group">
-                <button type="submit" class="btn-gold" [disabled]="registerForm.invalid">
-                    REGISTRARSE
+                <button type="submit" class="btn-gold" [disabled]="registerForm.invalid || cargando">
+                    @if (cargando) {
+                        <span class="spinner-pequeno"></span> PROCESANDO...
+                    } @else {
+                        REGISTRARME
+                    }
                 </button>
 
                 <!-- Inicio de sesión -->

@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PedidoService } from '../../services/pedido.service';
 import { DetallePedidoViewComponent } from '../../components/detalle-pedido-view/detalle-pedido-view.component';
-import { Pedido } from '../../interfaces/pedido.interface';
 
 @Component({
   selector: 'app-detalles-pedido',
@@ -19,7 +18,7 @@ export class DetallesPedidoComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
 
-  pedido: Pedido | null = null;
+  pedido: any | null = null;
   loading = true;
   error: string | null = null;
 

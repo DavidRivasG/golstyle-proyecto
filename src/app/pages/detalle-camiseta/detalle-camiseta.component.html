@@ -1,6 +1,5 @@
 <!-- Cargando camiseta -->
 <div *ngIf="loading" class="loading">
-    <div class="spinner"></div>
     <p>Cargando camiseta...</p>
 </div>
 
@@ -71,10 +70,12 @@
 
             <!-- Agregar al carrito -->
             <div class="button-group">
-                <button class="btn-gold" (click)="agregarAlCarrito()"
-                    [disabled]="!tallaSeleccionada || getStockVariante() === 0"
-                    >
-                    Agregar al carrito
+                <button class="btn-gold" (click)="agregarAlCarrito()" [disabled]="!tallaSeleccionada || getStockVariante() === 0 || cargando">
+                    @if (cargando) {
+                        <span class="spinner-pequeno"></span> PROCESANDO...
+                    } @else {
+                        AGREGAR AL CARRITO
+                    }
                 </button>
             </div>
 

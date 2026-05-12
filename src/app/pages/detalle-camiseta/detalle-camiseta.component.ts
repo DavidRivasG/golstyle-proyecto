@@ -20,6 +20,7 @@ export class DetalleCamisetaComponent implements OnInit {
 
   camiseta: any = null;
   loading = true;
+  cargando = false
 
   tallaSeleccionada: number | null = null; 
   cantidad = 1;
@@ -101,6 +102,7 @@ export class DetalleCamisetaComponent implements OnInit {
   // Agregar camiseta al carrito
   agregarAlCarrito() {
 
+    this.cargando = true;
 
     if (!this.authService.isLoggedIn()) {
 
@@ -137,10 +139,12 @@ export class DetalleCamisetaComponent implements OnInit {
 
       next: () => {
 
+        this.cargando = false;
         alert("Camiseta añadida al carrito");
       },
       error: (err) => {
 
+        this.cargando = false;
         this.handleError(err);
       }
     });

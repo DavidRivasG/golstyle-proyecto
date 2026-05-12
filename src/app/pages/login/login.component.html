@@ -26,8 +26,12 @@
 
       <!-- Iniciar sesión -->
       <div class="button-group">
-        <button type="submit" class="btn-gold" [disabled]="loginForm.invalid">
-          INICIAR SESIÓN
+        <button type="submit" class="btn-gold" [disabled]="loginForm.invalid || cargando">
+          @if (cargando) {
+            <span class="spinner-pequeno"></span> PROCESANDO...
+          } @else {
+            INICIAR SESION
+          }
         </button>
       <!-- Ir al registro -->
         <button type="button" class="btn-gold" (click)="irARegistro()">

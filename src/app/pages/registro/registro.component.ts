@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
 export class RegistroComponent {
 
   registerForm: FormGroup;
+  cargando = false;
 
   // Injección de servicios
   private authService = inject(AuthService);
@@ -35,12 +36,16 @@ export class RegistroComponent {
   registrar() {
     if (this.registerForm.invalid) return;
 
+    this.cargando = true;
     this.authService.register(this.registerForm.value).subscribe({
       next: () => {
         console.log('Usuario registrado con éxito');
         this.router.navigate(['/login']);
       },
-      error: (err) => console.error(err)
+      error: (err) => {
+        console.error(err);
+        this.cargando = false;
+      }
     });
   }
 

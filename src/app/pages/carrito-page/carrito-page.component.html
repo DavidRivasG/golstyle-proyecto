@@ -30,6 +30,7 @@
             <app-carrito-producto 
             *ngFor="let producto of productos" 
             [producto]="producto"
+            [procesando]="procesandoId === producto.cod_det_carr"
             (eliminar)="eliminarProducto($event)"
             (aumentar)="aumentarCantidad($event)"
             (disminuir)="disminuirCantidad($event)">

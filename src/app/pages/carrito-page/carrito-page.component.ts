@@ -34,6 +34,7 @@ export class CarritoPageComponent implements OnInit {
   mostrarModalPedido = false;
   cargandoDirecciones = false;
   creandoPedido = false;
+  procesandoId: number | null = null;
 
   // Injección de servicios
   carritoService = inject(CarritoService);
@@ -65,11 +66,13 @@ export class CarritoPageComponent implements OnInit {
         this.productos = resp.detalles;
         this.total = resp.total;
         this.loading = false;
+        this.procesandoId = null;
       },
       error: (err) => {
 
         console.error("Error cargando carrito", err);
         this.loading = false;
+        this.procesandoId = null;
       }
 
     });
@@ -78,14 +81,18 @@ export class CarritoPageComponent implements OnInit {
   // Función para eliminar un elemento del carrito
   eliminarProducto(id: number) {
 
+    this.procesandoId = id;
+
     this.carritoService.eliminarProducto(id).subscribe({
 
       next: () => {
 
-        this.loading = true;
         this.cargarCarrito();
       },
-      error: (err) => alert("Error eliminando producto" + err)
+      error: (err) => {
+        alert("Error eliminando producto" + err)
+        this.procesandoId = null;
+      }
 
     });
   }
@@ -93,15 +100,18 @@ export class CarritoPageComponent implements OnInit {
   // Función para aumentar la cantidad de un producto del carrito a +1
   aumentarCantidad(id: number) {
 
+    this.procesandoId = id;
     this.carritoService.aumentarCantidad(id).subscribe({
 
       next: () => {
 
-        this.loading = true;
         this.cargarCarrito();
       },
 
-      error: (err) => alert("Error actualizando cantidad" + err)
+      error: (err) => {
+        alert("Error actualizando cantidad" + err);
+        this.procesandoId = null;
+      }
     });
   }
 
@@ -109,15 +119,18 @@ export class CarritoPageComponent implements OnInit {
   // Función para disminuir la cantidad de un producto del carrito a -1
   disminuirCantidad(id: number) {
 
+    this.procesandoId = id;
     this.carritoService.disminuirCantidad(id).subscribe({
 
       next: () => {
 
-        this.loading = true;
         this.cargarCarrito();
       },
 
-      error: (err) => alert("Error actualizando cantidad" + err)
+      error: (err) => {
+        alert("Error actualizando cantidad" + err);
+        this.procesandoId = null;
+      }
     })
   }
 
