@@ -261,6 +261,24 @@ p {
     cursor: not-allowed;
 }
 
+.msg-inline {
+    padding: 10px 16px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    margin: 12px 0;
+    border-left: 3px solid;
+}
+.msg-error {
+    background: #fff0f0;
+    border-color: #c0392b;
+    color: #c0392b;
+}
+.msg-exito {
+    background: #fdf8e1;
+    border-color: #d4af37;
+    color: #5a4a00;
+}
+
 /* Responsive */
 
 @media (max-width: 600px) {

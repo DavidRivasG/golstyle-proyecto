@@ -20,7 +20,8 @@ export class DetalleCamisetaComponent implements OnInit {
 
   camiseta: any = null;
   loading = true;
-  cargando = false
+  cargando = false;
+  mensaje: { texto: string; tipo: 'error' | 'exito' } | null = null;
 
   tallaSeleccionada: number | null = null; 
   cantidad = 1;
@@ -106,14 +107,14 @@ export class DetalleCamisetaComponent implements OnInit {
 
     if (!this.authService.isLoggedIn()) {
 
-      alert("Debes iniciar sesión para comprar");
       this.router.navigate(['/login']);
       return;
     }
 
     if (!this.tallaSeleccionada) {
 
-      alert("Por favor, selecciona una talla");
+      this.mostrarMensaje('Por favor, selecciona una talla antes de continuar.', 'error');
+      this.cargando = false;
       return;
     }
 
@@ -121,7 +122,8 @@ export class DetalleCamisetaComponent implements OnInit {
 
     if (stockDisponible <= 0) {
 
-      alert("Lo sentimos, esta talla está agotada.");
+      this.mostrarMensaje('Lo sentimos, esta talla está agotada.', 'error');
+      this.cargando = false;
       return;
     }
 
@@ -140,7 +142,7 @@ export class DetalleCamisetaComponent implements OnInit {
       next: () => {
 
         this.cargando = false;
-        alert("Camiseta añadida al carrito");
+        this.mostrarMensaje('¡Camiseta añadida al carrito!', 'exito');
       },
       error: (err) => {
 
@@ -150,25 +152,28 @@ export class DetalleCamisetaComponent implements OnInit {
     });
   }
 
+  private mostrarMensaje(texto: string, tipo: 'error' | 'exito') {
+    this.mensaje = { texto, tipo };
+    setTimeout(() => this.mensaje = null, 4000);
+  }
+
   // Manejo de errores
   private handleError(err: any) {
 
     if (err.status === 401) {
 
-      alert("Tu sesión ha expirado. Por favor, vuelve a entrar.");
+      this.mostrarMensaje('Tu sesión ha expirado. Por favor, vuelve a iniciar sesión.', 'error');
       this.router.navigate(['/login']);
       return;
     }
-    
+
     if (err.status === 400 && err.error?.stock !== undefined) {
 
-      alert(`Stock insuficiente. Solo quedan ${err.error.stock} unidades.`);
+      this.mostrarMensaje(`Stock insuficiente. Solo quedan ${err.error.stock} unidades disponibles.`, 'error');
       this.cantidad = err.error.stock;
       return;
-    } else {
-
-      alert("No se pudo añadir el producto. Inténtalo de nuevo.");
-      return;
     }
+
+    this.mostrarMensaje('No se pudo añadir el producto. Inténtalo de nuevo.', 'error');
   }
 }

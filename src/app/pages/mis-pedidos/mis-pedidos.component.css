@@ -46,3 +46,21 @@
     border-radius: 8px;
     border: 1px solid #ff6b6b;
 }
+
+.msg-inline {
+    padding: 10px 16px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    margin: 12px 0;
+    border-left: 3px solid;
+}
+.msg-error {
+    background: rgba(192, 57, 43, 0.15);
+    border-color: #c0392b;
+    color: #ff6b6b;
+}
+.msg-exito {
+    background: rgba(212, 175, 55, 0.1);
+    border-color: #d4af37;
+    color: #d4af37;
+}

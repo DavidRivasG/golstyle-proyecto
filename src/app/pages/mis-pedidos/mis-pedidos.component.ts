@@ -19,6 +19,7 @@ export class MisPedidosComponent implements OnInit {
   pedidos: Pedido[] = [];
   loading = true;
   error: string | null = null;
+  mensajeCancelacion: { texto: string; tipo: 'error' | 'exito' } | null = null;
 
   ngOnInit(): void {
     this.cargarPedidos();
@@ -47,9 +48,17 @@ export class MisPedidosComponent implements OnInit {
     if (!confirmar) return;
 
     this.pedidoService.cancelarPedido(codPed).subscribe({
-      next: () => this.cargarPedidos(),
-      error: (err) =>
-        alert(err.error?.message || 'Error al cancelar el pedido')
+      next: () => {
+        this.mensajeCancelacion = { texto: 'Pedido cancelado correctamente.', tipo: 'exito' };
+        setTimeout(() => this.mensajeCancelacion = null, 4000);
+        this.cargarPedidos();
+      },
+      error: (err) => {
+        const texto = err.error?.message || 'Error al cancelar el pedido. Inténtalo de nuevo.';
+        console.error(texto);
+        this.mensajeCancelacion = { texto, tipo: 'error' };
+        setTimeout(() => this.mensajeCancelacion = null, 4000);
+      }
     });
   }
 }

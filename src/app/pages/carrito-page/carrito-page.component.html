@@ -3,6 +3,10 @@
         <h1>CARRITO</h1>
     </div>
 
+    <div *ngIf="mensajeCarrito" [class]="'msg-inline msg-' + mensajeCarrito.tipo">
+        {{ mensajeCarrito.texto }}
+    </div>
+
     <!-- Si el usuario no está logueado -->
     <div *ngIf="!loggedIn" class="loggedIn">
         <p>Para acceder al carrito debes estar una sesion iniciada.</p>
@@ -54,6 +58,10 @@
             <div class="modal-header">
                 <h2>Realizar Pedido</h2>
                 <button class="btn-close" (click)="cerrarModalPedido()">×</button>
+            </div>
+
+            <div *ngIf="mensajeModal" [class]="'msg-inline msg-' + mensajeModal.tipo" style="margin: 0 20px;">
+                {{ mensajeModal.texto }}
             </div>
 
             <div class="modal-body">

@@ -68,6 +68,11 @@
                 </div>
             </div>
 
+            <!-- Mensaje de feedback -->
+            <div *ngIf="mensaje" [class]="'msg-inline msg-' + mensaje.tipo">
+                {{ mensaje.texto }}
+            </div>
+
             <!-- Agregar al carrito -->
             <div class="button-group">
                 <button class="btn-gold" (click)="agregarAlCarrito()" [disabled]="!tallaSeleccionada || getStockVariante() === 0 || cargando">

@@ -11,6 +11,11 @@
     <p>{{ error }}</p>
   </div>
 
+  <!-- Mensaje cancelación -->
+  <div *ngIf="mensajeCancelacion" [class]="'msg-inline msg-' + mensajeCancelacion.tipo">
+    {{ mensajeCancelacion.texto }}
+  </div>
+
   <!-- Comunicación con el componente hijo -->
   <app-detalle-pedido-view *ngIf="!loading && !error && pedido" [pedido]="pedido" (cancelar)="onCancelarPedido($event)"></app-detalle-pedido-view>
 </div>

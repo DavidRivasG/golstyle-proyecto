@@ -21,6 +21,7 @@ export class DetallesPedidoComponent implements OnInit {
   pedido: any | null = null;
   loading = true;
   error: string | null = null;
+  mensajeCancelacion: { texto: string; tipo: 'error' | 'exito' } | null = null;
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -59,8 +60,12 @@ export class DetallesPedidoComponent implements OnInit {
 
     this.pedidoService.cancelarPedido(codPed).subscribe({
       next: () => this.router.navigate(['/mis-pedidos']),
-      error: (err) =>
-        alert(err.error?.message || 'Error al cancelar el pedido')
+      error: (err) => {
+        const texto = err.error?.message || 'Error al cancelar el pedido. Inténtalo de nuevo.';
+        console.error(texto);
+        this.mensajeCancelacion = { texto, tipo: 'error' };
+        setTimeout(() => this.mensajeCancelacion = null, 4000);
+      }
     });
   }
 }

@@ -35,6 +35,8 @@ export class CarritoPageComponent implements OnInit {
   cargandoDirecciones = false;
   creandoPedido = false;
   procesandoId: number | null = null;
+  mensajeCarrito: { texto: string; tipo: 'error' | 'exito' } | null = null;
+  mensajeModal: { texto: string; tipo: 'error' | 'exito' } | null = null;
 
   // Injección de servicios
   carritoService = inject(CarritoService);
@@ -45,8 +47,12 @@ export class CarritoPageComponent implements OnInit {
 
 
   ngOnInit(): void {
-
     this.cargarCarrito();
+  }
+
+  private mostrar(prop: 'mensajeCarrito' | 'mensajeModal', texto: string, tipo: 'error' | 'exito') {
+    this[prop] = { texto, tipo };
+    setTimeout(() => this[prop] = null, 4000);
   }
 
   // Función para cargar la información del carrito
@@ -90,7 +96,8 @@ export class CarritoPageComponent implements OnInit {
         this.cargarCarrito();
       },
       error: (err) => {
-        alert("Error eliminando producto" + err)
+        console.error("Error eliminando producto", err);
+        this.mostrar('mensajeCarrito', 'Error al eliminar el producto. Inténtalo de nuevo.', 'error');
         this.procesandoId = null;
       }
 
@@ -109,7 +116,8 @@ export class CarritoPageComponent implements OnInit {
       },
 
       error: (err) => {
-        alert("Error actualizando cantidad" + err);
+        console.error("Error actualizando cantidad", err);
+        this.mostrar('mensajeCarrito', 'Error al actualizar la cantidad. Inténtalo de nuevo.', 'error');
         this.procesandoId = null;
       }
     });
@@ -128,7 +136,8 @@ export class CarritoPageComponent implements OnInit {
       },
 
       error: (err) => {
-        alert("Error actualizando cantidad" + err);
+        console.error("Error actualizando cantidad", err);
+        this.mostrar('mensajeCarrito', 'Error al actualizar la cantidad. Inténtalo de nuevo.', 'error');
         this.procesandoId = null;
       }
     })
@@ -162,7 +171,7 @@ export class CarritoPageComponent implements OnInit {
 
         console.error("Error cargando direcciones", err);
         this.cargandoDirecciones = false;
-        alert("Error al cargar las direcciones");
+        this.mostrar('mensajeModal', 'Error al cargar las direcciones. Inténtalo de nuevo.', 'error');
       }
     });
   }
@@ -171,7 +180,7 @@ export class CarritoPageComponent implements OnInit {
   crearPedido() {
 
     if (!this.direccionSeleccionada) {
-      alert("Por favor selecciona una dirección");
+      this.mostrar('mensajeModal', 'Por favor selecciona una dirección de entrega.', 'error');
       return;
     }
 
@@ -188,7 +197,7 @@ export class CarritoPageComponent implements OnInit {
         
         this.creandoPedido = false;
         this.cerrarModalPedido();
-        alert("Pedido creado exitosamente");
+        this.mostrar('mensajeCarrito', '¡Pedido creado correctamente! Te redirigimos a tus pedidos.', 'exito');
         this.loading = true;
         this.cargarCarrito();
         this.router.navigate(['/mis-pedidos']);
@@ -196,7 +205,7 @@ export class CarritoPageComponent implements OnInit {
       error: (err) => {
         this.creandoPedido = false;
         console.error("Error creando pedido", err);
-        alert("Error al crear el pedido: " + (err.error?.message || err.message));
+        this.mostrar('mensajeModal', 'Error al crear el pedido: ' + (err.error?.message || 'Inténtalo de nuevo.'), 'error');
       }
     });
   }

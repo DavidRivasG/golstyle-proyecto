@@ -159,6 +159,19 @@ button:disabled {
   to { transform: rotate(360deg); }
 }
 
+.msg-inline {
+  padding: 10px 16px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  margin: 12px 0;
+  border-left: 3px solid;
+}
+.msg-error {
+  background: rgba(192, 57, 43, 0.15);
+  border-color: #c0392b;
+  color: #ff6b6b;
+}
+
 @media (min-width: 768px) {
   .image-section {
     display: block;

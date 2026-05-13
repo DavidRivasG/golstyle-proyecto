@@ -24,6 +24,11 @@
         </div>
       </div>
 
+      <!-- Error de login -->
+      <div *ngIf="errorLogin" class="msg-inline msg-error">
+        {{ errorLogin }}
+      </div>
+
       <!-- Iniciar sesión -->
       <div class="button-group">
         <button type="submit" class="btn-gold" [disabled]="loginForm.invalid || cargando">

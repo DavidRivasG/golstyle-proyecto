@@ -15,6 +15,7 @@ export class LoginComponent {
 
   loginForm: FormGroup;
   cargando = false;
+  errorLogin: string | null = null;
 
   // Injección de servicios
   private authService = inject(AuthService);
@@ -40,8 +41,10 @@ export class LoginComponent {
         this.router.navigate(['/home']);
       },
       error: (err) => {
-        alert(err.error.message || 'Credenciales incorrectas');
+        this.errorLogin = err.error?.message || 'Correo o contraseña incorrectos. Inténtalo de nuevo.';
+        console.error(this.errorLogin);
         this.cargando = false;
+        setTimeout(() => this.errorLogin = null, 4000);
       }
     });
   }
