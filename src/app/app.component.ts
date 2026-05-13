@@ -3,15 +3,17 @@ import { RouterOutlet } from '@angular/router';
 import { NavComponent } from './layout/nav/nav.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { HeaderComponent } from './layout/header/header.component';
+import { ChatbotComponent } from './components/chatbot/chatbot.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
-    RouterOutlet, 
+    RouterOutlet,
     HeaderComponent,
     NavComponent,
-    FooterComponent
+    FooterComponent,
+    ChatbotComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

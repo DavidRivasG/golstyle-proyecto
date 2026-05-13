@@ -1,0 +1,62 @@
+<!-- Floating toggle button -->
+<button class="chat-fab" (click)="toggleChat()" [class.open]="isOpen" aria-label="Abrir chat">
+  <svg *ngIf="!isOpen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+  </svg>
+  <svg *ngIf="isOpen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+    <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+  </svg>
+</button>
+
+<!-- Chat window -->
+<div class="chat-window" [class.visible]="isOpen">
+  <!-- Header -->
+  <div class="chat-header">
+    <div class="chat-avatar">⚽</div>
+    <div class="chat-header-info">
+      <span class="chat-name">GolBot</span>
+      <span class="chat-status">Asistente de GolStyle</span>
+    </div>
+  </div>
+
+  <!-- Messages -->
+  <div class="chat-messages" #messagesContainer>
+    <div
+      *ngFor="let msg of messages"
+      class="msg-row"
+      [class.user]="msg.role === 'user'"
+      [class.bot]="msg.role === 'bot'"
+    >
+      <div class="msg-bubble" [class.loading-bubble]="msg.loading">
+        <span *ngIf="!msg.loading">{{ msg.text }}</span>
+        <span *ngIf="msg.loading" class="dots">
+          <span></span><span></span><span></span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Input -->
+  <div class="chat-input-area">
+    <input
+      type="text"
+      class="chat-input"
+      placeholder="Escribe tu mensaje..."
+      [(ngModel)]="userInput"
+      (keydown)="onKeydown($event)"
+      [disabled]="isLoading"
+      maxlength="500"
+    />
+    <button
+      class="chat-send"
+      (click)="sendMessage()"
+      [disabled]="isLoading || !userInput.trim()"
+      aria-label="Enviar"
+    >
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="22" y1="2" x2="11" y2="13"/>
+        <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+      </svg>
+    </button>
+  </div>
+</div>
