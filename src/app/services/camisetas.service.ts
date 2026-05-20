@@ -13,9 +13,9 @@ export class CamisetasService {
   http = inject(HttpClient);
 
   // Obtener catálogo
-  getCatalogo(filtros: any): Observable<any> {
+  getCatalogo(): Observable<any> {
 
-    return this.http.get(`${this.apiUrl}/camisetas/catalogo`, { params: filtros });
+    return this.http.get(`${this.apiUrl}/camisetas/catalogo`);
   }
 
   // Obtener los detalles de una camiseta

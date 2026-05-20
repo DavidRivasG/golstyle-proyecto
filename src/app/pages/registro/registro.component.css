@@ -125,10 +125,13 @@ button {
   border-color: #fff;
 }
 
-.error {
+.error-msg {
+  display: block;
   color: #ff6b6b;
-  font-size: 0.8rem;
-  margin-top: 5px;
+  font-size: 0.78rem;
+  margin-top: 6px;
+  padding-left: 4px;
+  animation: fadeIn 0.2s ease;
 }
 
 button:disabled {

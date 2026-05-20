@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; 
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { GoogleSigninButtonModule } from "@abacritt/angularx-social-login";
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, GoogleSigninButtonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -14,14 +15,14 @@ export class LoginComponent {
   email: string = '';
   password: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   iniciarSesion() {
 
     if (this.email && this.password) {
-      
+
       const usuarioSimulado = {
-        nombre: 'Carlos', 
+        nombre: 'Carlos',
         email: this.email,
         rol: 'usuario'
       };

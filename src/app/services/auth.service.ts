@@ -45,4 +45,10 @@ export class AuthService {
   isLoggedIn(): boolean {
     return !!localStorage.getItem('auth_token');
   }
+
+  loginConGoogle(token: string): Observable<any> {
+
+    return this.http.post(`${this.apiUrl}/auth/google`, { token })
+      .pipe(tap((res: any) => this.handleAuth(res)));
+  }
 }

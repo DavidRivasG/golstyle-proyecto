@@ -1,80 +1,68 @@
 <h1 class="titulo-catalogo">CATÁLOGO</h1>
 
-<div class="loading" *ngIf="loading">
+<div class="loading" *ngIf="loading()">
     <p>Cargando Catálogo...</p>
 </div>
 
-<div class="error" *ngIf="error">
-    <p>Ha ocurrido un error intentelo más tarde.</p>
+<div class="error" *ngIf="error()">
+    <p>Ha ocurrido un error inténtelo más tarde.</p>
 </div>
 
-<div class="contenedor-catalogo" *ngIf="!loading && !error">
+<div class="contenedor-catalogo" *ngIf="!loading() && !error()">
 
     <aside class="panel-filtros">
 
-        <!-- FILTROS PARA LAS LIGAS -->
         <div class="filtro-grupo">
-            <button class="filtro-header">
+            <button class="filtro-header" (click)="toggle('liga')">
                 <span>Ligas</span>
+                <span class="flecha" [class.rotada]="acordeones()['liga']">▼</span>
             </button>
-            <div class="filtro-contenido">
+            <div class="filtro-contenido" [class.abierto]="acordeones()['liga']">
                 <label class="opcion-filtro" *ngFor="let liga of opciones.ligas">
-                    <input 
-                    type="checkbox" 
-                    [checked]="filtros.liga.includes(liga)" 
-                    (change)="aplicarFiltro('liga', liga)"
-                    >
+                    <input type="checkbox" [checked]="filtros().liga.includes(liga)"
+                        (change)="aplicarFiltro('liga', liga)">
                     {{ liga }}
                 </label>
             </div>
         </div>
 
-        <!-- FILTROS PARA LOS EQUIPOS -->
         <div class="filtro-grupo">
-            <button class="filtro-header">
+            <button class="filtro-header" (click)="toggle('equipo')">
                 <span>Clubes</span>
+                <span class="flecha" [class.rotada]="acordeones()['equipo']">▼</span>
             </button>
-            <div class="filtro-contenido">
+            <div class="filtro-contenido" [class.abierto]="acordeones()['equipo']">
                 <label class="opcion-filtro" *ngFor="let equipo of opciones.equipos">
-                    <input 
-                    type="checkbox" 
-                    [checked]="filtros.equipo.includes(equipo)"
-                    (change)="aplicarFiltro('equipo', equipo)"
-                    >
+                    <input type="checkbox" [checked]="filtros().equipo.includes(equipo)"
+                        (change)="aplicarFiltro('equipo', equipo)">
                     {{ equipo }}
                 </label>
             </div>
         </div>
 
-        <!-- FILTROS PARA LAS SELECCIONES -->
         <div class="filtro-grupo">
-            <button class="filtro-header">
+            <button class="filtro-header" (click)="toggle('seleccion')">
                 <span>Selecciones</span>
+                <span class="flecha" [class.rotada]="acordeones()['seleccion']">▼</span>
             </button>
-            <div class="filtro-contenido">
+            <div class="filtro-contenido" [class.abierto]="acordeones()['seleccion']">
                 <label class="opcion-filtro" *ngFor="let seleccion of opciones.selecciones">
-                    <input 
-                    type="checkbox" 
-                    [checked]="filtros.seleccion.includes(seleccion)"
-                    (change)="aplicarFiltro('seleccion', seleccion)"
-                    >
+                    <input type="checkbox" [checked]="filtros().seleccion.includes(seleccion)"
+                        (change)="aplicarFiltro('seleccion', seleccion)">
                     {{ seleccion }}
                 </label>
             </div>
         </div>
 
-        <!-- FILTROS PARA LAS TEMPORADAS -->
         <div class="filtro-grupo">
-            <button class="filtro-header">
+            <button class="filtro-header" (click)="toggle('temporada')">
                 <span>Temporada</span>
+                <span class="flecha" [class.rotada]="acordeones()['temporada']">▼</span>
             </button>
-            <div class="filtro-contenido">
+            <div class="filtro-contenido" [class.abierto]="acordeones()['temporada']">
                 <label class="opcion-filtro" *ngFor="let temp of opciones.temporadas">
-                    <input 
-                    type="checkbox" 
-                    [checked]="filtros.temporada.includes(temp)"
-                    (change)="aplicarFiltro('temporada', temp)"
-                    >
+                    <input type="checkbox" [checked]="filtros().temporada.includes(temp)"
+                        (change)="aplicarFiltro('temporada', temp)">
                     {{ temp }}
                 </label>
             </div>
@@ -84,10 +72,23 @@
 
     <main class="seccion-productos">
         <div class="cuadricula-productos">
-            <app-catalogo-producto 
-            *ngFor="let producto of productos" 
-            [camiseta]="producto">
+            <app-catalogo-producto *ngFor="let producto of productosAMostrar()" [camiseta]="producto">
             </app-catalogo-producto>
+        </div>
+
+        <div class="paginacion" *ngIf="totalPaginas() > 1">
+            <button class="btn-nav" [disabled]="paginaActual() === 1" (click)="cambiarPagina(paginaActual() - 1)">
+                &laquo; Anterior
+            </button>
+
+            <div class="info-paginas">
+                <span>Página <strong>{{ paginaActual() }}</strong> de {{ totalPaginas() }}</span>
+            </div>
+
+            <button class="btn-nav" [disabled]="paginaActual() === totalPaginas()"
+                (click)="cambiarPagina(paginaActual() + 1)">
+                Siguiente &raquo;
+            </button>
         </div>
     </main>
 

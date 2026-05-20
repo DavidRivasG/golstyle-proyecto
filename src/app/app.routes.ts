@@ -15,6 +15,7 @@ import { DireccionesEditarPageComponent } from './pages/direcciones-editar-page/
 import { authGuard } from './guards/auth.guard';
 import { publicGuard } from './guards/public-guard.guard';
 import { VerificarEmailComponent } from './pages/verificar-email/verificar-email.component';
+import { CheckoutComponent } from './pages/checkout/checkout.component';
 
 
 export const routes: Routes = [
@@ -32,6 +33,7 @@ export const routes: Routes = [
     { path: 'direcciones/crear', component: DireccionesCrearPageComponent , canActivate: [authGuard]}, // Crear dirección
     { path: 'direcciones/editar/:id', component: DireccionesEditarPageComponent , canActivate: [authGuard]}, // Editar dirección
     { path: 'verificar-email', component: VerificarEmailComponent }, // Página de verificación de email
+    { path: 'checkout', component: CheckoutComponent, canActivate: [authGuard] },
     { path: '**', redirectTo: '', pathMatch: 'full' }
 
 ];

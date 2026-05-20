@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { Direccion } from '../interfaces/direccion.interface';
 import { environment } from '../../environments/environment';
@@ -12,6 +12,18 @@ export class DireccionService {
   // Injección de servicios
   private apiUrl = `${environment.apiUrl}/direcciones`;
   private http = inject(HttpClient);
+
+  private getHeaders() {
+
+      const token = localStorage.getItem('auth_token');
+
+      return new HttpHeaders({
+
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      });
+    }
+
 
   // Ontener las direcciones de un usuario
   obtener(): Observable<Direccion[]> {
@@ -33,5 +45,10 @@ export class DireccionService {
   // Eliminar una dirección del usuario
   eliminar(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/eliminar/${id}`);
+  }
+
+  getDirecciones(): Observable<Direccion[]> {
+
+    return this.http.get<Direccion[]>(`${this.apiUrl}`, { headers: this.getHeaders() });
   }
 }
