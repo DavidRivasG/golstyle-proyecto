@@ -1,10 +1,14 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ResenaCardComponent } from './../../components/resena-card/resena-card.component';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { CamisetasService } from '../../services/camisetas.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CarritoService } from '../../services/carrito.service';
 import { AuthService } from '../../services/auth.service';
+import { Resena, ResenaCrear } from '../../interfaces/Resena';
+import { ResenaService } from '../../services/resena.service';
+import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-detalle-camiseta',
@@ -12,6 +16,8 @@ import { AuthService } from '../../services/auth.service';
   imports: [
     CommonModule,
     FormsModule,
+    ResenaCardComponent,
+    ReactiveFormsModule
   ],
   templateUrl: './detalle-camiseta.component.html',
   styleUrl: './detalle-camiseta.component.css'
@@ -23,12 +29,20 @@ export class DetalleCamisetaComponent implements OnInit {
   cargando = false;
   mensaje: { texto: string; tipo: 'error' | 'exito' } | null = null;
 
-  tallaSeleccionada: number | null = null; 
+  tallaSeleccionada: number | null = null;
   cantidad = 1;
 
 
   nombrePersonalizado: string | null = null;
   dorsalPersonalizado: number | null = null;
+
+  resenas = signal<Resena[]>([]);
+  cargandoResenas = signal<boolean>(false);
+
+  mostrarModal = signal<boolean>(false);
+  resenaEditando = signal<Resena | null>(null);
+  nuevaPuntuacion = signal<number>(1);
+  nuevoComentario = signal<string>('');
 
   // Injección de servicio
   private camisetasService = inject(CamisetasService);
@@ -36,11 +50,13 @@ export class DetalleCamisetaComponent implements OnInit {
   private authService = inject(AuthService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
+  private resenaService = inject(ResenaService);
+  private fb = inject(FormBuilder);
 
   ngOnInit(): void {
 
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    
+
     if (!id) {
 
       this.router.navigate(['/catalogo']);
@@ -59,6 +75,30 @@ export class DetalleCamisetaComponent implements OnInit {
         this.router.navigate(['/catalogo']);
       }
     });
+
+    this.cargarResenas(id);
+  }
+
+  private cargarResenas(idCamiseta: number) {
+
+    this.cargandoResenas.set(true);
+
+    this.resenaService.getResenas(idCamiseta).subscribe({
+      next: (data: any) => {
+
+        this.resenas.set(data);
+        this.cargandoResenas.set(false);
+      },
+      error: () => {
+
+        this.cargandoResenas.set(false);
+      }
+    });
+  }
+
+  enviarResena() {
+
+    // if (!this.nuevoComentario.trim()) return;
   }
 
   // Obtener el stock de una variante de la camiseta
@@ -79,7 +119,7 @@ export class DetalleCamisetaComponent implements OnInit {
   validarCantidad() {
 
     const max = this.getStockVariante();
-    
+
     if (max === 0) {
 
       this.cantidad = 0;
@@ -176,4 +216,134 @@ export class DetalleCamisetaComponent implements OnInit {
 
     this.mostrarMensaje('No se pudo añadir el producto. Inténtalo de nuevo.', 'error');
   }
+
+  resenaForm = this.fb.group({
+    puntuacion: [5, [Validators.required, Validators.min(1), Validators.max(5)]],
+    comentario: ['', Validators.required]
+  });
+
+
+
+  abrirModalResena(resena?: Resena) {
+
+    if (!this.authService.isLoggedIn()) {
+
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    if (resena) {
+
+      this.resenaEditando.set(resena);
+      this.resenaForm.patchValue({
+
+        comentario: resena.comentario,
+        puntuacion: resena.puntuacion
+      });
+    } else {
+
+      this.resenaEditando.set(null);
+      this.resenaForm.reset({ puntuacion: 5, comentario: '' });
+    }
+
+    this.mostrarModal.set(true);
+  }
+
+  cerrarModal() {
+
+    this.mostrarModal.set(false);
+    this.resenaEditando.set(null);
+  }
+
+
+  guardarResena() {
+
+    if (this.resenaForm.invalid) return;
+
+    const datos = this.resenaForm.value;
+
+    if (this.resenaEditando()) {
+
+      this.resenaService.editarResena(this.resenaEditando()!.cod_res, datos as ResenaCrear).subscribe({
+
+        next: () => {
+
+          alert("Reseña actualizada");
+          this.cerrarModal();
+          this.cargarResenas(this.camiseta.cod_cam);
+        },
+        error: () => {
+
+          alert("Error al actualizar la reseña");
+        }
+      });
+
+    } else {
+
+      this.resenaService.crearResena(this.camiseta.cod_cam, datos as ResenaCrear).subscribe({
+
+        next: () => {
+
+          alert("Reseña creada");
+          this.cerrarModal();
+          this.cargarResenas(this.camiseta.cod_cam);
+        },
+        error: (err) => {
+
+          alert(err.error?.message || 'Error al crear la resena');
+        }
+      });
+    }
+
+  }
+
+  reaccionar(idResena: number, tipo: 'like' | 'dislike') {
+
+    if (!this.authService.isLoggedIn()) {
+
+      alert("Debes iniciar sesión para reaccionar a una reseña");
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    this.resenaService.reaccionarResena(idResena, tipo).subscribe({
+
+      next: () => {
+
+        this.cargarResenas(this.camiseta.cod_cam);
+      },
+      error: () => {
+
+        alert("Error al reaccionar a la reseña");
+      }
+    });
+
+  }
+
+  borrarResena(idResena: number) {
+
+    if (!this.authService.isLoggedIn()) {
+
+      alert("Debes iniciar sesión para borrar una reseña");
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    if (!confirm('¿Estás seguro de que quieres eliminar tu reseña')) return;
+
+
+    this.resenaService.eliminarResena(idResena).subscribe({
+
+      next: () => {
+
+        alert("Reseña eliminada");
+        this.cargarResenas(this.camiseta.cod_cam);
+      },
+      error: () => {
+
+        alert("Error al eliminar la reseña");
+      }
+    });
+  }
+
 }

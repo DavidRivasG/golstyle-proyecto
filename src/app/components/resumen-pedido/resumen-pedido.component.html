@@ -1,0 +1,49 @@
+<div class="resumen-contenedor">
+    <h3 class="titulo-dorado">Tu Pedido</h3>
+    <div class="divisor-dorado"></div>
+
+    <div class="lista-productos">
+        @for (item of detalles; track item.cod_det_carr) {
+        <div class="producto-item">
+            <div class="contenedor-img">
+                <img [src]="getImagenUrl(item)" [alt]="item.variante.camiseta?.nombre">
+                <span class="cantidad-badge">{{ item.cantidad }}</span>
+            </div>
+
+            <div class="info-producto">
+                <p class="nombre">{{ item.variante.camiseta?.nombre }}</p>
+                <p class="talla">Talla: {{ item.variante.talla }}</p>
+
+                @if (item.nombre_personalizado || item.dorsal_personalizado) {
+                <div class="personalizacion">
+                    {{ item.nombre_personalizado || 'Sin nombre' }} - {{ item.dorsal_personalizado || 'Sin numero' }}
+                </div>
+                }
+            </div>
+
+            <div class="precio-item">
+                {{ (item.variante.camiseta?.precio || 0) * item.cantidad | currency:'EUR'}}€
+            </div>
+        </div>
+        } @empty {
+        <p class="vacio">No hay artículos en el carrito</p>
+        }
+    </div>
+
+    <div class="divisor-dorado"></div>
+
+    <div class="seccion-total">
+        <div class="fila-resumen">
+            <span>Subtotal</span>
+            <span>{{ total | currency:'EUR'}}€</span>
+        </div>
+        <div class="fila-resumen">
+            <span>Envío</span>
+            <span class="envio-gratis">GRATIS</span>
+        </div>
+        <div class="total-final">
+            <span>Total</span>
+            <span class="monto-total">{{ total | currency:'EUR' }}€</span>
+        </div>
+    </div>
+</div>

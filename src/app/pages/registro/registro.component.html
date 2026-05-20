@@ -1,60 +1,79 @@
 <div class="register-container">
+  <div class="image-section">
+    <img class="player-img" src="assets/images/registro_img.jpg" alt="jugador" />
+  </div>
 
-    <div class="image-section">
-        <img class="player-img" src="assets/images/registro_img.jpg" alt="jugador">
-    </div>
+  <!-- Formulario -->
+  <div class="form-section">
+    <form [formGroup]="registerForm" (ngSubmit)="registrar()" class="form-wrapper">
+      <!-- Nombre -->
+      <div class="input-group">
+        <label>NOMBRE:</label>
+        <input type="text" formControlName="nombre" />
+      </div>
 
-    <!-- Formulario -->
-    <div class="form-section">
-        <form [formGroup]="registerForm" (ngSubmit)="registrar()" class="form-wrapper">
+      <!-- Apellido1 -->
+      <div class="input-group">
+        <label>APELLIDO 1:</label>
+        <input type="text" formControlName="ape1" />
+      </div>
 
-            <!-- Nombre -->
-            <div class="input-group">
-                <label>NOMBRE:</label>
-                <input type="text" formControlName="nombre">
-            </div>
+      <!-- Apellido 2 opcional -->
+      <div class="input-group">
+        <label>APELLIDO 2 (OPCIONAL):</label>
+        <input type="text" formControlName="ape2" />
+      </div>
 
-            <!-- Apellido1 -->
-            <div class="input-group">
-                <label>APELLIDO 1:</label>
-                <input type="text" formControlName="ape1">
-            </div>
+      <!-- Correo -->
+      <div class="input-group">
+        <label>CORREO:</label>
+        <input type="email" formControlName="correo" />
+        @if (errorCorreo()) {
+        <span class="error-msg">{{ errorCorreo() }}</span>
+        }
+      </div>
 
-            <!-- Apellido 2 opcional -->
-            <div class="input-group">
-                <label>APELLIDO 2 (OPCIONAL):</label>
-                <input type="text" formControlName="ape2">
-            </div>
+      <!-- Contraseña -->
+      <div class="input-group">
+        <label>CONTRASEÑA:</label>
+        <input type="password" formControlName="password" />
+      </div>
 
-            <!-- Correo -->
-            <div class="input-group">
-                <label>CORREO:</label>
-                <input type="email" formControlName="correo">
-            </div>
+      <!-- Registro -->
+      <div class="button-group">
+        <button type="submit" class="btn-gold" [disabled]="registerForm.invalid">
+          REGISTRARSE
+        </button>
 
-            <!-- Contraseña -->
-            <div class="input-group">
-                <label>CONTRASEÑA:</label>
-                <input type="password" formControlName="password">
-            </div>
+        <!-- Contraseña -->
+        <div class="input-group">
+          <label>CONTRASEÑA:</label>
+          <input type="password" formControlName="password">
+        </div>
 
-            <!-- Registro -->
-            <div class="button-group">
-                <button type="submit" class="btn-gold" [disabled]="registerForm.invalid || cargando">
-                    @if (cargando) {
-                        <span class="spinner-pequeno"></span> PROCESANDO...
-                    } @else {
-                        REGISTRARME
-                    }
-                </button>
+        <!-- Registro -->
+        <div class="button-group">
+          <button type="submit" class="btn-gold" [disabled]="registerForm.invalid || cargando">
+            @if (cargando) {
+            <span class="spinner-pequeno"></span> PROCESANDO...
+            } @else {
+            REGISTRARME
+            }
+          </button>
 
-                <!-- Inicio de sesión -->
-                <button type="button" class="btn-gold" (click)="irALogin()">
-                    INICIAR SESIÓN
-                </button>
-            </div>
+          <!-- Inicio de sesión -->
+          <button type="button" class="btn-gold" (click)="irALogin()">
+            INICIAR SESIÓN
+          </button>
+        </div>
 
-        </form>
-    </div>
+    </form>
+  </div>
 
+</div>
+
+</button>
+</div>
+</form>
+</div>
 </div>

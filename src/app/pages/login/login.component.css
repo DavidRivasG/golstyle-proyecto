@@ -3,7 +3,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .login-container {
@@ -13,10 +13,9 @@
   background-color: #121212;
 }
 
-
 .image-section {
-  display: none; 
-  flex: 1.2; 
+  display: none;
+  flex: 1.2;
   position: relative;
 }
 
@@ -25,9 +24,8 @@
   height: 100%;
   object-fit: cover;
   object-position: 25% 35%;
-  filter: brightness(0.8); 
+  filter: brightness(0.8);
 }
-
 
 .form-section {
   flex: 1;
@@ -72,14 +70,12 @@
   transition: all 0.3s ease;
 }
 
-
 .input-group input:focus {
   outline: none;
   background-color: #333;
   border-color: #d4af37;
   box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
 }
-
 
 .button-group {
   margin-top: 35px;
@@ -99,7 +95,6 @@ button {
   letter-spacing: 1px;
 }
 
-
 .btn-gold {
   background: linear-gradient(135deg, #d4af37 0%, #b5952f 100%);
   color: #000;
@@ -116,8 +111,7 @@ button {
   box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
 }
 
-
-.btn-gold:last-child { 
+.btn-gold:last-child {
   background: transparent;
   border: 2px solid #d4af37;
   color: #d4af37;
@@ -133,6 +127,13 @@ button {
   color: #ff6b6b;
   font-size: 0.8rem;
   margin-top: 5px;
+}
+
+#googleButtonContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 10px 0;
 }
 
 button:disabled {

@@ -8,7 +8,7 @@ import { DireccionService } from '../../services/direccion.service';
 import { PedidoService } from '../../services/pedido.service';
 import { Direccion } from '../../interfaces/direccion.interface';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-carrito-page',
@@ -19,6 +19,7 @@ import { Router, RouterModule } from '@angular/router';
     CarritoProductoComponent,
     FormsModule,
     RouterModule,
+    RouterLink,
   ],
   templateUrl: './carrito-page.component.html',
   styleUrl: './carrito-page.component.css'
@@ -194,7 +195,7 @@ export class CarritoPageComponent implements OnInit {
     this.pedidoService.crearPedido(pedidoData).subscribe({
 
       next: (resp: any) => {
-        
+
         this.creandoPedido = false;
         this.cerrarModalPedido();
         this.mostrar('mensajeCarrito', '¡Pedido creado correctamente! Te redirigimos a tus pedidos.', 'exito');

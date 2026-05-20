@@ -1,0 +1,124 @@
+.resena-card {
+    background: #1e1e1e;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #333333;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease;
+}
+
+
+.resena-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.usuario-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.avatar {
+    width: 45px;
+    height: 45px;
+    background: #d4af37;
+    color: #000;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.usuario-info h4 {
+    color: #ffffff;
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.fecha {
+    color: #888888;
+    font-size: 0.85rem;
+}
+
+.puntuacion {
+    display: flex;
+    gap: 2px;
+}
+
+.comentario {
+    color: #cccccc;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    font-size: 1rem;
+}
+
+.resena-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #333333;
+    padding-top: 15px;
+}
+
+.reacciones {
+    display: flex;
+    gap: 15px;
+}
+
+.btn-reaccion {
+    background: none;
+    border: none;
+    color: #888888;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: color 0.2s ease;
+}
+
+.btn-reaccion:hover {
+    color: #d4af37;
+}
+
+.btn-reaccion:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    filter: grayscale(1);
+}
+
+.btn-reaccion:disabled:hover {
+    color: #888888;
+}
+
+.acciones-propias {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-accion {
+    background: transparent;
+    border: 1px solid #555;
+    color: #bbb;
+    padding: 6px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+}
+
+.btn-editar:hover {
+    border-color: #d4af37;
+    color: #d4af37;
+}
+
+.btn-borrar:hover {
+    border-color: #ff4d4d;
+    color: #ff4d4d;
+}

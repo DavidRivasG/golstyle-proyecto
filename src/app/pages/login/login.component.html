@@ -1,16 +1,24 @@
 <div class="login-container">
   <div class="image-section">
-    <img src="assets/images/jugador.png" alt="Jugador" class="player-img">
+    <img src="assets/images/jugador.png" alt="Jugador" class="player-img" />
   </div>
 
   <div class="form-section">
-    <form [formGroup]="loginForm" (ngSubmit)="iniciarSesion()" class="form-wrapper">
-
+    <form
+      [formGroup]="loginForm"
+      (ngSubmit)="iniciarSesion()"
+      class="form-wrapper"
+    >
       <!-- Correo -->
       <div class="input-group">
         <label>CORREO:</label>
-        <input type="email" formControlName="correo">
-        <div *ngIf="loginForm.get('correo')?.invalid && loginForm.get('correo')?.touched" class="error">
+        <input type="email" formControlName="correo" />
+        <div
+          *ngIf="
+            loginForm.get('correo')?.invalid && loginForm.get('correo')?.touched
+          "
+          class="error"
+        >
           Email inválido
         </div>
       </div>
@@ -18,8 +26,14 @@
       <!-- Contraseña -->
       <div class="input-group">
         <label>CONTRASEÑA:</label>
-        <input type="password" formControlName="password">
-        <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="error">
+        <input type="password" formControlName="password" />
+        <div
+          *ngIf="
+            loginForm.get('password')?.invalid &&
+            loginForm.get('password')?.touched
+          "
+          class="error"
+        >
           Contraseña requerida
         </div>
       </div>
@@ -38,12 +52,20 @@
             INICIAR SESION
           }
         </button>
-      <!-- Ir al registro -->
+
+        <div id="googleButtonContainer">
+          <asl-google-signin-button
+            type="standard"
+            size="large"
+            theme="filled_black"
+            width="320"
+          ></asl-google-signin-button>
+        </div>
+        <!-- Ir al registro -->
         <button type="button" class="btn-gold" (click)="irARegistro()">
           CREAR CUENTA
         </button>
       </div>
-
     </form>
   </div>
 </div>
