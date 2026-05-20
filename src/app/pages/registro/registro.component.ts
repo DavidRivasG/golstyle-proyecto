@@ -64,4 +64,8 @@ export class RegistroComponent {
     });
   }
 
+  irALogin() {
+    this.router.navigate(['/login']);
+  }
+
 }

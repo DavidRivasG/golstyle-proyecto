@@ -41,39 +41,21 @@
 
       <!-- Registro -->
       <div class="button-group">
-        <button type="submit" class="btn-gold" [disabled]="registerForm.invalid">
-          REGISTRARSE
+        <button type="submit" class="btn-gold" [disabled]="registerForm.invalid || cargando">
+          @if (cargando) {
+          <span class="spinner-pequeno"></span> PROCESANDO...
+          } @else {
+          REGISTRARME
+          }
         </button>
 
-        <!-- Contraseña -->
-        <div class="input-group">
-          <label>CONTRASEÑA:</label>
-          <input type="password" formControlName="password">
-        </div>
-
-        <!-- Registro -->
-        <div class="button-group">
-          <button type="submit" class="btn-gold" [disabled]="registerForm.invalid || cargando">
-            @if (cargando) {
-            <span class="spinner-pequeno"></span> PROCESANDO...
-            } @else {
-            REGISTRARME
-            }
-          </button>
-
-          <!-- Inicio de sesión -->
-          <button type="button" class="btn-gold" (click)="irALogin()">
-            INICIAR SESIÓN
-          </button>
-        </div>
+        <!-- Inicio de sesión -->
+        <button type="button" class="btn-gold" (click)="irALogin()">
+          INICIAR SESIÓN
+        </button>
+      </div>
 
     </form>
   </div>
 
-</div>
-
-</button>
-</div>
-</form>
-</div>
 </div>

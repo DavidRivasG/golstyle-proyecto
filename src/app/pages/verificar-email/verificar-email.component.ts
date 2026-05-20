@@ -6,6 +6,8 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-verificar-email',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './verificar-email.component.html',
   styleUrls: ['./verificar-email.component.css']
 })
@@ -17,7 +19,7 @@ export class VerificarEmailComponent implements OnInit {
     private route: ActivatedRoute,
     private http: HttpClient,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -32,16 +34,16 @@ export class VerificarEmailComponent implements OnInit {
   }
 
   verificarEnBackend(url: string) {
-  this.http.get(url).subscribe({
-    next: (respuesta) => {
-      this.estado = 'exito';
-      console.log("Verificación exitosa:", respuesta);
-      setTimeout(() => this.router.navigate(['/login']), 2000);
-    },
-    error: (error) => {
-      this.estado = 'error';
-      console.error('ERROR REAL DE LARAVEL:', error); 
-    }
-  });
-}
+    this.http.get(url).subscribe({
+      next: (respuesta) => {
+        this.estado = 'exito';
+        console.log("Verificación exitosa:", respuesta);
+        setTimeout(() => this.router.navigate(['/login']), 2000);
+      },
+      error: (error) => {
+        this.estado = 'error';
+        console.error('ERROR REAL DE LARAVEL:', error);
+      }
+    });
+  }
 }
