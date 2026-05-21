@@ -6,17 +6,23 @@
   font-family: "Poppins", sans-serif;
 }
 
+:host {
+  display: flex;      
+  flex-direction: column; 
+  flex: 1;             
+  width: 100%;
+}
+
 .login-container {
   display: flex;
-  height: 700px;
+  flex-direction: column;
   width: 100%;
+  flex: 1;
   background-color: #121212;
 }
 
 .image-section {
   display: none;
-  flex: 1.2;
-  position: relative;
 }
 
 .player-img {
@@ -32,8 +38,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #121212;
   padding: 20px;
+  width: 100%;
 }
 
 .form-wrapper {
@@ -157,7 +163,9 @@ button:disabled {
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .msg-inline {
@@ -167,6 +175,7 @@ button:disabled {
   margin: 12px 0;
   border-left: 3px solid;
 }
+
 .msg-error {
   background: rgba(192, 57, 43, 0.15);
   border-color: #c0392b;
@@ -174,7 +183,15 @@ button:disabled {
 }
 
 @media (min-width: 768px) {
+
+  .login-container {
+    flex-direction: row;
+  }
+
   .image-section {
     display: block;
+    flex: 1.2;
+    max-width: 60%;
+    position: relative;
   }
 }
