@@ -6,8 +6,9 @@
     background-color: #121212;
     color: white;
     font-family: 'Arial Narrow', sans-serif;
-    min-height: 65.5vh;
     padding: 20px;
+    flex: 1;
+    width: 100%;
 }
 
 /* Estilo general */

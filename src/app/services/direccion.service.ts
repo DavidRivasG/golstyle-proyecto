@@ -13,7 +13,7 @@ export class DireccionService {
   private apiUrl = `${environment.apiUrl}/direcciones`;
   private http = inject(HttpClient);
 
-  // Ontener las direcciones de un usuario
+  // Obtener las direcciones de un usuario
   obtener(): Observable<Direccion[]> {
     return this.http
       .get<{ direcciones: Direccion[] }>(this.apiUrl)

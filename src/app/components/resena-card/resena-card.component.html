@@ -1,0 +1,97 @@
+<div class="resena-card">
+  <div class="resena-header">
+    <div class="usuario-info">
+      <!-- Letra inicial como avatar -->
+      <div>
+        <h4>
+          {{ resena.usuario }}
+          @if (resena.es_mia) {
+            (Tú)
+          }
+        </h4>
+        <span class="fecha">{{ resena.fecha }}</span>
+      </div>
+    </div>
+
+    <div class="puntuacion">
+      @for (s of [1, 2, 3, 4, 5]; track s) {
+        <span class="star">
+          <svg
+            [attr.fill]="s <= resena.puntuacion ? '#d4af37' : 'none'"
+            stroke="#d4af37"
+            viewBox="0 0 24 24"
+            width="18"
+            height="18"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+            ></path>
+          </svg>
+        </span>
+      }
+    </div>
+  </div>
+
+  <p class="comentario">{{ resena.comentario }}</p>
+
+  <div class="resena-footer">
+    <div class="reacciones">
+      <button
+        class="btn-reaccion"
+        (click)="onReaccionar('like')"
+        [disabled]="resena.es_mia || !this.authService.isLoggedIn()"
+      >
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"
+          ></path>
+        </svg>
+        <span>{{ resena.likes }}</span>
+      </button>
+      <button
+        class="btn-reaccion"
+        (click)="onReaccionar('dislike')"
+        [disabled]="resena.es_mia || !this.authService.isLoggedIn()"
+      >
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-2"
+          ></path>
+        </svg>
+        <span>{{ resena.dislikes }}</span>
+      </button>
+    </div>
+
+    @if (resena.es_mia) {
+      <div class="acciones-propias">
+        <button class="btn-accion btn-editar" (click)="onEditar()">
+          Editar
+        </button>
+        <button class="btn-accion btn-borrar" (click)="onBorrar()">
+          Borrar
+        </button>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,92 @@
+<div class="checkout-wrapper">
+  <div class="checkout-container">
+    <main class="checkout-main">
+      <h1 class="title">Finalizar Pedido</h1>
+      <form [formGroup]="checkoutForm" class="checkout-form">
+        <section class="form-section">
+          <div class="section-header">
+            <span class="step-number">1</span>
+            <h2>Dirección de Envío</h2>
+          </div>
+          <div class="input-group">
+            <select formControlName="cod_dir" class="custom-select">
+              <option [ngValue]="null" disabled>Selecciona donde quieres recibirlo</option>
+              @for (dir of direcciones(); track dir.cod_dir) {
+              <option [value]="dir.cod_dir">
+                {{ dir.nombre }} — {{ dir.calle }}, {{ dir.ciudad }}
+              </option>
+              }
+            </select>
+            @if (checkoutForm.get('cod_dir')?.touched && checkoutForm.get('cod_dir')?.invalid) {
+            <p class="error-msg">Por favor, selecciona una dirección.</p>
+            }
+          </div>
+        </section>
+
+        <section class="form-section">
+          <div class="section-header">
+            <span class="step-number">2</span>
+            <h2>Información de Pago</h2>
+          </div>
+          <div id="payment-element" class="stripe-container">
+            <div class="stripe-placeholder">Cargando pasarela segura...</div>
+          </div>
+          @if (error()) {
+          <div class="error-alert">
+            {{ error() }}
+          </div>
+          }
+        </section>
+
+        <button type="button" (click)="confirmarCompra()"
+          [disabled]="checkoutForm.invalid || !stripeListo() || cargando()" class="btn-checkout">
+          @if (cargando()) {
+          <span class="spinner"></span>
+          Procesando...
+          } @else {
+          Pagar {{ total() | number:'1.2-2' }}€
+          }
+        </button>
+      </form>
+    </main>
+
+    <aside class="checkout-sidebar">
+      <app-resumen-pedido [detalles]="detalles()" [total]="total()">
+      </app-resumen-pedido>
+    </aside>
+  </div>
+</div>
+
+@if (mostrarExito()) {
+<div class="success-overlay">
+  <div class="tarjeta-exito">
+    <h1 class="titulo-dorado">¡Pedido Confirmado!</h1>
+
+    <div class="divisor-dorado"></div>
+
+    <div class="icono-check">
+      <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+      </svg>
+    </div>
+
+    <p class="mensaje">
+      Tu pago se ha procesado correctamente. <br>
+      @if (datosPedido()) {
+      <span>Código: <strong>#{{ datosPedido()?.cod_ped }}</strong></span>
+      }
+    </p>
+
+    <div class="acciones">
+      <button class="btn-exito btn-primario" routerLink="/catalogo">
+        Volver al Catálogo
+      </button>
+      <button class="btn-exito btn-secundario" routerLink="/mis-pedidos">
+        Ver mis pedidos
+      </button>
+    </div>
+  </div>
+</div>
+}

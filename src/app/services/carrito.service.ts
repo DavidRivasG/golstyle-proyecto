@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { ProductoCarrito } from '../interfaces/producto-carrito.interface';
 import { environment } from '../../environments/environment';
+import { DetalleCarrito } from '../interfaces/pedido.interface';
 
 
 @Injectable({
@@ -28,9 +29,9 @@ export class CarritoService {
   }
 
   // Obtener el carrito del usuario
-  obtenerCarrito() {
+  obtenerCarrito(): Observable<DetalleCarrito[]> {
 
-    return this.http.get(`${this.apiUrl}/carritos/detalles`, {
+    return this.http.get<DetalleCarrito[]>(`${this.apiUrl}/carritos/detalles`, {
 
       headers: this.getHeaders()
     });

@@ -73,5 +73,23 @@ export class CamisetasService {
     return this.http.get(`${this.apiUrl}/camisetas/${id}`);
   }
 
+  // Obtener 3 camisetas destacadas para la home
+  getDestacadas(): Observable<any> {
+
+    return this.http.get(`${this.apiUrl}/camisetas/destacadas`);
+  }
+
+  // Subir imagen adicional (admin)
+  subirImagen(id: number, file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('imagen', file);
+    return this.http.post(`${this.apiUrl}/camisetas/${id}/imagenes`, formData);
+  }
+
+  // Eliminar imagen adicional (admin)
+  eliminarImagen(imgId: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/camisetas/imagenes/${imgId}`);
+  }
+
 
 }

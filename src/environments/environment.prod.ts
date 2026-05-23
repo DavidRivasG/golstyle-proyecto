@@ -1,5 +1,5 @@
 export const environment = {
-    production: false,
+    production: true,
     stripePublicKey: 'pk_test_51TRDVUEYyMQaFZmRkv3rvgur8Qk5HWPb3UxOQBiIo2QvATCOn6oabtR9lfUVXl41QjZ6zLdsgPiiqNjg5oZwdT9M00kbfFv565',
-    apiUrl: 'http://localhost:8000/api',
+    apiUrl: 'https://golstyle.ddns.net/api',
 };

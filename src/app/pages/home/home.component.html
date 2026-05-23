@@ -8,43 +8,92 @@
   <div class="scroll-indicator">↓</div>
 </section>
 
+<!-- Camisetas destacadas -->
+<section class="destacadas-section">
+  <h3 class="section-title">CAMISETAS DESTACADAS</h3>
+
+  @if (cargandoDestacadas()) {
+    <div class="destacadas-loading"><p>Cargando...</p></div>
+  } @else {
+    <div class="destacadas-grid">
+      @for (camiseta of destacadas(); track camiseta.cod_cam) {
+        <div class="camiseta-card">
+          <div class="camiseta-img-wrap">
+            <img [src]="camiseta.imagen_principal" [alt]="camiseta.nombre" />
+          </div>
+          <div class="camiseta-info">
+            <p class="camiseta-equipo">{{ camiseta.equipo || 'Selección' }}</p>
+            <h4 class="camiseta-nombre">{{ camiseta.nombre }}</h4>
+            <p class="camiseta-precio">{{ camiseta.precio | currency:'EUR' }}</p>
+          </div>
+          <a class="btn-comprar" [routerLink]="['/detalle', camiseta.cod_cam]">COMPRAR</a>
+        </div>
+      }
+    </div>
+  }
+</section>
+
 <!-- Reviews -->
 <section class="reviews-section">
   <h3>VALORACIÓN DE NUESTROS CLIENTES</h3>
 
-  <div class="reviews-container">
-    <div class="score-box">
-      <span class="score-number">4.7</span>
-      <span class="score-count">2345 opiniones</span>
-    </div>
+  @if (cargandoResenas()) {
+    <div class="reviews-loading"><p>Cargando opiniones...</p></div>
+  } @else {
+    <div class="reviews-container">
 
-    <div class="score-bars">
-      <div class="bar-row">
-        <span>Facilidad</span>
-        <div class="progress">
-          <div class="fill" style="width: 90%"></div>
-        </div>
+      <!-- Izquierda: puntuación -->
+      <div class="score-box">
+        <span class="score-number">{{ media() }}</span>
+        <span class="score-count">{{ totalResenas() }} opiniones</span>
       </div>
-      <div class="bar-row">
-        <span>Atención</span>
-        <div class="progress">
-          <div class="fill" style="width: 85%"></div>
-        </div>
-      </div>
-      <div class="bar-row">
-        <span>Rapidez</span>
-        <div class="progress">
-          <div class="fill" style="width: 95%"></div>
-        </div>
-      </div>
-    </div>
 
-    <div class="recent-review">
-      <h4>OPINIONES RECIENTES</h4>
-      <div class="review-card">
-        <p><strong>David Ruiz</strong> ★★★★★</p>
-        <p>Es una página fiable los envíos son muy rápidos. Ya compré más veces y siempre quedo satisfecho.</p>
+      <!-- Centro: estrellas + barra -->
+      <div class="score-center">
+        <div class="stars-global">
+          @for (s of [1,2,3,4,5]; track s) {
+            <svg [attr.fill]="s <= media() ? '#d4af37' : 'none'" stroke="#d4af37"
+              viewBox="0 0 24 24" width="36" height="36">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+          }
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Valoración media</span>
+          <div class="progress">
+            <div class="fill" [style.width]="mediaWidth()"></div>
+          </div>
+        </div>
       </div>
+
+      <!-- Derecha: opiniones -->
+      <div class="recent-review">
+        <h4>OPINIONES RECIENTES</h4>
+        @if (resenasRecientes().length === 0) {
+          <p class="sin-opiniones">Aún no hay opiniones.</p>
+        } @else {
+          @for (resena of resenasRecientes(); track resena.cod_res) {
+            <div class="review-card">
+              <div class="review-header">
+                <strong>{{ resena.usuario }}</strong>
+                <span class="review-stars">
+                  @for (s of [1,2,3,4,5]; track s) {
+                    <svg [attr.fill]="s <= resena.puntuacion ? '#d4af37' : 'none'" stroke="#d4af37"
+                      viewBox="0 0 24 24" width="14" height="14">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                  }
+                </span>
+              </div>
+              <p class="review-comentario">{{ resena.comentario }}</p>
+              <span class="review-fecha">{{ resena.fecha }}</span>
+            </div>
+          }
+        }
+      </div>
+
     </div>
-  </div>
+  }
 </section>

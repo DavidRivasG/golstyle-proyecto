@@ -8,14 +8,16 @@
 
 .register-container {
   display: flex;
-  height: 700px;
   width: 100%;
   background-color: #121212;
+  flex: 1;
+  min-height: 100%;
 }
 
 .image-section {
   display: none;
   flex: 1.2;
+  max-width: 60%; 
   position: relative;
   overflow: hidden;
 }
@@ -40,6 +42,8 @@
 .form-wrapper {
   width: 100%;
   max-width: 400px;
+  max-height: 90vh;
+  overflow-y: auto; 
   padding: 40px;
   background: #1e1e1e;
   border-radius: 16px;
@@ -125,10 +129,13 @@ button {
   border-color: #fff;
 }
 
-.error {
+.error-msg {
+  display: block;
   color: #ff6b6b;
-  font-size: 0.8rem;
-  margin-top: 5px;
+  font-size: 0.78rem;
+  margin-top: 6px;
+  padding-left: 4px;
+  animation: fadeIn 0.2s ease;
 }
 
 button:disabled {

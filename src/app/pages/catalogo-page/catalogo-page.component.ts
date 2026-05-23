@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { CamisetasService } from '../../services/camisetas.service';
@@ -8,6 +8,7 @@ import { Camiseta } from '../../interfaces/camiseta';
 import { FiltrosCatalogo } from '../../interfaces/filtrosCatalogo';
 
 import { CatalogoProductoComponent } from '../../components/catalogo-producto/catalogo-producto.component';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-catalogo-page',
@@ -21,26 +22,33 @@ import { CatalogoProductoComponent } from '../../components/catalogo-producto/ca
 })
 export class CatalogoPageComponent implements OnInit {
 
-  productos: Camiseta[] = [];
-  loading = true;
-  error = false;
+  private camisetasService = inject(CamisetasService);
+  private filtrosService = inject(FiltrosService);
 
-  // Lista de filtros aplicables
-  filtros: FiltrosCatalogo = {
+  loading = signal<boolean>(true);
+  error = signal<boolean>(false);
 
-    liga: [],
-    equipo: [],
-    seleccion: [],
-    temporada: [],
-  };
+  productosOriginales = signal<Camiseta[]>([]);
 
-  // Opciones mostradas en la página
+  // Señal con los filtros seleccionados por el usuario
+  filtros = signal({
+
+    liga: [] as string[],
+    equipo: [] as string[],
+    seleccion: [] as string[],
+    temporada: [] as string[]
+  });
+
+  paginaActual = signal<number>(1);
+  itemsPorPagina = 12; // Número de productos por página
+
+  // Opciones de FiltrosService
   opciones = {
 
     ligas: [] as string[],
     equipos: [] as string[],
     selecciones: [] as string[],
-    temporadas: [] as string[],
+    temporadas: [] as string[]
   };
 
   totalPaginas = signal<number>(1);
@@ -64,21 +72,16 @@ export class CatalogoPageComponent implements OnInit {
     return paginas;
   });
 
-  // Al cargarse la página
   ngOnInit(): void {
 
-    this.cargarFiltros();
-    this.cargarCatalogo();
+    this.cargarDatosIniciales();
   }
 
-  // Cargar los filtros desde el back
-  cargarFiltros() {
+  cargarDatosIniciales(): void {
 
-    this.filtrosService.getLigas().subscribe(res => this.opciones.ligas = res);
-    this.filtrosService.getEquipos().subscribe(res => this.opciones.equipos = res);
-    this.filtrosService.getSelecciones().subscribe(res => this.opciones.selecciones = res);
-    this.filtrosService.getTemporadas().subscribe(res => this.opciones.temporadas = res);
-  }
+    this.loading.set(true);
+
+    forkJoin({
 
     forkJoin({
       // Pasamos los filtros actuales, página actual y cantidad por página al backend
@@ -101,7 +104,7 @@ export class CatalogoPageComponent implements OnInit {
         this.opciones.temporadas = res.temporadas;
         this.loading.set(false);
       },
-      error: () => {
+      error: (err) => {
 
         console.error('Error cargando el catálogo inicial', err);
         this.error.set(true);
@@ -110,10 +113,13 @@ export class CatalogoPageComponent implements OnInit {
     });
   }
 
-  // Aplicar fitros y llamar al back
-  aplicarFiltro(tipo: keyof FiltrosCatalogo, valor: string) {
+  acordeones = signal<Record<string, boolean>>({
 
-    const lista = this.filtros[tipo];
+    liga: false,
+    equipo: false,
+    seleccion: false,
+    temporada: false,
+  });
 
 
   // Carga los productos filtrados y paginados desde el backend

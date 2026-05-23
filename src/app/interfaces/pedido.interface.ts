@@ -1,4 +1,5 @@
 export interface Pedido {
+  stripe_id: string;
   cod_ped: number;
   fecha: string;
   total: number;
@@ -40,4 +41,22 @@ export interface Camiseta {
   cod_tem: number;
   precio: number;
   imagen_principal: string;
+}
+
+export interface Variante {
+  cod_var: number;
+  cod_cam: number;
+  talla: string;
+  stock: number;
+  camiseta?: Camiseta;
+}
+
+export interface DetalleCarrito {
+  cod_det_carr: number;
+  cod_carr: number;
+  cod_var: number;
+  cantidad: number;
+  nombre_personalizado: string | null;
+  dorsal_personalizado: number | null;
+  variante: Variante;
 }

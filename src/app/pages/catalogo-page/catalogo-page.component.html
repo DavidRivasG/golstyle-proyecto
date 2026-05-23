@@ -17,10 +17,10 @@
 
     <aside class="panel-filtros">
 
-        <!-- FILTROS PARA LAS LIGAS -->
         <div class="filtro-grupo">
-            <button class="filtro-header">
+            <button class="filtro-header" (click)="toggle('liga')">
                 <span>Ligas</span>
+                <span class="flecha" [class.rotada]="acordeones()['liga']">▼</span>
             </button>
             <div class="filtro-contenido" [class.abierto]="acordeones()['liga']">
                 @for (liga of opciones.ligas; track liga) {
@@ -33,10 +33,10 @@
             </div>
         </div>
 
-        <!-- FILTROS PARA LOS EQUIPOS -->
         <div class="filtro-grupo">
-            <button class="filtro-header">
+            <button class="filtro-header" (click)="toggle('equipo')">
                 <span>Clubes</span>
+                <span class="flecha" [class.rotada]="acordeones()['equipo']">▼</span>
             </button>
             <div class="filtro-contenido" [class.abierto]="acordeones()['equipo']">
                 @for (equipo of opciones.equipos; track equipo) {
@@ -49,10 +49,10 @@
             </div>
         </div>
 
-        <!-- FILTROS PARA LAS SELECCIONES -->
         <div class="filtro-grupo">
-            <button class="filtro-header">
+            <button class="filtro-header" (click)="toggle('seleccion')">
                 <span>Selecciones</span>
+                <span class="flecha" [class.rotada]="acordeones()['seleccion']">▼</span>
             </button>
             <div class="filtro-contenido" [class.abierto]="acordeones()['seleccion']">
                 @for (seleccion of opciones.selecciones; track seleccion) {
@@ -65,10 +65,10 @@
             </div>
         </div>
 
-        <!-- FILTROS PARA LAS TEMPORADAS -->
         <div class="filtro-grupo">
-            <button class="filtro-header">
+            <button class="filtro-header" (click)="toggle('temporada')">
                 <span>Temporada</span>
+                <span class="flecha" [class.rotada]="acordeones()['temporada']">▼</span>
             </button>
             <div class="filtro-contenido" [class.abierto]="acordeones()['temporada']">
                 @for (temp of opciones.temporadas; track temp) {
