@@ -124,7 +124,12 @@
 
 /* Responsive */
 
-@media (max-width: 1410px) {
+@media (max-width: 1100px) {
+  .contenedor-catalogo {
+    grid-template-columns: 220px 1fr;
+    padding: 0 20px;
+  }
+
   .cuadricula-productos {
     grid-template-columns: repeat(4, 1fr);
   }
@@ -138,28 +143,22 @@
   .contenedor-catalogo {
     grid-template-columns: 25% 75%;
   }
-}
 
-@media (max-width: 990px) {
-  .contenedor-catalogo {
-    grid-template-columns: 20% 80%;
-  }
-}
-
-@media (max-width: 840px) {
-  .cuadricula-productos {
+  .panel-filtros {
+    position: relative;
+    top: 0;
+    display: grid;
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .contenedor-catalogo {
-    grid-template-columns: 25% 75%;
+  .filtro-grupo {
+    background-color: #121212;
+    border: 1px solid #222;
+    border-radius: 8px;
   }
-}
 
-@media (max-width: 700px) {
-  .contenedor-catalogo {
-    padding-left: 0;
-    padding-right: 0;
+  .filtro-contenido.abierto {
+    max-height: 500px;
   }
 }
 
@@ -168,15 +167,82 @@
     grid-template-columns: 1fr;
   }
 
-  .panel-filtros {
-    position: relative;
-    margin-top: -20px;
-    margin-bottom: 50px;
-  }
-}
-
-@media (max-width: 350px) {
   .cuadricula-productos {
     grid-template-columns: 1fr;
   }
+}
+
+.paginacion {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+
+.numeros-paginas {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-nav,
+.btn-pagina {
+  background-color: #1a1a1a;
+  border: 1px solid #333;
+  color: #ccc;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  min-width: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-nav:hover:not(:disabled),
+.btn-pagina:hover {
+  background-color: #bf9b30;
+  color: #121212;
+  border-color: #bf9b30;
+  box-shadow: 0 4px 12px rgba(191, 155, 48, 0.3);
+  transform: translateY(-2px);
+}
+
+.btn-pagina.activo {
+  background-color: #bf9b30;
+  color: #121212;
+  border-color: #bf9b30;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(191, 155, 48, 0.3);
+}
+
+.btn-nav:disabled {
+  background-color: #121212;
+  border-color: #222;
+  color: #444;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.elipsis {
+  color: #666;
+  font-size: 1.1rem;
+  padding: 0 4px;
+}
+
+.info-paginas {
+  margin-left: 15px;
+  color: #888;
+  font-size: 0.95rem;
+  font-family: sans-serif;
+}
+
+.info-paginas strong {
+  color: #bf9b30;
+  font-weight: bold;
 }
