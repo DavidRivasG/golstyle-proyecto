@@ -1,14 +1,19 @@
 <h1 class="titulo-catalogo">CATÁLOGO</h1>
 
-<div class="loading" *ngIf="loading()">
+@if (loading()) {
+<div class="loading">
     <p>Cargando Catálogo...</p>
 </div>
+}
 
-<div class="error" *ngIf="error()">
+@if (error()) {
+<div class="error">
     <p>Ha ocurrido un error inténtelo más tarde.</p>
 </div>
+}
 
-<div class="contenedor-catalogo" *ngIf="!loading() && !error()">
+@if (!loading() && !error()) {
+<div class="contenedor-catalogo">
 
     <aside class="panel-filtros">
 
@@ -18,11 +23,13 @@
                 <span class="flecha" [class.rotada]="acordeones()['liga']">▼</span>
             </button>
             <div class="filtro-contenido" [class.abierto]="acordeones()['liga']">
-                <label class="opcion-filtro" *ngFor="let liga of opciones.ligas">
+                @for (liga of opciones.ligas; track liga) {
+                <label class="opcion-filtro">
                     <input type="checkbox" [checked]="filtros().liga.includes(liga)"
                         (change)="aplicarFiltro('liga', liga)">
                     {{ liga }}
                 </label>
+                }
             </div>
         </div>
 
@@ -32,11 +39,13 @@
                 <span class="flecha" [class.rotada]="acordeones()['equipo']">▼</span>
             </button>
             <div class="filtro-contenido" [class.abierto]="acordeones()['equipo']">
-                <label class="opcion-filtro" *ngFor="let equipo of opciones.equipos">
+                @for (equipo of opciones.equipos; track equipo) {
+                <label class="opcion-filtro">
                     <input type="checkbox" [checked]="filtros().equipo.includes(equipo)"
                         (change)="aplicarFiltro('equipo', equipo)">
                     {{ equipo }}
                 </label>
+                }
             </div>
         </div>
 
@@ -46,11 +55,13 @@
                 <span class="flecha" [class.rotada]="acordeones()['seleccion']">▼</span>
             </button>
             <div class="filtro-contenido" [class.abierto]="acordeones()['seleccion']">
-                <label class="opcion-filtro" *ngFor="let seleccion of opciones.selecciones">
+                @for (seleccion of opciones.selecciones; track seleccion) {
+                <label class="opcion-filtro">
                     <input type="checkbox" [checked]="filtros().seleccion.includes(seleccion)"
                         (change)="aplicarFiltro('seleccion', seleccion)">
                     {{ seleccion }}
                 </label>
+                }
             </div>
         </div>
 
@@ -60,11 +71,13 @@
                 <span class="flecha" [class.rotada]="acordeones()['temporada']">▼</span>
             </button>
             <div class="filtro-contenido" [class.abierto]="acordeones()['temporada']">
-                <label class="opcion-filtro" *ngFor="let temp of opciones.temporadas">
+                @for (temp of opciones.temporadas; track temp) {
+                <label class="opcion-filtro">
                     <input type="checkbox" [checked]="filtros().temporada.includes(temp)"
                         (change)="aplicarFiltro('temporada', temp)">
                     {{ temp }}
                 </label>
+                }
             </div>
         </div>
 
@@ -72,17 +85,24 @@
 
     <main class="seccion-productos">
         <div class="cuadricula-productos">
-            <app-catalogo-producto *ngFor="let producto of productosAMostrar()" [camiseta]="producto">
+            @for (producto of productosAMostrar(); track producto.cod_cam) {
+            <app-catalogo-producto [camiseta]="producto">
             </app-catalogo-producto>
+            }
         </div>
 
-        <div class="paginacion" *ngIf="totalPaginas() > 1">
+        @if (totalPaginas() >= 1) {
+        <div class="paginacion">
             <button class="btn-nav" [disabled]="paginaActual() === 1" (click)="cambiarPagina(paginaActual() - 1)">
                 &laquo; Anterior
             </button>
 
-            <div class="info-paginas">
-                <span>Página <strong>{{ paginaActual() }}</strong> de {{ totalPaginas() }}</span>
+            <div class="numeros-paginas">
+                @for (pagina of paginasRango(); track pagina) {
+                <button class="btn-pagina" [class.activo]="pagina === paginaActual()" (click)="cambiarPagina(pagina)">
+                    {{ pagina }}
+                </button>
+                }
             </div>
 
             <button class="btn-nav" [disabled]="paginaActual() === totalPaginas()"
@@ -90,6 +110,8 @@
                 Siguiente &raquo;
             </button>
         </div>
+        }
     </main>
 
 </div>
+}
