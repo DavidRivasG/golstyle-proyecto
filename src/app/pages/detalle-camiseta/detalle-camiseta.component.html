@@ -17,7 +17,7 @@
         }
       </div>
 
-      @if (galeria().length > 1 || isAdmin) {
+      @if (galeria().length > 1) {
         <div class="carousel-thumbs">
           @for (item of galeria(); track $index) {
             <div class="thumb-wrapper">
@@ -28,14 +28,7 @@
                 [alt]="'Imagen ' + ($index + 1)"
                 (click)="seleccionarImagen($index)"
               />
-              @if (isAdmin && item.cod_img !== null) {
-                <button class="thumb-delete" (click)="eliminarImagenExtra(item.cod_img!, $index)">×</button>
-              }
             </div>
-          }
-          @if (isAdmin) {
-            <button class="thumb-add" (click)="fileInput.click()" title="Añadir imagen">+</button>
-            <input #fileInput type="file" accept="image/*" style="display:none" (change)="onFileSelected($event)" />
           }
         </div>
       }

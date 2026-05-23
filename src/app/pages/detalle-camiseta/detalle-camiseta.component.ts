@@ -35,7 +35,6 @@ export class DetalleCamisetaComponent implements OnInit {
   galeria = signal<{ url: string; cod_img: number | null }[]>([]);
   imagenActiva = signal<string>('');
   imagenIndex = signal<number>(0);
-  isAdmin = false;
 
 
   nombrePersonalizado: string | null = null;
@@ -72,7 +71,6 @@ export class DetalleCamisetaComponent implements OnInit {
       next: (resp) => {
 
         this.camiseta = resp;
-        this.isAdmin = this.authService.isAdmin();
         const extras = (resp.imagenes ?? []).map((img: any) => ({ url: img.imagen, cod_img: img.cod_img }));
         const galeria = [{ url: resp.imagen_principal, cod_img: null }, ...extras].filter(item => item.url);
         this.galeria.set(galeria);
@@ -120,40 +118,6 @@ export class DetalleCamisetaComponent implements OnInit {
   siguiente() {
     const idx = (this.imagenIndex() + 1) % this.galeria().length;
     this.seleccionarImagen(idx);
-  }
-
-  onFileSelected(event: Event) {
-    const file = (event.target as HTMLInputElement).files?.[0];
-    if (!file) return;
-
-    this.camisetasService.subirImagen(this.camiseta.cod_cam, file).subscribe({
-      next: (res) => {
-        this.galeria.update(g => [...g, { url: res.imagen, cod_img: res.cod_img }]);
-      },
-      error: () => this.mostrarMensaje('Error al subir la imagen.', 'error')
-    });
-  }
-
-  eliminarImagenExtra(cod_img: number, index: number) {
-    if (!confirm('¿Eliminar esta imagen?')) return;
-
-    this.camisetasService.eliminarImagen(cod_img).subscribe({
-      next: () => {
-        const nuevaGaleria = this.galeria().filter((_, i) => i !== index);
-        this.galeria.set(nuevaGaleria);
-        if (this.imagenIndex() >= nuevaGaleria.length) {
-          this.seleccionarImagen(0);
-        } else if (this.imagenIndex() === index) {
-          this.seleccionarImagen(0);
-        }
-      },
-      error: () => this.mostrarMensaje('Error al eliminar la imagen.', 'error')
-    });
-  }
-
-  enviarResena() {
-
-    // if (!this.nuevoComentario.trim()) return;
   }
 
   // Obtener el stock de una variante de la camiseta

@@ -6,26 +6,27 @@
 .tarjeta-producto {
   display: flex;
   flex-direction: column;
-  background-color: #121212;
-  border-radius: 20px;
-  border: 1px solid #222;
+  background-color: #141414;
+  border-radius: 16px;
+  border: 1px solid #2a2a2a;
   overflow: hidden;
   text-decoration: none;
   color: white;
   height: 100%;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  cursor: pointer;
 }
 
 .tarjeta-producto:hover {
-  transform: translateY(-8px);
+  transform: translateY(-6px);
   border-color: #bf9b30;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(191, 155, 48, 0.15);
 }
 
 .contenedor-imagen {
   width: 100%;
-  aspect-ratio: 1 / 1;
-  background-color: #f0f0f0;
+  aspect-ratio: 4 / 5;
+  background-color: #f5f5f5;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -33,39 +34,42 @@
 }
 
 .contenedor-imagen img {
-  width: 85%;
-  height: 85%;
+  width: 80%;
+  height: 80%;
   object-fit: contain;
-  transition: transform 0.5s ease;
+  transition: transform 0.4s ease;
 }
 
 .tarjeta-producto:hover .contenedor-imagen img {
-  transform: scale(1.1);
+  transform: scale(1.08);
 }
 
 .info-producto {
-  padding: 20px;
+  padding: 16px 18px 20px;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  background: linear-gradient(180deg, #141414 0%, #111 100%);
 }
 
 .nombre-producto {
-  font-size: 1.15rem;
+  font-size: 0.9rem;
   font-weight: 700;
-  color: #fff;
+  color: #eee;
   text-transform: uppercase;
-  margin-bottom: 15px;
-  letter-spacing: 0.5px;
-  height: 2.8em; 
-  line-height: 1.4em;
+  margin-bottom: 12px;
+  letter-spacing: 0.8px;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   overflow: hidden;
-  display: block;
 }
 
 .precio-producto {
   margin-top: auto;
   color: #bf9b30;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: 800;
+  letter-spacing: 0.5px;
 }

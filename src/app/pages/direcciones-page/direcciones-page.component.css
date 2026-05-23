@@ -6,13 +6,15 @@
 }
 
 :host {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   width: 100%;
 }
 
 .contenedor-direcciones {
+  flex: 1;
   width: 100%;
-  min-height: 70vh;
   background-color: #121212;
   background-image: radial-gradient(ellipse at top center, #1c1c1c 0%, #121212 65%);
   color: white;

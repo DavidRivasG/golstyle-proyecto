@@ -1,9 +1,9 @@
 :host {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
     background-color: #121212;
     font-family: 'Arial Narrow', sans-serif;
-    height: auto;
-    min-height: 70vh;
     padding: 20px;
 }
 

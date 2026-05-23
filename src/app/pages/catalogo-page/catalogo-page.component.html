@@ -90,28 +90,28 @@
             </app-catalogo-producto>
             }
         </div>
-
-        @if (totalPaginas() >= 1) {
-        <div class="paginacion">
-            <button class="btn-nav" [disabled]="paginaActual() === 1" (click)="cambiarPagina(paginaActual() - 1)">
-                &laquo; Anterior
-            </button>
-
-            <div class="numeros-paginas">
-                @for (pagina of paginasRango(); track pagina) {
-                <button class="btn-pagina" [class.activo]="pagina === paginaActual()" (click)="cambiarPagina(pagina)">
-                    {{ pagina }}
-                </button>
-                }
-            </div>
-
-            <button class="btn-nav" [disabled]="paginaActual() === totalPaginas()"
-                (click)="cambiarPagina(paginaActual() + 1)">
-                Siguiente &raquo;
-            </button>
-        </div>
-        }
     </main>
 
 </div>
+
+@if (totalPaginas() >= 1) {
+<div class="paginacion">
+    <button class="btn-nav" [disabled]="paginaActual() === 1" (click)="cambiarPagina(paginaActual() - 1)">
+        &laquo; Anterior
+    </button>
+
+    <div class="numeros-paginas">
+        @for (pagina of paginasRango(); track pagina) {
+        <button class="btn-pagina" [class.activo]="pagina === paginaActual()" (click)="cambiarPagina(pagina)">
+            {{ pagina }}
+        </button>
+        }
+    </div>
+
+    <button class="btn-nav" [disabled]="paginaActual() === totalPaginas()"
+        (click)="cambiarPagina(paginaActual() + 1)">
+        Siguiente &raquo;
+    </button>
+</div>
+}
 }

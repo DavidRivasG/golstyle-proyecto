@@ -82,9 +82,6 @@ export class CatalogoPageComponent implements OnInit {
     this.loading.set(true);
 
     forkJoin({
-
-    forkJoin({
-      // Pasamos los filtros actuales, página actual y cantidad por página al backend
       catalogo: this.camisetasService.getCatalogo(this.filtros(), this.paginaActual(), this.itemsPorPagina),
       ligas: this.filtrosService.getLigas(),
       equipos: this.filtrosService.getEquipos(),
@@ -92,7 +89,7 @@ export class CatalogoPageComponent implements OnInit {
       temporadas: this.filtrosService.getTemporadas()
     }).subscribe({
 
-      next: (res) => {
+      next: (res: any) => {
         // Guardar los productos devueltos por el backend para la página 1
         this.productosOriginales.set(res.catalogo.data);
 
