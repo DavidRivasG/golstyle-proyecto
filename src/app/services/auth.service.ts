@@ -46,6 +46,17 @@ export class AuthService {
     return !!localStorage.getItem('auth_token');
   }
 
+  // Comprobar si el usuario es admin (rol_id = 2)
+  isAdmin(): boolean {
+    try {
+      const userData = localStorage.getItem('user_data');
+      if (!userData) return false;
+      return JSON.parse(userData)?.rol_id === 2;
+    } catch {
+      return false;
+    }
+  }
+
   loginConGoogle(token: string): Observable<any> {
 
     return this.http.post(`${this.apiUrl}/auth/google`, { token })

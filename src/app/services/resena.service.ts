@@ -28,6 +28,11 @@ export class ResenaService {
         return this.http.get(`${this.apiUrl}/camisetas/${idCamiseta}/resenas`, { headers: this.getHeaders() });
     }
 
+    getResenasRecientes(): Observable<any> {
+
+        return this.http.get(`${this.apiUrl}/resenas/recientes`);
+    }
+
     crearResena(idCamiseta: number, resena: ResenaCrear) {
 
         return this.http.post(`${this.apiUrl}/camisetas/${idCamiseta}/resena`, resena, { headers: this.getHeaders() });

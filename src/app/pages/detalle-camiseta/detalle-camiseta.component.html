@@ -6,7 +6,40 @@
 
 <div *ngIf="!loading && camiseta" class="detalle-container">
   <div class="image-section">
-    <img [src]="camiseta.imagen_principal" [alt]="camiseta.nombre" />
+    <div class="carousel">
+      <div class="carousel-main">
+        @if (galeria().length > 1) {
+          <button class="carousel-arrow left" (click)="anterior()">&#8592;</button>
+        }
+        <img [src]="imagenActiva()" [alt]="camiseta.nombre" />
+        @if (galeria().length > 1) {
+          <button class="carousel-arrow right" (click)="siguiente()">&#8594;</button>
+        }
+      </div>
+
+      @if (galeria().length > 1 || isAdmin) {
+        <div class="carousel-thumbs">
+          @for (item of galeria(); track $index) {
+            <div class="thumb-wrapper">
+              <img
+                class="thumb"
+                [class.active]="$index === imagenIndex()"
+                [src]="item.url"
+                [alt]="'Imagen ' + ($index + 1)"
+                (click)="seleccionarImagen($index)"
+              />
+              @if (isAdmin && item.cod_img !== null) {
+                <button class="thumb-delete" (click)="eliminarImagenExtra(item.cod_img!, $index)">×</button>
+              }
+            </div>
+          }
+          @if (isAdmin) {
+            <button class="thumb-add" (click)="fileInput.click()" title="Añadir imagen">+</button>
+            <input #fileInput type="file" accept="image/*" style="display:none" (change)="onFileSelected($event)" />
+          }
+        </div>
+      }
+    </div>
   </div>
 
   <!-- Información de la camiseta -->

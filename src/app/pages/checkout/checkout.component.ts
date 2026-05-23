@@ -79,9 +79,8 @@ export class CheckoutComponent implements OnInit {
       }
     });
 
-    this.direccionService.getDirecciones().subscribe({
-      next: (res: any) => {
-        const lista = Array.isArray(res) ? res : (res.direcciones || []);
+    this.direccionService.obtener().subscribe({
+      next: (lista) => {
         this.direcciones.set(lista);
         if (lista.length > 0) {
           this.checkoutForm.patchValue({ cod_dir: lista[0].cod_dir });
