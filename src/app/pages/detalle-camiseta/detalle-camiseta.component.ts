@@ -47,6 +47,8 @@ export class DetalleCamisetaComponent implements OnInit {
   resenaEditando = signal<Resena | null>(null);
   nuevaPuntuacion = signal<number>(1);
   nuevoComentario = signal<string>('');
+  mensajeResena = signal<{ texto: string; tipo: 'error' | 'exito' } | null>(null);
+  exitoResena = signal<{ titulo: string; subtitulo: string } | null>(null);
 
   // Injección de servicio
   private camisetasService = inject(CamisetasService);
@@ -202,6 +204,7 @@ export class DetalleCamisetaComponent implements OnInit {
 
         this.cargando = false;
         this.mostrarMensaje('¡Camiseta añadida al carrito!', 'exito');
+        this.carritoService.totalItems.update(n => n + this.cantidad);
       },
       error: (err) => {
 
@@ -214,6 +217,11 @@ export class DetalleCamisetaComponent implements OnInit {
   private mostrarMensaje(texto: string, tipo: 'error' | 'exito') {
     this.mensaje = { texto, tipo };
     setTimeout(() => this.mensaje = null, 4000);
+  }
+
+  private mostrarMensajeResena(texto: string, tipo: 'error' | 'exito') {
+    this.mensajeResena.set({ texto, tipo });
+    setTimeout(() => this.mensajeResena.set(null), 4000);
   }
 
   // Manejo de errores
@@ -287,13 +295,13 @@ export class DetalleCamisetaComponent implements OnInit {
 
         next: () => {
 
-          alert("Reseña actualizada");
           this.cerrarModal();
           this.cargarResenas(this.camiseta.cod_cam);
+          this.exitoResena.set({ titulo: '¡Reseña Actualizada!', subtitulo: 'Tu opinión ha sido modificada correctamente.' });
         },
         error: () => {
 
-          alert("Error al actualizar la reseña");
+          this.mostrarMensajeResena('Error al actualizar la reseña. Inténtalo de nuevo.', 'error');
         }
       });
 
@@ -303,13 +311,13 @@ export class DetalleCamisetaComponent implements OnInit {
 
         next: () => {
 
-          alert("Reseña creada");
           this.cerrarModal();
           this.cargarResenas(this.camiseta.cod_cam);
+          this.exitoResena.set({ titulo: '¡Reseña Publicada!', subtitulo: 'Gracias por compartir tu opinión.' });
         },
         error: (err) => {
 
-          alert(err.error?.message || 'Error al crear la resena');
+          this.mostrarMensajeResena(err.error?.message || 'Error al crear la reseña. Inténtalo de nuevo.', 'error');
         }
       });
     }
@@ -320,7 +328,6 @@ export class DetalleCamisetaComponent implements OnInit {
 
     if (!this.authService.isLoggedIn()) {
 
-      alert("Debes iniciar sesión para reaccionar a una reseña");
       this.router.navigate(['/login']);
       return;
     }
@@ -333,7 +340,7 @@ export class DetalleCamisetaComponent implements OnInit {
       },
       error: () => {
 
-        alert("Error al reaccionar a la reseña");
+        this.mostrarMensajeResena('Error al registrar tu reacción. Inténtalo de nuevo.', 'error');
       }
     });
 
@@ -343,24 +350,22 @@ export class DetalleCamisetaComponent implements OnInit {
 
     if (!this.authService.isLoggedIn()) {
 
-      alert("Debes iniciar sesión para borrar una reseña");
       this.router.navigate(['/login']);
       return;
     }
 
-    if (!confirm('¿Estás seguro de que quieres eliminar tu reseña')) return;
-
+    if (!confirm('¿Estás seguro de que quieres eliminar tu reseña?')) return;
 
     this.resenaService.eliminarResena(idResena).subscribe({
 
       next: () => {
 
-        alert("Reseña eliminada");
         this.cargarResenas(this.camiseta.cod_cam);
+        this.mostrarMensajeResena('Reseña eliminada correctamente.', 'exito');
       },
       error: () => {
 
-        alert("Error al eliminar la reseña");
+        this.mostrarMensajeResena('Error al eliminar la reseña. Inténtalo de nuevo.', 'error');
       }
     });
   }

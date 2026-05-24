@@ -13,35 +13,32 @@
       <div class="input-group">
         <label>CORREO:</label>
         <input type="email" formControlName="correo" />
-        <div
-          *ngIf="
-            loginForm.get('correo')?.invalid && loginForm.get('correo')?.touched
-          "
-          class="error"
-        >
-          Email inválido
-        </div>
+        @if (loginForm.get('correo')?.invalid && loginForm.get('correo')?.touched) {
+          @if (loginForm.get('correo')?.hasError('required')) {
+            <span class="error">El correo es obligatorio.</span>
+          } @else if (loginForm.get('correo')?.hasError('email')) {
+            <span class="error">El formato del correo no es válido.</span>
+          }
+        }
       </div>
 
       <!-- Contraseña -->
       <div class="input-group">
         <label>CONTRASEÑA:</label>
         <input type="password" formControlName="password" />
-        <div
-          *ngIf="
-            loginForm.get('password')?.invalid &&
-            loginForm.get('password')?.touched
-          "
-          class="error"
-        >
-          Contraseña requerida
-        </div>
+        @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+          @if (loginForm.get('password')?.hasError('required')) {
+            <span class="error">La contraseña es obligatoria.</span>
+          } @else if (loginForm.get('password')?.hasError('minlength')) {
+            <span class="error">La contraseña debe tener al menos 8 caracteres.</span>
+          }
+        }
       </div>
 
       <!-- Error de login -->
-      <div *ngIf="errorLogin" class="msg-inline msg-error">
-        {{ errorLogin }}
-      </div>
+      @if (errorLogin()) {
+        <div class="msg-inline msg-error">{{ errorLogin() }}</div>
+      }
 
       <!-- Iniciar sesión -->
       <div class="button-group">

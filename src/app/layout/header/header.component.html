@@ -11,7 +11,6 @@
   <div class="header-main">
     <div class="header-col left">
       <label for="header-nav-toggle" class="menu-toggle" aria-label="Abrir menú"><i class="fas fa-bars"></i></label>
-      <a href="#" class="search-mobile" aria-label="Buscar"><i class="fas fa-search"></i></a>
     </div>
 
     <div class="header-col center">
@@ -19,8 +18,12 @@
     </div>
 
     <div class="header-col right">
-      <a href="#" class="search-desktop"><i class="fas fa-search"></i></a>
-      <a href="carrito" class="shopping-cart"><i class="fas fa-shopping-cart"></i></a>
+<a href="carrito" class="shopping-cart">
+        <i class="fas fa-shopping-cart"></i>
+        @if (carritoService.totalItems() > 0) {
+          <span class="cart-badge">{{ carritoService.totalItems() }}</span>
+        }
+      </a>
       <a [href]="getUserRoute()" class="user"><i class="far fa-user"></i></a>
     </div>
   </div>

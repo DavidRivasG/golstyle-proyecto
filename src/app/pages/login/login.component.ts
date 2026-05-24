@@ -1,5 +1,5 @@
 import { SocialAuthService, GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
@@ -17,21 +17,21 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   loginForm: FormGroup;
   cargando = false;
-  errorLogin: string | null = null;
+  errorLogin = signal<string>('');
   private authSubscription!: Subscription;
 
-  // Injección de servicios
   private authService = inject(AuthService);
   private socialAuthService = inject(SocialAuthService);
   private router = inject(Router);
   private fb = inject(FormBuilder);
 
-  // Validación del formulario
   constructor() {
     this.loginForm = this.fb.group({
       correo: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]]
+      password: ['', [Validators.required, Validators.minLength(8)]]
     });
+
+    this.loginForm.valueChanges.subscribe(() => this.errorLogin.set(''));
   }
 
   ngOnInit() {
@@ -85,10 +85,9 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.router.navigate(['/']);
       },
       error: (err) => {
-        this.errorLogin = err.error?.message || 'Correo o contraseña incorrectos. Inténtalo de nuevo.';
-        console.error(this.errorLogin);
+        this.errorLogin.set(err.error?.message || 'Correo o contraseña incorrectos. Inténtalo de nuevo.');
         this.cargando = false;
-        setTimeout(() => this.errorLogin = null, 4000);
+        setTimeout(() => this.errorLogin.set(''), 4000);
       }
     });
   }

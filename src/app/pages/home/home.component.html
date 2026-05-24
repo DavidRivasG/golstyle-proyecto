@@ -24,11 +24,12 @@
           <div class="camiseta-info">
             <p class="camiseta-equipo">{{ camiseta.equipo || 'Selección' }}</p>
             <h4 class="camiseta-nombre">{{ camiseta.nombre }}</h4>
-            <p class="camiseta-precio">{{ camiseta.precio | currency:'EUR' }}</p>
           </div>
-          <a class="btn-comprar" [routerLink]="['/detalle', camiseta.cod_cam]">COMPRAR</a>
         </div>
       }
+    </div>
+    <div class="destacadas-cta">
+      <a class="btn-catalogo" routerLink="/catalogo">VER CATÁLOGO</a>
     </div>
   }
 </section>

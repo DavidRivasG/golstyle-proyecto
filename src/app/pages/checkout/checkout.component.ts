@@ -94,18 +94,24 @@ export class CheckoutComponent implements OnInit {
   }
 
   private async inicializarStripe(cod_dir: number) {
-    this.pagoService.crearIntentoDePago(cod_dir).subscribe(async (res) => {
-      this.stripe = await loadStripe(environment.stripePublicKey);
-      if (this.stripe) {
-        this.elements = this.stripe.elements({
-          clientSecret: res.clientSecret,
-          appearance: { theme: 'night', variables: { colorPrimary: '#d4af37' } }
-        });
-        const paymentElement = this.elements.create('payment');
-        paymentElement.mount('#payment-element');
-        paymentElement.on('change', (event) => {
-          this.stripeListo.set(event.complete);
-        });
+    this.pagoService.crearIntentoDePago(cod_dir).subscribe({
+      next: async (res) => {
+        this.stripe = await loadStripe(environment.stripePublicKey);
+        if (this.stripe) {
+          this.elements = this.stripe.elements({
+            clientSecret: res.clientSecret,
+            appearance: { theme: 'night', variables: { colorPrimary: '#d4af37' } }
+          });
+          const paymentElement = this.elements.create('payment');
+          paymentElement.mount('#payment-element');
+          paymentElement.on('change', (event) => {
+            this.stripeListo.set(event.complete);
+          });
+        }
+      },
+      error: (err) => {
+        this.error.set('No se pudo cargar la pasarela de pago. Inténtalo de nuevo.');
+        console.error('Error creando intento de pago:', err);
       }
     });
   }

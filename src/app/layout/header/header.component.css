@@ -73,6 +73,25 @@ header {
   font-size: 15px;
   text-decoration: none;
   transition: color 0.3s ease;
+  position: relative;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  background-color: #d4af37;
+  color: #000;
+  font-size: 10px;
+  font-weight: 700;
+  min-width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  padding: 0 3px;
 }
 
 .header-col.right a:hover {

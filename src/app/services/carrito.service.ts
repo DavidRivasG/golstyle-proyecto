@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { ProductoCarrito } from '../interfaces/producto-carrito.interface';
@@ -13,7 +13,8 @@ export class CarritoService {
 
   private apiUrl = environment.apiUrl;
 
-  // Injección de servicios
+  totalItems = signal<number>(0);
+
   http = inject(HttpClient);
 
   // Configuración de headers
@@ -34,6 +35,18 @@ export class CarritoService {
     return this.http.get<DetalleCarrito[]>(`${this.apiUrl}/carritos/detalles`, {
 
       headers: this.getHeaders()
+    });
+  }
+
+  // Carga el total de items para el badge del header
+  cargarTotal(): void {
+    if (!localStorage.getItem('auth_token')) return;
+    this.obtenerCarrito().subscribe({
+      next: (resp: any) => {
+        const total = resp.detalles?.reduce((sum: number, p: any) => sum + p.cantidad, 0) ?? 0;
+        this.totalItems.set(total);
+      },
+      error: () => this.totalItems.set(0)
     });
   }
 

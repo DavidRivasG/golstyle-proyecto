@@ -10,7 +10,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80vh;
+    min-height: 80vh;
     background-color: #121212;
     padding: 20px;
 }
@@ -119,19 +119,39 @@
 }
 
 @media (max-width: 768px) {
-    .contenedor-columnas {
-        grid-template-columns: 1fr;
-        gap: 30px;
+    .contenedor-perfil {
+        padding: 16px;
+        align-items: flex-start;
+        padding-top: 30px;
     }
 
-    .envoltorio-perfil {
-        width: 95%;
+    .tarjeta-perfil {
+        width: 100%;
         padding: 30px 20px;
     }
 
-    .envoltorio-perfil h1 {
+    .tarjeta-perfil h1 {
         font-size: 1.8rem;
-        margin-bottom: 30px;
+        margin-bottom: 24px;
+    }
+
+    .contenedor-columnas {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    #columna-enlaces {
+        margin-top: 0;
+    }
+
+    .columna {
+        gap: 16px;
+    }
+
+    .grupo-enlaces a,
+    .btn-gold {
+        width: 100%;
+        padding: 14px 20px;
     }
 
     .grupo-boton {
@@ -140,5 +160,6 @@
 
     .btn-cerrar-sesion {
         width: 100%;
+        min-width: unset;
     }
 }

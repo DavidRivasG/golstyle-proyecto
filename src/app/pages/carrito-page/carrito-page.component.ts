@@ -54,6 +54,8 @@ export class CarritoPageComponent implements OnInit {
         this.total = resp.total;
         this.loading = false;
         this.procesandoId = null;
+        const totalCantidad = this.productos.reduce((sum, p) => sum + p.cantidad, 0);
+        this.carritoService.totalItems.set(totalCantidad);
       },
       error: () => {
         this.loading = false;

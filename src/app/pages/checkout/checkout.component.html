@@ -12,7 +12,7 @@
             <select formControlName="cod_dir" class="custom-select">
               <option [ngValue]="null" disabled>Selecciona donde quieres recibirlo</option>
               @for (dir of direcciones(); track dir.cod_dir) {
-              <option [value]="dir.cod_dir">
+              <option [ngValue]="dir.cod_dir">
                 {{ dir.nombre }} — {{ dir.calle }}, {{ dir.ciudad }}
               </option>
               }

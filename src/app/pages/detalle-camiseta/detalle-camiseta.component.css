@@ -465,6 +465,19 @@ button:disabled {
     background: rgba(212, 175, 55, 0.1);
 }
 
+.icono-check {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.mensaje-exito {
+    color: #ccc;
+    font-size: 1rem;
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
 @media (max-width: 600px) {
     .resenas-header {
         flex-direction: column;

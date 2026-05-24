@@ -146,6 +146,12 @@
         </button>
       </div>
 
+      @if (mensajeResena()) {
+        <div [class]="'msg-inline msg-' + mensajeResena()!.tipo">
+          {{ mensajeResena()!.texto }}
+        </div>
+      }
+
       <div class="resenas-list">
         @for (resena of resenas(); track resena.cod_res) {
           <app-resena-card
@@ -162,6 +168,27 @@
             </p>
           </div>
         }
+      </div>
+    </div>
+  </div>
+}
+
+<!-- Overlay éxito reseña -->
+@if (exitoResena()) {
+  <div class="success-overlay">
+    <div class="tarjeta-modal">
+      <h1 class="titulo-dorado">{{ exitoResena()!.titulo }}</h1>
+      <div class="divisor-dorado"></div>
+      <div class="icono-check">
+        <svg width="70" height="70" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+      </div>
+      <p class="mensaje-exito">{{ exitoResena()!.subtitulo }}</p>
+      <div class="acciones">
+        <button class="btn-gold" (click)="exitoResena.set(null)">Cerrar</button>
       </div>
     </div>
   </div>
