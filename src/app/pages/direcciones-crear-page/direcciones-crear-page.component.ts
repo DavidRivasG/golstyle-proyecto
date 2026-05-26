@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { Direccion } from '../../interfaces/direccion.interface';
 import { DireccionService } from '../../services/direccion.service';
@@ -16,26 +16,37 @@ export class DireccionesCrearPageComponent {
   form: Partial<Direccion> = {
     nombre: '', calle: '', num: '', piso: '', cp: '', telefono: '', ciudad: '', provincia: ''
   };
-  mensaje: string = '';
-  error: boolean = false;
+  guardando = false;
+  submitted = false;
+  errorServidor = '';
+  exitoGuardar = signal<{ titulo: string; subtitulo: string } | null>(null);
 
   constructor(
     private router: Router,
     private direccionService: DireccionService
   ) {}
 
-  guardar(): void {
-    this.mensaje = '';
-    this.error = false;
+  guardar(formDir: NgForm): void {
+    this.submitted = true;
+    if (formDir.invalid) return;
+    this.errorServidor = '';
+    this.guardando = true;
     this.direccionService.crear(this.form).subscribe({
-      next: () => this.router.navigate(['/direcciones']),
+      next: () => {
+        this.guardando = false;
+        this.exitoGuardar.set({ titulo: '¡Dirección Guardada!', subtitulo: 'Tu dirección ha sido añadida correctamente.' });
+      },
       error: err => {
-        console.error(err);
-        this.error = true;
-        this.mensaje = err.status === 422
+        this.guardando = false;
+        this.errorServidor = err.status === 422
           ? err.error?.message || 'Datos inválidos'
           : 'Error inesperado al crear la dirección';
       }
     });
+  }
+
+  cerrarExito(): void {
+    this.exitoGuardar.set(null);
+    this.router.navigate(['/direcciones']);
   }
 }

@@ -1,48 +1,73 @@
-<div id="contenedor-padre">
-  <div class="titulo">
+<div class="carrito-wrapper">
+
+  <div class="carrito-header">
     <h1>CARRITO</h1>
+    <div class="header-divider"></div>
   </div>
 
-  <!-- Si el usuario no está logueado -->
-  <div *ngIf="!loggedIn" class="loggedIn">
-    <p>Para acceder al carrito debes estar una sesion iniciada.</p>
-    <div class="enlace">
-      <a routerLink="/login" class="btn-gold">Iniciar Sesión</a>
-    </div>
+  <!-- No logueado -->
+  <div *ngIf="!loggedIn" class="estado-vacio">
+    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+      <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+    </svg>
+    <p>Para acceder al carrito debes tener una sesión iniciada.</p>
+    <a routerLink="/login" class="btn-gold">Iniciar Sesión</a>
   </div>
 
   <!-- Cargando -->
-  <div *ngIf="loading" class="loading">
+  <div *ngIf="loading" class="estado-vacio">
     <div class="spinner"></div>
     <p>Cargando carrito...</p>
   </div>
 
-  <!-- Carrito vacío -->
-  <div *ngIf="!loading && productos.length === 0 && loggedIn" class="carrito-vacio">
+  <!-- Vacío -->
+  <div *ngIf="!loading && productos.length === 0 && loggedIn" class="estado-vacio">
+    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+      <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+    </svg>
     <p>Tu carrito está vacío.</p>
+    <a routerLink="/catalogo" class="btn-gold">Explorar Catálogo</a>
   </div>
 
-  <!-- Mostrar los productos -->
-  <div *ngIf="!loading && productos.length > 0 && loggedIn" class="carrito-container">
+  <!-- Con productos -->
+  <div *ngIf="!loading && productos.length > 0 && loggedIn" class="carrito-layout">
 
-    <div class="productos">
-      <app-carrito-producto *ngFor="let producto of productos" [producto]="producto"
-        [procesando]="procesandoId === producto.cod_det_carr" (eliminar)="eliminarProducto($event)"
-        (aumentar)="aumentarCantidad($event)" (disminuir)="disminuirCantidad($event)">
+    <div class="productos-col">
+      <div *ngIf="mensajeCarrito" [class]="'msg-inline msg-' + mensajeCarrito.tipo">
+        {{ mensajeCarrito.texto }}
+      </div>
+      <app-carrito-producto
+        *ngFor="let producto of productos"
+        [producto]="producto"
+        [procesando]="procesandoId === producto.cod_det_carr"
+        (eliminar)="eliminarProducto($event)"
+        (aumentar)="aumentarCantidad($event)"
+        (disminuir)="disminuirCantidad($event)">
       </app-carrito-producto>
     </div>
 
-    <div *ngIf="mensajeCarrito" [class]="'msg-inline msg-' + mensajeCarrito.tipo">
-      {{ mensajeCarrito.texto }}
-    </div>
-
-    <div class="resumen">
-      <h2>Totales del carrito</h2>
-      <p><strong>Total:</strong> {{ total | currency:'EUR' }}</p>
-      <a class="btn-comprar" routerLink="/checkout">COMPRAR</a>
-    </div>
+    <aside class="resumen-col">
+      <h2 class="resumen-titulo">Resumen del pedido</h2>
+      <div class="resumen-divider"></div>
+      <div class="resumen-linea">
+        <span>{{ productos.length }} {{ productos.length === 1 ? 'artículo' : 'artículos' }}</span>
+        <span>{{ total | currency:'EUR' }}</span>
+      </div>
+      <div class="resumen-linea envio">
+        <span>Envío</span>
+        <span [class.gratis]="total >= 100">{{ total >= 100 ? 'GRATIS' : '€4.99' }}</span>
+      </div>
+      <div class="resumen-divider"></div>
+      <div class="resumen-linea total">
+        <span>Total</span>
+        <span>{{ (total >= 100 ? total : total + 4.99) | currency:'EUR' }}</span>
+      </div>
+      <a class="btn-comprar" routerLink="/checkout">PROCEDER AL PAGO</a>
+      <a routerLink="/catalogo" class="btn-seguir">← Seguir comprando</a>
+    </aside>
 
   </div>
-
 
 </div>

@@ -1,41 +1,46 @@
-<div class="producto">
-    <!-- Imagen del producto -->
-    <div class="producto-imagen">
-        <img [src]="producto.imagen" alt="{{ producto.nombre_camiseta }}">
+<div class="producto-card" [class.procesando]="procesando">
+
+  <div class="producto-imagen">
+    <img [src]="producto.imagen" [alt]="producto.nombre_camiseta">
+  </div>
+
+  <div class="producto-info">
+
+    <div class="producto-top">
+      <h3 class="producto-nombre">{{ producto.nombre_camiseta }}</h3>
+      <button class="btn-eliminar" (click)="onEliminar()" [disabled]="procesando" title="Eliminar">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="3 6 5 6 21 6"></polyline>
+          <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path>
+          <path d="M10 11v6M14 11v6"></path>
+          <path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2"></path>
+        </svg>
+      </button>
     </div>
 
-    <!-- Información del producto -->
-    <div class="info">
-        <div class="info-contenido">
-            <div class="info-textos">
-                <h2>{{ producto.nombre_camiseta }}</h2>
-                <p><strong>Talla</strong>: {{ producto.talla }}</p>
-                <p><strong>Precio unitario</strong>: {{ producto.precio | currency:'EUR' }}</p>
-                <p><strong>Subtotal</strong>: {{ producto.precio * producto.cantidad | currency:'EUR' }}</p>
-                <p><strong>Nombre personalizado:</strong>
-                    {{ producto.nombre_personalizado ? producto.nombre_personalizado : 'Sin nombre' }}
-                </p>
-
-                <p><strong>Dorsal personalizado:</strong>
-                    {{ producto.dorsal_personalizado ? producto.dorsal_personalizado : 'Sin dorsal' }}
-                </p>
-            </div>
-
-            <!-- Acciones -->
-            <div class="acciones">
-                <div class="cantidad-control">
-                    <button class="btn-cantidad" (click)="onDisminuir()" [disabled]="producto.cantidad <= 1 || procesando">−</button>
-
-
-                    <span>{{ producto.cantidad }}</span>
-                    <button class="btn-cantidad" (click)="onAumentar()"
-                        [disabled]="producto.cantidad >= producto.stock || procesando">+</button>
-                </div>
-
-                <button class="btn-eliminar" (click)="onEliminar()" [disabled]="procesando">
-                    <img src="/assets/images/delete-icon.svg" alt="">
-                </button>
-            </div>
-        </div>
+    <div class="producto-badges">
+      <span class="badge">{{ producto.talla }}</span>
+      @if (producto.nombre_personalizado) {
+        <span class="badge">{{ producto.nombre_personalizado }}</span>
+      }
+      @if (producto.dorsal_personalizado) {
+        <span class="badge">#{{ producto.dorsal_personalizado }}</span>
+      }
     </div>
+
+    <div class="producto-footer">
+      <div class="precios">
+        <span class="precio-subtotal">{{ producto.precio * producto.cantidad | currency:'EUR' }}</span>
+        <span class="precio-unit">{{ producto.precio | currency:'EUR' }} / ud.</span>
+      </div>
+
+      <div class="cantidad-control">
+        <button class="btn-cantidad" (click)="onDisminuir()" [disabled]="producto.cantidad <= 1 || procesando">−</button>
+        <span class="cantidad-valor">{{ producto.cantidad }}</span>
+        <button class="btn-cantidad" (click)="onAumentar()" [disabled]="producto.cantidad >= producto.stock || procesando">+</button>
+      </div>
+    </div>
+
+  </div>
 </div>

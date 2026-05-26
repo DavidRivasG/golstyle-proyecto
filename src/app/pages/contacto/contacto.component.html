@@ -48,13 +48,32 @@
         <button type="submit" class="btn-gold" [disabled]="form.invalid || cargando" [ngClass]="estadoEnvio">
             @if (cargando) {
                 <span class="spinner-pequeno"></span> PROCESANDO...
-            } @else if (estadoEnvio === 'enviado') {
-                <span class="mensaje-alerta">¡Mensaje Enviado! Te responderemos lo más pronto posible.</span>
             } @else if (estadoEnvio === 'error') {
-                <span class="mensaje-alerta">Error al enviar.</span>
+                <span class="mensaje-alerta">Error al enviar. Inténtalo de nuevo.</span>
             } @else {
                 ENVIAR
             }
         </button>
     </div>
 </form>
+
+<!-- Overlay éxito contacto -->
+@if (exitoContacto()) {
+  <div class="success-overlay">
+    <div class="tarjeta-modal">
+      <h1 class="titulo-dorado">{{ exitoContacto()!.titulo }}</h1>
+      <div class="divisor-dorado"></div>
+      <div class="icono-check">
+        <svg width="70" height="70" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+      </div>
+      <p class="mensaje-exito">{{ exitoContacto()!.subtitulo }}</p>
+      <div class="acciones">
+        <button class="btn-gold" (click)="exitoContacto.set(null)">Cerrar</button>
+      </div>
+    </div>
+  </div>
+}

@@ -27,6 +27,7 @@ export class DetalleCamisetaComponent implements OnInit {
   camiseta: any = null;
   loading = true;
   cargando = false;
+  cargandoEnvioResena = false;
   mensaje: { texto: string; tipo: 'error' | 'exito' } | null = null;
 
   tallaSeleccionada: number | null = null;
@@ -42,6 +43,8 @@ export class DetalleCamisetaComponent implements OnInit {
 
   resenas = signal<Resena[]>([]);
   cargandoResenas = signal<boolean>(false);
+  eliminandoResena = signal<number | null>(null);
+  confirmarEliminar = signal<number | null>(null);
 
   mostrarModal = signal<boolean>(false);
   resenaEditando = signal<Resena | null>(null);
@@ -49,6 +52,7 @@ export class DetalleCamisetaComponent implements OnInit {
   nuevoComentario = signal<string>('');
   mensajeResena = signal<{ texto: string; tipo: 'error' | 'exito' } | null>(null);
   exitoResena = signal<{ titulo: string; subtitulo: string } | null>(null);
+  exitoCarrito = signal<{ titulo: string; subtitulo: string } | null>(null);
 
   // Injección de servicio
   private camisetasService = inject(CamisetasService);
@@ -203,8 +207,8 @@ export class DetalleCamisetaComponent implements OnInit {
       next: () => {
 
         this.cargando = false;
-        this.mostrarMensaje('¡Camiseta añadida al carrito!', 'exito');
         this.carritoService.totalItems.update(n => n + this.cantidad);
+        this.exitoCarrito.set({ titulo: '¡Añadida al Carrito!', subtitulo: 'Tu camiseta ha sido añadida correctamente.' });
       },
       error: (err) => {
 
@@ -285,8 +289,9 @@ export class DetalleCamisetaComponent implements OnInit {
 
   guardarResena() {
 
-    if (this.resenaForm.invalid) return;
+    if (this.resenaForm.invalid || this.cargandoEnvioResena) return;
 
+    this.cargandoEnvioResena = true;
     const datos = this.resenaForm.value;
 
     if (this.resenaEditando()) {
@@ -295,12 +300,14 @@ export class DetalleCamisetaComponent implements OnInit {
 
         next: () => {
 
+          this.cargandoEnvioResena = false;
           this.cerrarModal();
           this.cargarResenas(this.camiseta.cod_cam);
           this.exitoResena.set({ titulo: '¡Reseña Actualizada!', subtitulo: 'Tu opinión ha sido modificada correctamente.' });
         },
         error: () => {
 
+          this.cargandoEnvioResena = false;
           this.mostrarMensajeResena('Error al actualizar la reseña. Inténtalo de nuevo.', 'error');
         }
       });
@@ -311,12 +318,14 @@ export class DetalleCamisetaComponent implements OnInit {
 
         next: () => {
 
+          this.cargandoEnvioResena = false;
           this.cerrarModal();
           this.cargarResenas(this.camiseta.cod_cam);
           this.exitoResena.set({ titulo: '¡Reseña Publicada!', subtitulo: 'Gracias por compartir tu opinión.' });
         },
         error: (err) => {
 
+          this.cargandoEnvioResena = false;
           this.mostrarMensajeResena(err.error?.message || 'Error al crear la reseña. Inténtalo de nuevo.', 'error');
         }
       });
@@ -354,17 +363,28 @@ export class DetalleCamisetaComponent implements OnInit {
       return;
     }
 
-    if (!confirm('¿Estás seguro de que quieres eliminar tu reseña?')) return;
+    this.confirmarEliminar.set(idResena);
+  }
+
+  ejecutarBorrarResena() {
+
+    const idResena = this.confirmarEliminar();
+    if (!idResena) return;
+
+    this.confirmarEliminar.set(null);
+    this.eliminandoResena.set(idResena);
 
     this.resenaService.eliminarResena(idResena).subscribe({
 
       next: () => {
 
+        this.eliminandoResena.set(null);
         this.cargarResenas(this.camiseta.cod_cam);
-        this.mostrarMensajeResena('Reseña eliminada correctamente.', 'exito');
+        this.exitoResena.set({ titulo: '¡Reseña Eliminada!', subtitulo: 'Tu reseña ha sido eliminada correctamente.' });
       },
       error: () => {
 
+        this.eliminandoResena.set(null);
         this.mostrarMensajeResena('Error al eliminar la reseña. Inténtalo de nuevo.', 'error');
       }
     });

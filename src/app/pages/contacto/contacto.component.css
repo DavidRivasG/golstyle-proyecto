@@ -145,3 +145,56 @@ button:disabled.error {
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+
+.success-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    z-index: 1000;
+}
+
+.tarjeta-modal {
+    background: #1e1e1e;
+    padding: 40px 30px;
+    border-radius: 12px;
+    border: 1px solid #333333;
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.titulo-dorado {
+    color: #d4af37;
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.divisor-dorado {
+    height: 1px;
+    background: linear-gradient(to right, transparent, #d4af37, transparent);
+    margin: 20px 0;
+}
+
+.icono-check {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.mensaje-exito {
+    color: #ccc;
+    font-size: 1rem;
+    margin-bottom: 25px;
+    line-height: 1.5;
+}

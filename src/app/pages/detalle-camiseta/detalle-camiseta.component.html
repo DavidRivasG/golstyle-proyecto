@@ -156,6 +156,7 @@
         @for (resena of resenas(); track resena.cod_res) {
           <app-resena-card
             [resena]="resena"
+            [eliminando]="eliminandoResena() === resena.cod_res"
             (reaccionar)="reaccionar(resena.cod_res, $event)"
             (editar)="abrirModalResena($event)"
             (eliminar)="borrarResena($event)"
@@ -168,6 +169,42 @@
             </p>
           </div>
         }
+      </div>
+    </div>
+  </div>
+}
+
+<!-- Modal confirmación eliminar reseña -->
+@if (confirmarEliminar()) {
+  <div class="success-overlay">
+    <div class="tarjeta-modal">
+      <h1 class="titulo-dorado">Eliminar Reseña</h1>
+      <div class="divisor-dorado"></div>
+      <p class="mensaje-exito">¿Estás seguro de que quieres eliminar tu reseña? Esta acción no se puede deshacer.</p>
+      <div class="acciones">
+        <button class="btn-gold" (click)="ejecutarBorrarResena()">Eliminar</button>
+        <button class="btn-cancelar" (click)="confirmarEliminar.set(null)">Cancelar</button>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- Overlay éxito carrito -->
+@if (exitoCarrito()) {
+  <div class="success-overlay">
+    <div class="tarjeta-modal">
+      <h1 class="titulo-dorado">{{ exitoCarrito()!.titulo }}</h1>
+      <div class="divisor-dorado"></div>
+      <div class="icono-check">
+        <svg width="70" height="70" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+      </div>
+      <p class="mensaje-exito">{{ exitoCarrito()!.subtitulo }}</p>
+      <div class="acciones">
+        <button class="btn-gold" (click)="exitoCarrito.set(null)">Cerrar</button>
       </div>
     </div>
   </div>
@@ -261,9 +298,13 @@
           <button
             type="submit"
             class="btn-gold"
-            [disabled]="resenaForm.invalid"
+            [disabled]="resenaForm.invalid || cargandoEnvioResena"
           >
-            {{ resenaEditando() ? "Guardar Cambios" : "Enviar Reseña" }}
+            @if (cargandoEnvioResena) {
+              <span class="spinner-pequeno"></span> PROCESANDO...
+            } @else {
+              {{ resenaEditando() ? "Guardar Cambios" : "Enviar Reseña" }}
+            }
           </button>
           <button type="button" class="btn-cancelar" (click)="cerrarModal()">
             Cancelar

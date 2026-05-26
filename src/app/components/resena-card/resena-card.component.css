@@ -122,3 +122,23 @@
     border-color: #ff4d4d;
     color: #ff4d4d;
 }
+
+.btn-accion:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.spinner-pequeno {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+    vertical-align: middle;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}

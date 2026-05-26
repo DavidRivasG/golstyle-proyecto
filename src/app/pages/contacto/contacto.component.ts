@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { ContactoService } from '../../services/contacto.service';
@@ -16,8 +16,9 @@ export class ContactoComponent {
   fb = inject(FormBuilder);
   contactoService = inject(ContactoService);
 
-  estadoEnvio: 'enviado' | 'error' | null = null;
+  estadoEnvio: 'error' | null = null;
   cargando = false;
+  exitoContacto = signal<{ titulo: string; subtitulo: string } | null>(null);
 
   form = this.fb.group({
 
@@ -42,9 +43,9 @@ export class ContactoComponent {
     this.contactoService.enviarMensaje(data).subscribe({
       next: (res) => {
 
-        this.estadoEnvio = 'enviado';
         this.form.reset();
         this.cargando = false;
+        this.exitoContacto.set({ titulo: '¡Mensaje Enviado!', subtitulo: 'Hemos recibido tu mensaje. Te responderemos lo antes posible.' });
       },
       error: (err) => {
 

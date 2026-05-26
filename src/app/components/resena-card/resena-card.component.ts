@@ -14,6 +14,7 @@ import { AuthService } from "../../services/auth.service";
 export class ResenaCardComponent {
 
     @Input({ required: true }) resena!: Resena;
+    @Input() eliminando = false;
 
     @Output() reaccionar = new EventEmitter<'like' | 'dislike'>();
     @Output() eliminar = new EventEmitter<number>();

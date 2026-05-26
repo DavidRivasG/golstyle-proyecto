@@ -88,8 +88,12 @@
         <button class="btn-accion btn-editar" (click)="onEditar()">
           Editar
         </button>
-        <button class="btn-accion btn-borrar" (click)="onBorrar()">
-          Borrar
+        <button class="btn-accion btn-borrar" (click)="onBorrar()" [disabled]="eliminando">
+          @if (eliminando) {
+            <span class="spinner-pequeno"></span>
+          } @else {
+            Borrar
+          }
         </button>
       </div>
     }

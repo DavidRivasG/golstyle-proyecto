@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Direccion } from '../../interfaces/direccion.interface';
 import { DireccionService } from '../../services/direccion.service';
@@ -17,9 +17,12 @@ export class DireccionesEditarPageComponent implements OnInit {
     nombre: '', calle: '', num: '', piso: '', cp: '', telefono: '', ciudad: '', provincia: ''
   };
   id: number = 0;
-  mensaje: string = '';
   loading: boolean = true;
-  error: boolean = false;
+  errorCarga = '';
+  guardando = false;
+  submitted = false;
+  errorServidor = '';
+  exitoGuardar = signal<{ titulo: string; subtitulo: string } | null>(null);
 
   constructor(
     private route: ActivatedRoute,
@@ -35,30 +38,37 @@ export class DireccionesEditarPageComponent implements OnInit {
         if (dir) {
           this.form = { ...dir };
         } else {
-          this.error = true;
-          this.mensaje = 'Dirección no encontrada';
+          this.errorCarga = 'Dirección no encontrada';
         }
         this.loading = false;
       },
       error: err => {
         console.error(err);
         this.loading = false;
-        this.error = true;
-        this.mensaje = 'Error al cargar la dirección';
+        this.errorCarga = 'Error al cargar la dirección';
       }
     });
   }
 
-  guardar(): void {
-    this.mensaje = '';
-    this.error = false;
+  guardar(formDir: NgForm): void {
+    this.submitted = true;
+    if (formDir.invalid) return;
+    this.errorServidor = '';
+    this.guardando = true;
     this.direccionService.actualizar(this.id, this.form).subscribe({
-      next: () => this.router.navigate(['/direcciones']),
+      next: () => {
+        this.guardando = false;
+        this.exitoGuardar.set({ titulo: '¡Dirección Actualizada!', subtitulo: 'Los cambios han sido guardados correctamente.' });
+      },
       error: err => {
-        console.error(err);
-        this.error = true;
-        this.mensaje = err.error?.message || 'Error al actualizar la dirección';
+        this.guardando = false;
+        this.errorServidor = err.error?.message || 'Error al actualizar la dirección';
       }
     });
+  }
+
+  cerrarExito(): void {
+    this.exitoGuardar.set(null);
+    this.router.navigate(['/direcciones']);
   }
 }

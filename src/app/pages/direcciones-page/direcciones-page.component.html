@@ -5,11 +5,7 @@
     <a routerLink="/direcciones/crear" class="btn-gold">+ Nueva dirección</a>
   </div>
 
-  <div *ngIf="mensaje" class="alerta" [ngClass]="error ? 'alerta-error' : 'alerta-ok'">
-    {{ mensaje }}
-  </div>
-
-  <div class="list-container" *ngIf="!loading && !error">
+  <div class="list-container" *ngIf="!loading && !errorCarga">
     <table class="tabla-direcciones">
       <thead>
         <tr>
@@ -36,7 +32,7 @@
           <td data-label="Provincia">{{ d.provincia }}</td>
           <td class="acciones" data-label="Acciones">
             <a [routerLink]="['/direcciones/editar', d.cod_dir]" class="btn-gold small">Editar</a>
-            <button class="btn-red small" (click)="eliminar(d.cod_dir!)">Eliminar</button>
+            <button class="btn-red small" (click)="eliminar(d.cod_dir!)" [disabled]="eliminando">Eliminar</button>
           </td>
         </tr>
       </tbody>
@@ -48,7 +44,41 @@
     <p>Cargando direcciones...</p>
   </div>
 
-  <div class="error" *ngIf="error && !loading">
+  <div class="error" *ngIf="errorCarga && !loading">
     <p>Error al cargar las direcciones.</p>
   </div>
 </div>
+
+@if (confirmarEliminar()) {
+  <div class="success-overlay">
+    <div class="tarjeta-modal">
+      <h1 class="titulo-dorado">Eliminar Dirección</h1>
+      <div class="divisor-dorado"></div>
+      <p class="mensaje-exito">¿Estás seguro de que quieres eliminar esta dirección? Esta acción no se puede deshacer.</p>
+      <div class="acciones">
+        <button class="btn-gold" (click)="ejecutarEliminar()">Eliminar</button>
+        <button class="btn-cancelar" (click)="confirmarEliminar.set(null)">Cancelar</button>
+      </div>
+    </div>
+  </div>
+}
+
+@if (exitoEliminar()) {
+  <div class="success-overlay">
+    <div class="tarjeta-modal">
+      <h1 class="titulo-dorado">{{ exitoEliminar()!.titulo }}</h1>
+      <div class="divisor-dorado"></div>
+      <div class="icono-check">
+        <svg width="70" height="70" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+      </div>
+      <p class="mensaje-exito">{{ exitoEliminar()!.subtitulo }}</p>
+      <div class="acciones">
+        <button class="btn-gold" (click)="exitoEliminar.set(null)">Aceptar</button>
+      </div>
+    </div>
+  </div>
+}

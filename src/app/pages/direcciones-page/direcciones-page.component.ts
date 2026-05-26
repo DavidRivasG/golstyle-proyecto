@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Direccion } from '../../interfaces/direccion.interface';
@@ -13,9 +13,11 @@ import { DireccionService } from '../../services/direccion.service';
 })
 export class DireccionesPageComponent implements OnInit {
   direcciones: Direccion[] = [];
-  mensaje: string = '';
   loading: boolean = true;
-  error: boolean = false;
+  errorCarga = false;
+  eliminando = false;
+  confirmarEliminar = signal<number | null>(null);
+  exitoEliminar = signal<{ titulo: string; subtitulo: string } | null>(null);
 
   constructor(private direccionService: DireccionService) {}
 
@@ -24,6 +26,8 @@ export class DireccionesPageComponent implements OnInit {
   }
 
   cargar(): void {
+    this.loading = true;
+    this.errorCarga = false;
     this.direccionService.obtener().subscribe({
       next: dirs => {
         this.direcciones = dirs;
@@ -32,25 +36,30 @@ export class DireccionesPageComponent implements OnInit {
       error: err => {
         console.error(err);
         this.loading = false;
-        this.error = true;
+        this.errorCarga = true;
       }
     });
   }
 
   eliminar(id: number): void {
-    if (confirm('¿Deseas eliminar esta dirección?')) {
-      this.direccionService.eliminar(id).subscribe({
-        next: res => {
-          this.mensaje = res.mensaje || 'Dirección eliminada';
-          this.error = false;
-          this.cargar();
-        },
-        error: err => {
-          console.error(err);
-          this.error = true;
-          this.mensaje = 'Error al eliminar la dirección';
-        }
-      });
-    }
+    this.confirmarEliminar.set(id);
+  }
+
+  ejecutarEliminar(): void {
+    const id = this.confirmarEliminar();
+    if (!id) return;
+    this.confirmarEliminar.set(null);
+    this.eliminando = true;
+    this.direccionService.eliminar(id).subscribe({
+      next: () => {
+        this.eliminando = false;
+        this.cargar();
+        this.exitoEliminar.set({ titulo: '¡Dirección Eliminada!', subtitulo: 'La dirección ha sido eliminada correctamente.' });
+      },
+      error: err => {
+        console.error(err);
+        this.eliminando = false;
+      }
+    });
   }
 }
