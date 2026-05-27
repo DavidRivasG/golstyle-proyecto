@@ -51,6 +51,7 @@ export class DetalleCamisetaComponent implements OnInit {
   nuevaPuntuacion = signal<number>(1);
   nuevoComentario = signal<string>('');
   mensajeResena = signal<{ texto: string; tipo: 'error' | 'exito' } | null>(null);
+  errorResenaModal = signal<string | null>(null);
   exitoResena = signal<{ titulo: string; subtitulo: string } | null>(null);
   exitoCarrito = signal<{ titulo: string; subtitulo: string } | null>(null);
 
@@ -224,8 +225,12 @@ export class DetalleCamisetaComponent implements OnInit {
   }
 
   private mostrarMensajeResena(texto: string, tipo: 'error' | 'exito') {
-    this.mensajeResena.set({ texto, tipo });
-    setTimeout(() => this.mensajeResena.set(null), 4000);
+    if (tipo === 'error') {
+      this.errorResenaModal.set(texto);
+    } else {
+      this.mensajeResena.set({ texto, tipo });
+      setTimeout(() => this.mensajeResena.set(null), 4000);
+    }
   }
 
   // Manejo de errores

@@ -381,6 +381,10 @@ button:disabled {
     z-index: 1000;
 }
 
+.overlay-top {
+    z-index: 1001;
+}
+
 .tarjeta-modal {
     background: #1e1e1e;
     padding: 40px 30px;

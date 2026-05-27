@@ -174,6 +174,63 @@ button:disabled {
   color: #ff6b6b;
 }
 
+/* ── OVERLAY ────────────────────────────────────────── */
+.success-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.tarjeta-modal {
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-top: 3px solid #d4af37;
+  border-radius: 16px;
+  padding: 40px 36px;
+  max-width: 460px;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+}
+
+.titulo-dorado {
+  color: #d4af37;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.divisor-dorado {
+  width: 50px;
+  height: 2px;
+  background: linear-gradient(to right, transparent, #d4af37, transparent);
+}
+
+.mensaje-exito {
+  color: #aaa;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.acciones {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 4px;
+}
+
 /* Desktop: imagen ocupa el 55% izquierdo de forma absoluta,
    el formulario se queda en el 45% derecho */
 @media (min-width: 768px) {

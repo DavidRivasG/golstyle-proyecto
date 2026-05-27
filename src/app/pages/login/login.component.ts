@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             },
             error: (err) => {
 
-              alert(err.error.message || 'Credenciales incorrectas');
+              this.errorLogin.set(err.error?.message || 'Error al iniciar sesión con Google. Inténtalo de nuevo.');
             }
           });
         }
@@ -87,7 +87,6 @@ export class LoginComponent implements OnInit, OnDestroy {
       error: (err) => {
         this.errorLogin.set(err.error?.message || 'Correo o contraseña incorrectos. Inténtalo de nuevo.');
         this.cargando = false;
-        setTimeout(() => this.errorLogin.set(''), 4000);
       }
     });
   }

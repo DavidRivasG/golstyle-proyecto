@@ -146,11 +146,6 @@
         </button>
       </div>
 
-      @if (mensajeResena()) {
-        <div [class]="'msg-inline msg-' + mensajeResena()!.tipo">
-          {{ mensajeResena()!.texto }}
-        </div>
-      }
 
       <div class="resenas-list">
         @for (resena of resenas(); track resena.cod_res) {
@@ -226,6 +221,20 @@
       <p class="mensaje-exito">{{ exitoResena()!.subtitulo }}</p>
       <div class="acciones">
         <button class="btn-gold" (click)="exitoResena.set(null)">Cerrar</button>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- Overlay error reseña -->
+@if (errorResenaModal()) {
+  <div class="success-overlay overlay-top">
+    <div class="tarjeta-modal">
+      <h1 class="titulo-dorado">Aviso</h1>
+      <div class="divisor-dorado"></div>
+      <p class="mensaje-exito">{{ errorResenaModal() }}</p>
+      <div class="acciones">
+        <button class="btn-gold" (click)="errorResenaModal.set(null)">Entendido</button>
       </div>
     </div>
   </div>
