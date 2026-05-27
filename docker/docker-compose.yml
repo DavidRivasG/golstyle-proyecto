@@ -1,0 +1,19 @@
+services:
+  angular-front:
+    build:
+      context: /home/ubuntu/golstyle-frontend
+      dockerfile: Dockerfile
+    container_name: golstyle_frontend
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+      - /home/ubuntu/golstyle-frontend/certbot_challenge:/var/www/certbot:ro
+    networks:
+      - golstyle_network
+
+networks:
+  golstyle_network:
+    driver: bridge

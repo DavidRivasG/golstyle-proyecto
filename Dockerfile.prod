@@ -1,0 +1,17 @@
+# Dockerfile optimizado para produccion
+# Los archivos Angular ya vienen compilados por GitHub Actions
+# Esta imagen SOLO sirve los archivos estaticos con Nginx
+
+FROM nginx:alpine
+
+# Eliminar configuracion por defecto de nginx
+RUN rm -rf /usr/share/nginx/html/*
+
+# Copiar el build generado en GitHub Actions (dist/golstyle/browser)
+COPY dist/golstyle/browser /usr/share/nginx/html
+
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80 443
+
+CMD ["nginx", "-g", "daemon off;"]

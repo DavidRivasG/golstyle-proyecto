@@ -1,0 +1,68 @@
+name: Deploy Angular Frontend a AWS #3
+
+on:
+  push:
+    branches:
+      - despliegue  # Solo para la rama de producción
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+          cache-dependency-path: package-lock.json
+
+      - name: Instalar dependencias
+        run: npm ci --legacy-peer-deps
+
+      - name: Compilar Angular para producción
+        run: npx ng build --configuration=production
+
+      - name: Configurar credenciales AWS
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: us-east-1
+
+      - name: Empaquetar artefacto de despliegue
+        run: |
+          # Cambiar Dockerfile de desarrollo por el de producción
+          rm -f Dockerfile
+          mv Dockerfile.prod Dockerfile
+
+          # Copiamos las configuraciones desde 'docker/'
+          cp docker/nginx.conf .
+          cp docker/docker-compose.yml .
+
+          # Empaquetamos todo plano para CodeDeploy
+          zip -r deploy-frontend.zip \
+            dist/ \
+            Dockerfile \
+            nginx.conf \
+            docker-compose.yml \
+            appspec.yml \
+            scripts/
+
+      - name: Subir artefacto a S3
+        run: |
+          aws s3 cp deploy-frontend.zip \
+            s3://tfc-golstyle-deploy-bucket/frontend/deploy-frontend.zip
+
+      - name: Lanzar despliegue en CodeDeploy
+        run: |
+          aws deploy create-deployment \
+            --application-name GolstyleApp \
+            --deployment-group-name FrontDeploymentGroup \
+            --description "Deploy automatico del frontend desde la rama despliegue" \
+            --s3-location bucket=tfc-golstyle-deploy-bucket,key=frontend/deploy-frontend.zip,bundleType=zip \
+            --region us-east-1

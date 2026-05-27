@@ -122,6 +122,13 @@ header {
   }
 }
 
+/* Hide the horizontal nav at small widths (<=350px) */
+@media (max-width: 350px) {
+  ::ng-deep app-nav .main-nav {
+    display: none !important;
+  }
+}
+
 /* Side menu (CSS-only) inside header */
 .header-nav-toggle {
   display: none;
@@ -193,9 +200,3 @@ header {
   letter-spacing: 1px;
 }
 
-/* Hide the horizontal nav at small widths (<=350px) */
-@media (max-width: 350px) {
-  ::ng-deep app-nav .main-nav {
-    display: none !important;
-  }
-}

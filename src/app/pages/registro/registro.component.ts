@@ -15,14 +15,15 @@ export class RegistroComponent {
 
   registerForm: FormGroup;
   cargando = false;
-  errorCorreo = signal<string>('');
+  submitted = false;
+  exitoRegistro = signal<{ titulo: string; subtitulo: string } | null>(null);
+  errorRegistroModal = signal<string | null>(null);
 
   // Injección de servicios
   private authService = inject(AuthService);
   private router = inject(Router);
   private fb = inject(FormBuilder);
 
-  // Validación del formulario
   constructor() {
     this.registerForm = this.fb.group({
       nombre: ['', [Validators.required]],
@@ -31,37 +32,38 @@ export class RegistroComponent {
       correo: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
     });
-
-    // Limpiar el error de correo cuando el usuario lo modifique
-    this.registerForm.get('correo')?.valueChanges.subscribe(() => {
-      this.errorCorreo.set('');
-    });
   }
 
-  // Registro
   registrar() {
+    this.submitted = true;
+    this.registerForm.markAllAsTouched();
     if (this.registerForm.invalid) return;
 
     this.cargando = true;
-    this.errorCorreo.set('');
 
     this.authService.register(this.registerForm.value).subscribe({
       next: () => {
-        this.router.navigate(['/login']);
+        this.cargando = false;
+        this.exitoRegistro.set({
+          titulo: '¡Cuenta Creada!',
+          subtitulo: 'Te hemos enviado un correo de verificación. Confírmalo antes de iniciar sesión.'
+        });
       },
       error: (err) => {
         console.error(err);
         this.cargando = false;
-        // Errores del intento de registro
         if (err.status === 422 && err.error?.errors?.correo) {
-
-          this.errorCorreo.set('Este correo electrónico ya está registrado.');
+          this.errorRegistroModal.set('Este correo electrónico ya está registrado.');
         } else {
-
-          this.errorCorreo.set('Ha ocurrido un error. Inténtalo de nuevo.');
+          this.errorRegistroModal.set('Ha ocurrido un error. Inténtalo de nuevo.');
         }
       }
     });
+  }
+
+  cerrarExito() {
+    this.exitoRegistro.set(null);
+    this.router.navigate(['/login']);
   }
 
   irALogin() {

@@ -10,13 +10,21 @@
         <!-- Nombre -->
         <div class="input-group">
           <label>NOMBRE:</label>
-          <input type="text" formControlName="nombre" />
+          <input type="text" formControlName="nombre"
+            [class.input-error]="registerForm.get('nombre')?.invalid && (registerForm.get('nombre')?.touched || submitted)" />
+          @if (registerForm.get('nombre')?.invalid && (registerForm.get('nombre')?.touched || submitted)) {
+            <span class="msg-campo-error">El nombre es obligatorio.</span>
+          }
         </div>
 
         <!-- Apellido 1 -->
         <div class="input-group">
           <label>APELLIDO 1:</label>
-          <input type="text" formControlName="ape1" />
+          <input type="text" formControlName="ape1"
+            [class.input-error]="registerForm.get('ape1')?.invalid && (registerForm.get('ape1')?.touched || submitted)" />
+          @if (registerForm.get('ape1')?.invalid && (registerForm.get('ape1')?.touched || submitted)) {
+            <span class="msg-campo-error">El apellido es obligatorio.</span>
+          }
         </div>
       </div>
 
@@ -30,9 +38,14 @@
         <!-- Correo -->
         <div class="input-group">
           <label>CORREO:</label>
-          <input type="email" formControlName="correo" />
-          @if (errorCorreo()) {
-            <span class="error-msg">{{ errorCorreo() }}</span>
+          <input type="email" formControlName="correo"
+            [class.input-error]="registerForm.get('correo')?.invalid && (registerForm.get('correo')?.touched || submitted)" />
+          @if (registerForm.get('correo')?.invalid && (registerForm.get('correo')?.touched || submitted)) {
+            @if (registerForm.get('correo')?.hasError('required')) {
+              <span class="msg-campo-error">El correo es obligatorio.</span>
+            } @else {
+              <span class="msg-campo-error">El formato del correo no es válido.</span>
+            }
           }
         </div>
       </div>
@@ -40,12 +53,20 @@
       <!-- Contraseña -->
       <div class="input-group">
         <label>CONTRASEÑA:</label>
-        <input type="password" formControlName="password" />
+        <input type="password" formControlName="password"
+          [class.input-error]="registerForm.get('password')?.invalid && (registerForm.get('password')?.touched || submitted)" />
+        @if (registerForm.get('password')?.invalid && (registerForm.get('password')?.touched || submitted)) {
+          @if (registerForm.get('password')?.hasError('required')) {
+            <span class="msg-campo-error">La contraseña es obligatoria.</span>
+          } @else {
+            <span class="msg-campo-error">Debe tener al menos 8 caracteres.</span>
+          }
+        }
       </div>
 
       <!-- Botones -->
       <div class="button-group">
-        <button type="submit" class="btn-gold" [disabled]="registerForm.invalid || cargando">
+        <button type="submit" class="btn-gold" [disabled]="cargando">
           @if (cargando) {
             <span class="spinner-pequeno"></span> PROCESANDO...
           } @else {
@@ -61,3 +82,36 @@
     </form>
   </div>
 </div>
+
+@if (exitoRegistro()) {
+  <div class="success-overlay">
+    <div class="tarjeta-modal">
+      <h1 class="titulo-dorado">{{ exitoRegistro()!.titulo }}</h1>
+      <div class="divisor-dorado"></div>
+      <div class="icono-check">
+        <svg width="70" height="70" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+      </div>
+      <p class="mensaje-exito">{{ exitoRegistro()!.subtitulo }}</p>
+      <div class="acciones">
+        <button class="btn-gold" (click)="cerrarExito()">Ir al login</button>
+      </div>
+    </div>
+  </div>
+}
+
+@if (errorRegistroModal()) {
+  <div class="success-overlay">
+    <div class="tarjeta-modal">
+      <h1 class="titulo-dorado">Error</h1>
+      <div class="divisor-dorado"></div>
+      <p class="mensaje-exito">{{ errorRegistroModal() }}</p>
+      <div class="acciones">
+        <button class="btn-gold" (click)="errorRegistroModal.set(null)">Entendido</button>
+      </div>
+    </div>
+  </div>
+}
