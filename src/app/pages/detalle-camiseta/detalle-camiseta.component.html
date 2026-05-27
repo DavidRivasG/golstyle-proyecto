@@ -1,142 +1,173 @@
 <!-- Cargando camiseta -->
-<div *ngIf="loading" class="loading">
-  <div class="spinner"></div>
-  <p>Cargando camiseta...</p>
-</div>
-
-<div *ngIf="!loading && camiseta" class="detalle-container">
-  <div class="image-section">
-    <div class="carousel">
-      <div class="carousel-main">
-        @if (galeria().length > 1) {
-          <button class="carousel-arrow left" (click)="anterior()">&#8592;</button>
-        }
-        <img [src]="imagenActiva()" [alt]="camiseta.nombre" />
-        @if (galeria().length > 1) {
-          <button class="carousel-arrow right" (click)="siguiente()">&#8594;</button>
-        }
-      </div>
-
-      @if (galeria().length > 1) {
-        <div class="carousel-thumbs">
-          @for (item of galeria(); track $index) {
-            <div class="thumb-wrapper">
-              <img
-                class="thumb"
-                [class.active]="$index === imagenIndex()"
-                [src]="item.url"
-                [alt]="'Imagen ' + ($index + 1)"
-                (click)="seleccionarImagen($index)"
-              />
-            </div>
-          }
-        </div>
-      }
-    </div>
+@if (loading) {
+  <div class="loading">
+    <div class="spinner"></div>
+    <p>Cargando camiseta...</p>
   </div>
+}
 
-  <!-- Información de la camiseta -->
-  <div class="info-section">
-    <div class="info-wrapper">
-      <h1 class="titulo">{{ camiseta.nombre }}</h1>
-      <h2 class="precio">{{ camiseta.precio }}€</h2>
-
-      <div class="detalles-tecnicos">
-        <p class="detalle">
-          <strong>Equipo:</strong> {{ camiseta.equipo || "N/A" }}
-        </p>
-        <p class="detalle">
-          <strong>Liga:</strong> {{ camiseta.liga || "N/A" }}
-        </p>
-        <p class="detalle">
-          <strong>Temporada:</strong> {{ camiseta.temporada }}
-        </p>
-      </div>
-
-      <!-- Talla -->
-      <div class="input-group">
-        <label for="talla">Seleccionar Talla</label>
-        <select
-          id="talla"
-          [(ngModel)]="tallaSeleccionada"
-          (change)="validarCantidad()"
-        >
-          <option [ngValue]="null" disabled selected>
-            Escoge una talla...
-          </option>
-          <option *ngFor="let v of camiseta.variantes" [value]="v.cod_var">
-            {{ v.talla }} —
-            {{ v.stock > 0 ? v.stock + " disponibles" : "Sin stock" }}
-          </option>
-        </select>
-      </div>
-
-      <!-- Cantidad -->
-      <div class="input-group">
-        <label for="cantidad">Cantidad</label>
-        <input
-          id="cantidad"
-          type="number"
-          [(ngModel)]="cantidad"
-          (change)="validarCantidad()"
-          min="1"
-          [max]="getStockVariante()"
-          [disabled]="!tallaSeleccionada || getStockVariante() === 0"
-        />
-      </div>
-
-      <!-- Personalización -->
-      <div class="personalizacion-box">
-        <!-- Nombre -->
-        <div class="input-group">
-          <label>NOMBRE PERSONALIZADO</label>
-          <input
-            type="text"
-            [(ngModel)]="nombrePersonalizado"
-            placeholder="Ej: MESSI"
-            maxlength="50"
-          />
-        </div>
-
-        <!-- Dorsal -->
-        <div class="input-group">
-          <label>DORSAL (0-99)</label>
-          <input
-            type="number"
-            [(ngModel)]="dorsalPersonalizado"
-            (input)="validarDorsal()"
-            min="0"
-            max="99"
-            placeholder="00"
-          />
-        </div>
-      </div>
-
-      <!-- Mensaje de feedback -->
-      <div *ngIf="mensaje" [class]="'msg-inline msg-' + mensaje.tipo">
-        {{ mensaje.texto }}
-      </div>
-
-      <!-- Agregar al carrito (con Spinner) -->
-      <div class="button-group">
-        <button
-          class="btn-gold"
-          (click)="agregarAlCarrito()"
-          [disabled]="!tallaSeleccionada || getStockVariante() === 0 || cargando"
-        >
-          @if (cargando) {
-            <span class="spinner-pequeno"></span> PROCESANDO...
-          } @else {
-            AGREGAR AL CARRITO
-          }
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Apartado de las reseñas -->
 @if (!loading && camiseta) {
+  <div class="detalle-container">
+    <div class="image-section">
+      <div class="carousel">
+        <div class="carousel-main">
+          @if (galeria().length > 1) {
+            <button class="carousel-arrow left" (click)="anterior()">
+              &#8592;
+            </button>
+          }
+          <img [src]="imagenActiva()" [alt]="camiseta.nombre" />
+          @if (galeria().length > 1) {
+            <button class="carousel-arrow right" (click)="siguiente()">
+              &#8594;
+            </button>
+          }
+        </div>
+
+        @if (galeria().length > 1) {
+          <div class="carousel-thumbs">
+            @for (item of galeria(); track $index) {
+              <div class="thumb-wrapper">
+                <img
+                  class="thumb"
+                  [class.active]="$index === imagenIndex()"
+                  [src]="item.url"
+                  [alt]="'Imagen ' + ($index + 1)"
+                  (click)="seleccionarImagen($index)"
+                />
+              </div>
+            }
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Información de la camiseta -->
+    <div class="info-section">
+      <div class="info-wrapper">
+        <h1 class="titulo">{{ camiseta.nombre }}</h1>
+        <h2 class="precio">{{ camiseta.precio }}€</h2>
+
+        <div class="detalles-tecnicos">
+          <p class="detalle">
+            <strong>Equipo:</strong> {{ camiseta.equipo || "N/A" }}
+          </p>
+          <p class="detalle">
+            <strong>Liga:</strong> {{ camiseta.liga || "N/A" }}
+          </p>
+          <p class="detalle">
+            <strong>Temporada:</strong> {{ camiseta.temporada }}
+          </p>
+        </div>
+
+        <!-- Talla -->
+        <div class="input-group">
+          <label for="talla">Seleccionar Talla</label>
+          <select
+            id="talla"
+            [(ngModel)]="tallaSeleccionada"
+            (change)="validarCantidad()"
+          >
+            <option [ngValue]="null" disabled selected>
+              Escoge una talla...
+            </option>
+            @for (v of camiseta.variantes; track v.cod_var) {
+              <option [value]="v.cod_var">
+                {{ v.talla }} —
+                {{ v.stock > 0 ? v.stock + " disponibles" : "Sin stock" }}
+              </option>
+            }
+          </select>
+        </div>
+
+        <!-- Cantidad -->
+        <div class="input-group">
+          <label for="cantidad">Cantidad</label>
+          <input
+            id="cantidad"
+            type="number"
+            [(ngModel)]="cantidad"
+            (change)="validarCantidad()"
+            min="1"
+            [max]="getStockVariante()"
+            [disabled]="!tallaSeleccionada || getStockVariante() === 0"
+          />
+          @if (
+            tallaSeleccionada &&
+            getStockVariante() > 0 &&
+            cantidad > getStockVariante()
+          ) {
+            <p style="color: #ff4d4d; font-size: 0.8rem; margin-top: 5px">
+              La cantidad seleccionada supera el stock disponible (máximo
+              {{ getStockVariante() }}).
+            </p>
+          }
+        </div>
+
+        <!-- Personalización -->
+        <div class="personalizacion-box">
+          <!-- Nombre -->
+          <div class="input-group">
+            <label>NOMBRE PERSONALIZADO</label>
+            <input
+              type="text"
+              [(ngModel)]="nombrePersonalizado"
+              placeholder="Ej: MESSI"
+              maxlength="50"
+            />
+          </div>
+
+          <!-- Dorsal -->
+          <div class="input-group">
+            <label>DORSAL (0-99)</label>
+            <input
+              type="text"
+              [(ngModel)]="dorsalPersonalizado"
+              placeholder="00"
+              maxlength="2"
+            />
+            @if (!esDorsalValido()) {
+              <p style="color: #ff4d4d; font-size: 0.8rem; margin-top: 5px">
+                El dorsal debe ser un número válido entre 0 y 99.
+              </p>
+            }
+          </div>
+        </div>
+
+        <!-- Mensaje de feedback -->
+        @if (mensaje) {
+          <div [class]="'msg-inline msg-' + mensaje.tipo">
+            {{ mensaje.texto }}
+          </div>
+        }
+
+        <!-- Agregar al carrito (con Spinner) -->
+        <div class="button-group">
+          <button
+            class="btn-gold"
+            (click)="agregarAlCarrito()"
+            [disabled]="
+              !tallaSeleccionada ||
+              getStockVariante() === 0 ||
+              cantidad > getStockVariante() ||
+              !cantidad ||
+              cantidad < 1 ||
+              !esDorsalValido() ||
+              cargando
+            "
+          >
+            @if (cargando) {
+              <span class="spinner-pequeno"></span> PROCESANDO...
+            } @else {
+              AGREGAR AL CARRITO
+            }
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Apartado de las reseñas -->
   <div class="resenas-wrapper">
     <div class="resenas-container">
       <div class="resenas-header">
@@ -145,7 +176,6 @@
           Escribir Reseña
         </button>
       </div>
-
 
       <div class="resenas-list">
         @for (resena of resenas(); track resena.cod_res) {
@@ -175,10 +205,17 @@
     <div class="tarjeta-modal">
       <h1 class="titulo-dorado">Eliminar Reseña</h1>
       <div class="divisor-dorado"></div>
-      <p class="mensaje-exito">¿Estás seguro de que quieres eliminar tu reseña? Esta acción no se puede deshacer.</p>
+      <p class="mensaje-exito">
+        ¿Estás seguro de que quieres eliminar tu reseña? Esta acción no se puede
+        deshacer.
+      </p>
       <div class="acciones">
-        <button class="btn-gold" (click)="ejecutarBorrarResena()">Eliminar</button>
-        <button class="btn-cancelar" (click)="confirmarEliminar.set(null)">Cancelar</button>
+        <button class="btn-gold" (click)="ejecutarBorrarResena()">
+          Eliminar
+        </button>
+        <button class="btn-cancelar" (click)="confirmarEliminar.set(null)">
+          Cancelar
+        </button>
       </div>
     </div>
   </div>
@@ -191,15 +228,25 @@
       <h1 class="titulo-dorado">{{ exitoCarrito()!.titulo }}</h1>
       <div class="divisor-dorado"></div>
       <div class="icono-check">
-        <svg width="70" height="70" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2"
-          stroke-linecap="round" stroke-linejoin="round">
+        <svg
+          width="70"
+          height="70"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#d4af37"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
           <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
           <polyline points="22 4 12 14.01 9 11.01"></polyline>
         </svg>
       </div>
       <p class="mensaje-exito">{{ exitoCarrito()!.subtitulo }}</p>
       <div class="acciones">
-        <button class="btn-gold" (click)="exitoCarrito.set(null)">Cerrar</button>
+        <button class="btn-gold" (click)="exitoCarrito.set(null)">
+          Cerrar
+        </button>
       </div>
     </div>
   </div>
@@ -212,8 +259,16 @@
       <h1 class="titulo-dorado">{{ exitoResena()!.titulo }}</h1>
       <div class="divisor-dorado"></div>
       <div class="icono-check">
-        <svg width="70" height="70" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2"
-          stroke-linecap="round" stroke-linejoin="round">
+        <svg
+          width="70"
+          height="70"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#d4af37"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
           <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
           <polyline points="22 4 12 14.01 9 11.01"></polyline>
         </svg>
@@ -286,7 +341,6 @@
 
         <div class="input-group">
           <label>Tu Comentario</label>
-          <!-- 👇 Cambiamos [(ngModel)] por formControlName -->
           <textarea
             formControlName="comentario"
             rows="4"

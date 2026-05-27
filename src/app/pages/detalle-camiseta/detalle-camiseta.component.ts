@@ -39,7 +39,7 @@ export class DetalleCamisetaComponent implements OnInit {
 
 
   nombrePersonalizado: string | null = null;
-  dorsalPersonalizado: number | null = null;
+  dorsalPersonalizado: any = null;
 
   resenas = signal<Resena[]>([]);
   cargandoResenas = signal<boolean>(false);
@@ -153,17 +153,25 @@ export class DetalleCamisetaComponent implements OnInit {
     }
 
     if (this.cantidad < 1 && max > 0) this.cantidad = 1;
-    if (this.cantidad > max) this.cantidad = max;
   }
 
 
   // Validar el dorsal del formulario
   validarDorsal() {
-    if (this.dorsalPersonalizado !== null) {
+  }
 
-      if (this.dorsalPersonalizado > 99) this.dorsalPersonalizado = 99;
-      if (this.dorsalPersonalizado < 0) this.dorsalPersonalizado = 0;
+  // Comprobar si el dorsal es un número entero válido entre 0 y 99
+  esDorsalValido(): boolean {
+    if (this.dorsalPersonalizado === null || this.dorsalPersonalizado === undefined || String(this.dorsalPersonalizado).trim() === '') {
+      return true; // Es opcional
     }
+    const val = String(this.dorsalPersonalizado).trim();
+    const esNumero = /^\d+$/.test(val);
+    if (!esNumero) {
+      return false;
+    }
+    const num = Number(val);
+    return num >= 0 && num <= 99;
   }
 
   // Agregar camiseta al carrito
@@ -193,6 +201,18 @@ export class DetalleCamisetaComponent implements OnInit {
       return;
     }
 
+    if (this.cantidad > stockDisponible) {
+      this.mostrarMensaje('La cantidad seleccionada supera el stock disponible.', 'error');
+      this.cargando = false;
+      return;
+    }
+
+    if (!this.esDorsalValido()) {
+      this.mostrarMensaje('El dorsal debe ser un número válido entre 0 y 99.', 'error');
+      this.cargando = false;
+      return;
+    }
+
     this.validarDorsal();
 
     const newCamiseta = {
@@ -200,7 +220,7 @@ export class DetalleCamisetaComponent implements OnInit {
       cod_var: Number(this.tallaSeleccionada),
       cantidad: this.cantidad,
       nombre_personalizado: this.nombrePersonalizado?.trim() || null,
-      dorsal_personalizado: this.dorsalPersonalizado ?? null
+      dorsal_personalizado: this.dorsalPersonalizado && String(this.dorsalPersonalizado).trim() !== '' ? Number(this.dorsalPersonalizado) : null
     };
 
     this.carritoService.addProduct(newCamiseta).subscribe({
