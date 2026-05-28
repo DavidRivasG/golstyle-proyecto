@@ -22,7 +22,7 @@
             </div>
 
             <div class="precio-item">
-                {{ (item.variante.camiseta?.precio || 0) * item.cantidad | currency:'EUR'}}€
+                {{ (item.variante.camiseta?.precio || 0) * item.cantidad | currency:'EUR'}}
             </div>
         </div>
         } @empty {
@@ -35,7 +35,7 @@
     <div class="seccion-total">
         <div class="fila-resumen">
             <span>Subtotal</span>
-            <span>{{ total | currency:'EUR'}}€</span>
+            <span>{{ total | currency:'EUR'}}</span>
         </div>
         <div class="fila-resumen">
             <span>Envío</span>
@@ -43,7 +43,7 @@
         </div>
         <div class="total-final">
             <span>Total</span>
-            <span class="monto-total">{{ total | currency:'EUR' }}€</span>
+            <span class="monto-total">{{ total | currency:'EUR' }}</span>
         </div>
     </div>
 </div>
