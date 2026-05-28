@@ -57,12 +57,12 @@
       </div>
       <div class="resumen-linea envio">
         <span>Envío</span>
-        <span [class.gratis]="total >= 100">{{ total >= 100 ? 'GRATIS' : '€4.99' }}</span>
+        <span class="gratis">GRATIS</span>
       </div>
       <div class="resumen-divider"></div>
       <div class="resumen-linea total">
         <span>Total</span>
-        <span>{{ (total >= 100 ? total : total + 4.99) | currency:'EUR' }}</span>
+        <span>{{ total | currency:'EUR' }}</span>
       </div>
       <a class="btn-comprar" routerLink="/checkout">PROCEDER AL PAGO</a>
       <a routerLink="/catalogo" class="btn-seguir">← Seguir comprando</a>
