@@ -1,21 +1,65 @@
-<div class="detalles-pedido-container">
-  <h1 class="titulo-detalles">Detalles del Pedido #{{ pedido?.pedido?.cod_ped }}</h1>
+<div class="detalles-container">
 
-  <!-- Cargando la página -->
-  <div *ngIf="loading" class="loading-message">
-    <p>Cargando detalles del pedido...</p>
+  <div class="loading" *ngIf="loading">
+    <p>Cargando pedido...</p>
   </div>
 
-  <!-- Mostrar error -->
-  <div *ngIf="error" class="error-message">
+  <div class="error" *ngIf="error && !loading">
     <p>{{ error }}</p>
   </div>
 
-  <!-- Mensaje cancelación -->
-  <div *ngIf="mensajeCancelacion" [class]="'msg-inline msg-' + mensajeCancelacion.tipo">
-    {{ mensajeCancelacion.texto }}
-  </div>
+  @if (errorCancelar()) {
+    <div class="alerta alerta-error">{{ errorCancelar() }}</div>
+  }
 
-  <!-- Comunicación con el componente hijo -->
-  <app-detalle-pedido-view *ngIf="!loading && !error && pedido" [pedido]="pedido" (cancelar)="onCancelarPedido($event)"></app-detalle-pedido-view>
+  <ng-container *ngIf="!loading && !error && pedido">
+    <div class="page-header">
+      <a routerLink="/mis-pedidos" class="btn-volver">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Mis pedidos
+      </a>
+      <h1>Pedido <span class="num-pedido">#{{ pedido.pedido.cod_ped }}</span></h1>
+    </div>
+
+    <app-detalle-pedido-view
+      [pedido]="pedido"
+      (cancelar)="onCancelarPedido($event)">
+    </app-detalle-pedido-view>
+  </ng-container>
 </div>
+
+@if (confirmarCancelar()) {
+  <div class="success-overlay">
+    <div class="tarjeta-modal">
+      <h2 class="titulo-dorado">Cancelar Pedido</h2>
+      <div class="divisor-dorado"></div>
+      <p class="mensaje-modal">¿Estás seguro de que quieres cancelar este pedido? Esta acción no se puede deshacer.</p>
+      <div class="modal-acciones">
+        <button class="btn-red-modal" (click)="ejecutarCancelar()">Cancelar pedido</button>
+        <button class="btn-secundario" (click)="confirmarCancelar.set(null)">Volver</button>
+      </div>
+    </div>
+  </div>
+}
+
+@if (exitoCancelar()) {
+  <div class="success-overlay">
+    <div class="tarjeta-modal">
+      <h2 class="titulo-dorado">¡Pedido Cancelado!</h2>
+      <div class="divisor-dorado"></div>
+      <div class="icono-check">
+        <svg width="70" height="70" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+      </div>
+      <p class="mensaje-modal">Tu pedido ha sido cancelado correctamente.</p>
+      <div class="modal-acciones">
+        <button class="btn-gold" (click)="irAPedidos()">Ver mis pedidos</button>
+      </div>
+    </div>
+  </div>
+}

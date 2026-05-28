@@ -1,52 +1,95 @@
-<div class="pedido-info">
-  <!-- Información general del pedido -->
-  <div class="info-header">
-    <div class="info-block">
-      <p><strong>Fecha:</strong> <span class="datos"> {{ pedido.pedido.fecha | date:'dd/MM/yyyy' }}</span></p>
-      <p><strong>Estado:</strong> <span class="estado" [ngClass]="pedido.pedido.estado">{{ pedido.pedido.estado }}</span></p>
+<div class="vista-pedido">
+
+  <!-- ── Tarjeta de resumen ── -->
+  <div class="tarjeta-resumen">
+    <div class="resumen-bloque">
+      <span class="resumen-label">Estado</span>
+      <span class="badge-estado" [ngClass]="'badge-' + pedido.pedido.estado">
+        {{ pedido.pedido.estado | titlecase }}
+      </span>
     </div>
-    <div class="info-block">
-      <p><strong>Total:</strong> <span class="datos"> {{ pedido.pedido.total }}€</span></p>
-      <p><strong>Dirección:</strong><span class="datos"> {{ pedido.direccion.calle }} {{ pedido.direccion.num }} {{
-          pedido.direccion.piso || '' }}, {{ pedido.direccion.ciudad }} ({{ pedido.direccion.provincia }})</span>
+    <div class="resumen-sep"></div>
+    <div class="resumen-bloque">
+      <span class="resumen-label">Fecha</span>
+      <span class="resumen-valor">{{ pedido.pedido.fecha | date:'dd MMM yyyy' }}</span>
+    </div>
+    <div class="resumen-sep"></div>
+    <div class="resumen-bloque">
+      <span class="resumen-label">Total</span>
+      <span class="resumen-valor resumen-total">{{ pedido.pedido.total | number:'1.2-2' }}€</span>
     </div>
   </div>
 
-  <!-- Lista de articulos del pedido -->
-  <div class="detalles-lista" *ngIf="pedido.detalles && pedido.detalles.length > 0">
-    <h2>Artículos del Pedido</h2>
-    <div class="detalles-items">
-      <div class="detalle-item" *ngFor="let detalle of pedido.detalles">
-        <div class="detalle-header">
-          <h4 class="detalle-nombre"> {{ detalle.variante.camiseta.nombre }}</h4>
+  <!-- ── Dirección ── -->
+  <div class="seccion">
+    <h3 class="seccion-titulo">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+        <circle cx="12" cy="10" r="3"></circle>
+      </svg>
+      Dirección de envío
+    </h3>
+    <div class="direccion-card">
+      <p class="dir-linea">{{ pedido.direccion.calle }}, {{ pedido.direccion.num }}
+        <span *ngIf="pedido.direccion.piso"> · {{ pedido.direccion.piso }}</span>
+      </p>
+      <p class="dir-linea dir-ciudad">{{ pedido.direccion.cp }} {{ pedido.direccion.ciudad }} — {{ pedido.direccion.provincia }}</p>
+    </div>
+  </div>
+
+  <!-- ── Artículos ── -->
+  <div class="seccion">
+    <h3 class="seccion-titulo">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <path d="M16 10a4 4 0 0 1-8 0"></path>
+      </svg>
+      Artículos ({{ pedido.detalles.length }})
+    </h3>
+
+    <div class="articulos-lista" *ngIf="pedido.detalles && pedido.detalles.length > 0">
+      <div class="articulo-card" *ngFor="let detalle of pedido.detalles">
+
+        <div class="articulo-imagen" *ngIf="detalle.variante.camiseta.imagen_principal">
+          <img [src]="detalle.variante.camiseta.imagen_principal" [alt]="detalle.variante.camiseta.nombre">
         </div>
-        <div class="detalle-contenido">
-          <div class="detalle-info">
-            <p><strong>Cantidad:</strong><span class="datos"> {{ detalle.cantidad }}</span></p>
-            <p><strong>Precio unitario:</strong><span class="datos"> {{ detalle.precio_unid }}€</span></p>
-            <p><strong>Subtotal:</strong><span class="datos"> {{ detalle.cantidad * detalle.precio_unid }}€</span></p>
-          </div>
-          <div class="detalle-imagen">
-            <img [src]="detalle.variante.camiseta.imagen_principal" alt="Camiseta"
-              *ngIf="detalle.variante.camiseta.imagen_principal">
-          </div>
-          <div class="detalle-personalizacion">
-            <p><strong>Nombre personalizado:</strong> {{ detalle.nombre_personalizado || 'Sin nombre'}}</p>
-            <p><strong>Dorsal personalizado:</strong> {{ detalle.dorsal_personalizado || 'Sin dorsal'}}</p>
+
+        <div class="articulo-info">
+          <p class="articulo-nombre">{{ detalle.variante.camiseta.nombre }}</p>
+          <div class="articulo-meta">
+            <span class="meta-pill">Talla {{ detalle.variante.talla }}</span>
+            <span class="meta-pill">× {{ detalle.cantidad }}</span>
+            <span class="meta-pill" *ngIf="detalle.nombre_personalizado">
+              Nombre: {{ detalle.nombre_personalizado }}
+            </span>
+            <span class="meta-pill" *ngIf="detalle.dorsal_personalizado">
+              Dorsal: {{ detalle.dorsal_personalizado }}
+            </span>
           </div>
         </div>
+
+        <div class="articulo-precio">
+          <span class="precio-unid">{{ detalle.precio_unid | number:'1.2-2' }}€ / ud</span>
+          <span class="precio-subtotal">{{ detalle.cantidad * detalle.precio_unid | number:'1.2-2' }}€</span>
+        </div>
+
       </div>
     </div>
+
+    <p class="sin-articulos" *ngIf="!pedido.detalles || pedido.detalles.length === 0">
+      No hay artículos en este pedido.
+    </p>
   </div>
 
-  <div class="detalles-lista" *ngIf="!pedido.detalles || pedido.detalles.length === 0">
-    <p style="color: #d4af37;">No hay artículos en este pedido.</p>
+  <!-- ── Acciones ── -->
+  <div class="acciones-pedido">
+    <button
+      *ngIf="pedido.pedido.estado === 'pendiente' || pedido.pedido.estado === 'pagado'"
+      (click)="onCancelar()"
+      class="btn-cancelar">
+      Cancelar pedido
+    </button>
   </div>
 
-  <!-- Acciones del pedido -->
-  <div class="pedido-acciones">
-    <a routerLink="/mis-pedidos" class="btn-volver">Volver a Mis Pedidos</a>
-    <button *ngIf="pedido.pedido.estado === 'pendiente'" (click)="onCancelar()" class="btn-cancelar">Cancelar
-      Pedido</button>
-  </div>
 </div>
