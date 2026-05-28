@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PedidoService } from '../../services/pedido.service';
 import { PedidoItemComponent } from '../../components/pedido-item/pedido-item.component';
@@ -13,23 +13,24 @@ import { Pedido } from '../../interfaces/pedido.interface';
 })
 export class MisPedidosComponent implements OnInit {
 
-  // Injección de servicio
   private pedidoService = inject(PedidoService);
 
   pedidos: Pedido[] = [];
   loading = true;
   error: string | null = null;
-  mensajeCancelacion: { texto: string; tipo: 'error' | 'exito' } | null = null;
+  cancelando = false;
+
+  confirmarCancelar = signal<number | null>(null);
+  exitoCancelar = signal<{ titulo: string; subtitulo: string } | null>(null);
+  errorCancelar = signal<string | null>(null);
 
   ngOnInit(): void {
     this.cargarPedidos();
   }
 
-  // Cargar los pedidos
   private cargarPedidos(): void {
     this.loading = true;
     this.error = null;
-
     this.pedidoService.getPedidos().subscribe({
       next: (pedidos) => {
         this.pedidos = pedidos;
@@ -42,22 +43,30 @@ export class MisPedidosComponent implements OnInit {
     });
   }
 
-  // Cancelar el pedido
   onCancelarPedido(codPed: number): void {
-    const confirmar = confirm('¿Estás seguro de que deseas cancelar este pedido?');
-    if (!confirmar) return;
+    this.confirmarCancelar.set(codPed);
+  }
 
-    this.pedidoService.cancelarPedido(codPed).subscribe({
+  ejecutarCancelar(): void {
+    const id = this.confirmarCancelar();
+    if (!id) return;
+    this.confirmarCancelar.set(null);
+    this.cancelando = true;
+
+    this.pedidoService.cancelarPedido(id).subscribe({
       next: () => {
-        this.mensajeCancelacion = { texto: 'Pedido cancelado correctamente.', tipo: 'exito' };
-        setTimeout(() => this.mensajeCancelacion = null, 4000);
+        this.cancelando = false;
         this.cargarPedidos();
+        this.exitoCancelar.set({
+          titulo: '¡Pedido Cancelado!',
+          subtitulo: 'Tu pedido ha sido cancelado correctamente.'
+        });
       },
       error: (err) => {
-        const texto = err.error?.message || 'Error al cancelar el pedido. Inténtalo de nuevo.';
-        console.error(texto);
-        this.mensajeCancelacion = { texto, tipo: 'error' };
-        setTimeout(() => this.mensajeCancelacion = null, 4000);
+        this.cancelando = false;
+        const texto = err.error?.error || err.error?.message || 'Error al cancelar el pedido.';
+        this.errorCancelar.set(texto);
+        setTimeout(() => this.errorCancelar.set(null), 4000);
       }
     });
   }

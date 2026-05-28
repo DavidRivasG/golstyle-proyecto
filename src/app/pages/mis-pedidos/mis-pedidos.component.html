@@ -1,29 +1,62 @@
 <div class="mis-pedidos-container">
-  <h1 class="titulo-pedidos">MIS PEDIDOS</h1>
-  <!-- Cargando -->
-  <div *ngIf="loading" class="loading-message">
+  <h1>MIS PEDIDOS</h1>
+
+  <div class="loading" *ngIf="loading">
     <p>Cargando pedidos...</p>
   </div>
-    <!-- Error -->
-  <div *ngIf="error" class="error-message">
+
+  <div class="error" *ngIf="error && !loading">
     <p>{{ error }}</p>
   </div>
-  
-  <!-- Mensaje cancelación -->
-  <div *ngIf="mensajeCancelacion" [class]="'msg-inline msg-' + mensajeCancelacion.tipo">
-    {{ mensajeCancelacion.texto }}
-  </div>
 
-  <!-- Comunicación con el componente padre -->
+  @if (errorCancelar()) {
+    <div class="alerta alerta-error">{{ errorCancelar() }}</div>
+  }
+
   <div class="pedidos-list" *ngIf="!loading && !error">
-    <app-pedido-item 
-      *ngFor="let pedido of pedidos" 
+    <app-pedido-item
+      *ngFor="let pedido of pedidos"
       [pedido]="pedido"
+      [cancelando]="cancelando"
       (cancelar)="onCancelarPedido($event)">
     </app-pedido-item>
-  </div>
-  
-  <div *ngIf="pedidos.length === 0 && !loading && !error" class="no-pedidos">
-    <p>No tienes pedidos realizados.</p>
+
+    <p *ngIf="pedidos.length === 0" class="sin-resultados">
+      No tienes pedidos realizados.
+    </p>
   </div>
 </div>
+
+@if (confirmarCancelar()) {
+  <div class="success-overlay">
+    <div class="tarjeta-modal">
+      <h1 class="titulo-dorado">Cancelar Pedido</h1>
+      <div class="divisor-dorado"></div>
+      <p class="mensaje-exito">¿Estás seguro de que quieres cancelar este pedido? Esta acción no se puede deshacer.</p>
+      <div class="modal-acciones">
+        <button class="btn-red-modal" (click)="ejecutarCancelar()">Cancelar pedido</button>
+        <button class="btn-cancelar" (click)="confirmarCancelar.set(null)">Volver</button>
+      </div>
+    </div>
+  </div>
+}
+
+@if (exitoCancelar()) {
+  <div class="success-overlay">
+    <div class="tarjeta-modal">
+      <h1 class="titulo-dorado">{{ exitoCancelar()!.titulo }}</h1>
+      <div class="divisor-dorado"></div>
+      <div class="icono-check">
+        <svg width="70" height="70" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+      </div>
+      <p class="mensaje-exito">{{ exitoCancelar()!.subtitulo }}</p>
+      <div class="modal-acciones">
+        <button class="btn-gold" (click)="exitoCancelar.set(null)">Aceptar</button>
+      </div>
+    </div>
+  </div>
+}

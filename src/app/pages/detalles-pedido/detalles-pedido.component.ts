@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PedidoService } from '../../services/pedido.service';
@@ -13,7 +13,6 @@ import { DetallePedidoViewComponent } from '../../components/detalle-pedido-view
 })
 export class DetallesPedidoComponent implements OnInit {
 
-  // Injección de servicios
   private pedidoService = inject(PedidoService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
@@ -21,25 +20,24 @@ export class DetallesPedidoComponent implements OnInit {
   pedido: any | null = null;
   loading = true;
   error: string | null = null;
-  mensajeCancelacion: { texto: string; tipo: 'error' | 'exito' } | null = null;
+
+  confirmarCancelar = signal<number | null>(null);
+  exitoCancelar = signal<boolean>(false);
+  errorCancelar = signal<string | null>(null);
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-
     if (!id) {
       this.error = 'ID de pedido no válido';
       this.loading = false;
       return;
     }
-
     this.cargarPedido(id);
   }
 
-  // Cargar el pedido del back
   private cargarPedido(id: number): void {
     this.loading = true;
     this.error = null;
-
     this.pedidoService.getPedido(id).subscribe({
       next: (pedido) => {
         this.pedido = pedido;
@@ -52,20 +50,28 @@ export class DetallesPedidoComponent implements OnInit {
     });
   }
 
-  // Cancelar el pedido del usuario
   onCancelarPedido(codPed: number): void {
-    const confirmar = confirm('¿Estás seguro de que deseas cancelar este pedido?');
+    this.confirmarCancelar.set(codPed);
+  }
 
-    if (!confirmar) return;
+  ejecutarCancelar(): void {
+    const id = this.confirmarCancelar();
+    if (!id) return;
+    this.confirmarCancelar.set(null);
 
-    this.pedidoService.cancelarPedido(codPed).subscribe({
-      next: () => this.router.navigate(['/mis-pedidos']),
+    this.pedidoService.cancelarPedido(id).subscribe({
+      next: () => {
+        this.exitoCancelar.set(true);
+      },
       error: (err) => {
-        const texto = err.error?.message || 'Error al cancelar el pedido. Inténtalo de nuevo.';
-        console.error(texto);
-        this.mensajeCancelacion = { texto, tipo: 'error' };
-        setTimeout(() => this.mensajeCancelacion = null, 4000);
+        const texto = err.error?.error || err.error?.message || 'Error al cancelar el pedido.';
+        this.errorCancelar.set(texto);
+        setTimeout(() => this.errorCancelar.set(null), 4000);
       }
     });
+  }
+
+  irAPedidos(): void {
+    this.router.navigate(['/mis-pedidos']);
   }
 }
