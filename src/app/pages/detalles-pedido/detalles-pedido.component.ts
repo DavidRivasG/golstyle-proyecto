@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PedidoService } from '../../services/pedido.service';
 import { DetallePedidoViewComponent } from '../../components/detalle-pedido-view/detalle-pedido-view.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-detalles-pedido',
   standalone: true,
-  imports: [CommonModule, DetallePedidoViewComponent],
+  imports: [CommonModule, DetallePedidoViewComponent, RouterLink],
   templateUrl: './detalles-pedido.component.html',
   styleUrls: ['./detalles-pedido.component.css']
 })
