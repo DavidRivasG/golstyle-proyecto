@@ -40,7 +40,8 @@
     <p *ngIf="direcciones.length === 0" class="sin-resultados">No tienes direcciones guardadas.</p>
   </div>
 
-  <div class="loading" *ngIf="loading">
+  <div class="estado-vacio" *ngIf="loading">
+    <div class="spinner"></div>
     <p>Cargando direcciones...</p>
   </div>
 
