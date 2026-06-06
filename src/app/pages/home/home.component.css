@@ -144,9 +144,32 @@
   text-align: center;
 }
 
-.destacadas-loading {
-  color: #888;
-  padding: 40px;
+.estado-vacio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 60px 20px;
+    color: #888;
+    font-size: 1rem;
+}
+
+.estado-vacio p {
+    color: #888;
+}
+
+.spinner {
+    width: 28px;
+    height: 28px;
+    border: 3px solid rgba(212, 175, 55, 0.15); 
+    border-top-color: #d4af37; 
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-bottom: 16px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
 }
 
 .destacadas-grid {
@@ -390,12 +413,6 @@
 .review-fecha {
   font-size: 0.72rem;
   color: #bbb;
-}
-
-.reviews-loading {
-  text-align: center;
-  padding: 40px;
-  color: #888;
 }
 
 .sin-opiniones {

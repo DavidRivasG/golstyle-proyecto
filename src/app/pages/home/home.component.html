@@ -13,7 +13,10 @@
   <h3 class="section-title">CAMISETAS DESTACADAS</h3>
 
   @if (cargandoDestacadas()) {
-    <div class="destacadas-loading"><p>Cargando...</p></div>
+    <div class="estado-vacio">
+      <div class="spinner"></div>
+      <p>Cargando...</p>
+    </div>
   } @else {
     <div class="destacadas-grid">
       @for (camiseta of destacadas(); track camiseta.cod_cam) {
@@ -39,7 +42,10 @@
   <h3>VALORACIÓN DE NUESTROS CLIENTES</h3>
 
   @if (cargandoResenas()) {
-    <div class="reviews-loading"><p>Cargando opiniones...</p></div>
+    <div class="estado-vacio">      
+      <div class="spinner"></div>
+      <p>Cargando opiniones...</p>
+    </div>
   } @else {
     <div class="reviews-container">
 
