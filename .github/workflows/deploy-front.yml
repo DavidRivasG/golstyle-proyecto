@@ -1,4 +1,4 @@
-name: Deploy Angular Frontend a AWS #1
+name: Deploy Angular Frontend a AWS #2
 
 on:
   push:
