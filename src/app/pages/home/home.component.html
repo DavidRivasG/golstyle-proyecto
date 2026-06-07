@@ -5,15 +5,18 @@
     <h1 class="hero-title">Viste los colores<br>de tu equipo</h1>
     <button class="btn-gold" routerLink="/catalogo">EXPLORAR COLECCIÓN</button>
   </div>
-  <div class="scroll-indicator">↓</div>
+  <a href="#camisetas-destacadas"><div class="scroll-indicator">↓</div></a>
 </section>
 
 <!-- Camisetas destacadas -->
-<section class="destacadas-section">
+<section id="camisetas-destacadas" class="destacadas-section">
   <h3 class="section-title">CAMISETAS DESTACADAS</h3>
 
   @if (cargandoDestacadas()) {
-    <div class="destacadas-loading"><p>Cargando...</p></div>
+    <div class="estado-vacio">
+      <div class="spinner"></div>
+      <p>Cargando...</p>
+    </div>
   } @else {
     <div class="destacadas-grid">
       @for (camiseta of destacadas(); track camiseta.cod_cam) {
@@ -39,7 +42,10 @@
   <h3>VALORACIÓN DE NUESTROS CLIENTES</h3>
 
   @if (cargandoResenas()) {
-    <div class="reviews-loading"><p>Cargando opiniones...</p></div>
+    <div class="estado-vacio">      
+      <div class="spinner"></div>
+      <p>Cargando opiniones...</p>
+    </div>
   } @else {
     <div class="reviews-container">
 

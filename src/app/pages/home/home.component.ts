@@ -9,7 +9,7 @@ import { CamisetasService } from '../../services/camisetas.service';
   standalone: true,
   imports: [CommonModule, RouterLink],
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
 
