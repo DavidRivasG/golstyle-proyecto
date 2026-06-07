@@ -122,14 +122,14 @@ header {
   }
 }
 
-/* Hide the horizontal nav at small widths (<=350px) */
+
 @media (max-width: 350px) {
   ::ng-deep app-nav .main-nav {
     display: none !important;
   }
 }
 
-/* Side menu (CSS-only) inside header */
+
 .header-nav-toggle {
   display: none;
 }
@@ -159,7 +159,7 @@ header {
   display: none;
 }
 
-/* when header toggle checked: show overlay + slide in menu */
+
 #header-nav-toggle:checked ~ .side-menu-overlay {
   display: block;
   position: fixed;
@@ -172,7 +172,7 @@ header {
   transform: translateX(0);
 }
 
-/* show close button inside menu */
+
 #header-nav-toggle:checked ~ .side-menu .side-close {
   display: inline-block;
   background: transparent;
