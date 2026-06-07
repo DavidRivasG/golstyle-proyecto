@@ -231,8 +231,6 @@ button:disabled {
   margin-top: 4px;
 }
 
-/* Desktop: imagen ocupa el 55% izquierdo de forma absoluta,
-   el formulario se queda en el 45% derecho */
 @media (min-width: 768px) {
   .image-section {
     display: block;
