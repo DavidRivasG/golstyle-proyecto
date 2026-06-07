@@ -1,3 +1,8 @@
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+
 .checkout-wrapper {
   background-color: #121212;
   min-height: 100vh;
@@ -139,7 +144,7 @@
 }
 
 
-/* Superposición (Overlay) */
+/* Overlay */
 .success-overlay {
   position: fixed;
   top: 0;
@@ -156,7 +161,7 @@
   animation: fadeIn 0.3s ease;
 }
 
-/* Clases recicladas de tu diseño */
+
 .tarjeta-exito {
   background: #1e1e1e;
   padding: 30px;
