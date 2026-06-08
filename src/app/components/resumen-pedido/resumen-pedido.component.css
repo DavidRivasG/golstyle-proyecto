@@ -24,7 +24,6 @@
 .lista-productos {
     max-height: 400px;
     overflow-y: auto;
-    /* Añadimos padding arriba para que el primer badge no se corte */
     padding: 10px 10px 0 0;
 }
 
@@ -61,7 +60,6 @@
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    /* Añadimos un pequeño borde para que destaque sobre la imagen */
     border: 2px solid #121212;
 }
 
