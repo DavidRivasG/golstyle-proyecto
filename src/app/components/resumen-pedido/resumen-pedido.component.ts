@@ -22,12 +22,12 @@ export class ResumenPedidoComponent {
       return det.variante.camiseta.imagen_principal;
     }
 
-    // 2. Si no existe la anterior, intentamos la ruta plana (la que manda tu Back ahora)
+    
     if (det.imagen) {
       return det.imagen;
     }
 
-    // 3. Si no hay nada, imagen por defecto
+    // Si no hay nada -> imagen por defecto
     return 'assets/placeholder-camiseta.png';
   }
 }
